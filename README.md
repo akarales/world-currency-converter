@@ -1,4 +1,4 @@
-# World Currency Converter API
+# World Currency Converter API (v0.0.1)
 
 ## A REST API service that converts currency amounts between countries using the RestCountries API to get country information and the ExchangeRate API for currency conversion rates
 

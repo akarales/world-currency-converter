@@ -1,4 +1,4 @@
-# World Currency Converter Upgrade Plan
+# World Currency Converter API (v0.0.1) Upgrade Plan
 
 This document outlines the planned improvements and upgrades for the Currency Converter service. Each section details specific changes, benefits, and implementation examples.
 

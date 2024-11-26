@@ -1,5 +1,7 @@
 # Currency Converter Setup Guide
 
+## World Currency Converter API (v0.0.1)
+
 This guide will help you get the World Currency Converter API running on your system quickly and easily.
 
 ## Quick Start
