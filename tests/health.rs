@@ -1,11 +1,11 @@
 use actix_web::{test, web};
-use currency_converter::main;
+use currency_converter::health_check;
 
 #[actix_web::test]
 async fn test_health_check() {
     let app = test::init_service(
         actix_web::App::new()
-            .service(web::resource("/health").route(web::get().to(main::health_check)))
+            .service(web::resource("/health").route(web::get().to(health_check)))
     ).await;
 
     let req = test::TestRequest::get()

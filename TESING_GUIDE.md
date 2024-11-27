@@ -40,6 +40,7 @@ cargo test --lib -- cache::tests
 ### 2. Integration Tests
 
 #### API Tests
+
 ```bash
 # Run all integration tests
 cargo test --test api
@@ -52,6 +53,7 @@ cargo test --test api test_basic_conversion_flow
 ```
 
 #### Shell Script Tests
+
 ```bash
 # Make script executable
 chmod +x test_currency_api.sh
@@ -61,6 +63,7 @@ chmod +x test_currency_api.sh
 ```
 
 Example test script output:
+
 ```bash
 === Testing Simple Endpoint ===
 Testing: Valid conversion (US to France)
@@ -75,55 +78,62 @@ Response: {"from": "USD", "to": "EUR", "amount": 95.36}
 #### Simple Endpoint Tests
 
 1. Valid Conversion:
-```bash
-curl -X POST localhost:8080/currency \
-  -d '{ "to": "France", "from": "USA", "amount": 33 }'
-```
+
+    ```bash
+    curl -X POST localhost:8080/currency \
+    -d '{ "to": "France", "from": "USA", "amount": 33 }'
+    ```
 
 2. Invalid Amount:
-```bash
-curl -X POST localhost:8080/currency \
-  -d '{ "to": "France", "from": "USA", "amount": 0 }'
-```
+
+    ```bash
+    curl -X POST localhost:8080/currency \
+    -d '{ "to": "France", "from": "USA", "amount": 0 }'
+    ```
 
 3. Invalid Country:
-```bash
-curl -X POST localhost:8080/currency \
-  -d '{ "to": "Narnia", "from": "USA", "amount": 100 }'
-```
+
+    ```bash
+    curl -X POST localhost:8080/currency \
+    -d '{ "to": "Narnia", "from": "USA", "amount": 100 }'
+    ```
 
 4. Case Sensitivity Test:
-```bash
-curl -X POST localhost:8080/currency \
-  -d '{ "to": "FRANCE", "from": "usa", "amount": 50 }'
-```
+
+    ```bash
+    curl -X POST localhost:8080/currency \
+    -d '{ "to": "FRANCE", "from": "usa", "amount": 50 }'
+    ```
 
 #### V1 Endpoint Tests
 
 1. Valid Conversion:
-```bash
-curl -X POST localhost:8080/v1/currency \
-  -H "Content-Type: application/json" \
-  -d '{
-    "from": "United States",
-    "to": "France",
-    "amount": 100,
-    "preferred_currency": null
-  }'
-```
+
+    ```bash
+    curl -X POST localhost:8080/v1/currency \
+    -H "Content-Type: application/json" \
+    -d '{
+        "from": "United States",
+        "to": "France",
+        "amount": 100,
+        "preferred_currency": null
+    }'
+    ```
 
 2. Invalid Request:
-```bash
-curl -X POST localhost:8080/v1/currency \
-  -H "Content-Type: application/json" \
-  -d '{
-    "from": "",
-    "to": "France",
-    "amount": 100
-  }'
-```
 
-#### Health Check:
+    ```bash
+    curl -X POST localhost:8080/v1/currency \
+    -H "Content-Type: application/json" \
+    -d '{
+        "from": "",
+        "to": "France",
+        "amount": 100
+    }'
+    ```
+
+#### Health Check
+
 ```bash
 curl http://localhost:8080/health
 ```
@@ -133,6 +143,7 @@ curl http://localhost:8080/health
 ### 1. Environment Variables
 
 Create a test environment file:
+
 ```bash
 # .env.test
 EXCHANGE_RATE_API_KEY=your_test_api_key
@@ -140,6 +151,7 @@ RUST_LOG=debug
 ```
 
 Run tests with test environment:
+
 ```bash
 ENV_FILE=.env.test cargo test
 ```
@@ -159,6 +171,7 @@ cargo tarpaulin --ignore-tests
 ## Component Testing
 
 ### 1. Cache Tests
+
 ```bash
 # Run cache-specific tests
 cargo test --lib -- cache::tests
@@ -168,6 +181,7 @@ RUST_LOG=debug cargo test test_cache_expiration
 ```
 
 ### 2. Rate Limiter Tests
+
 ```bash
 # Run rate limiter tests
 cargo test --lib -- rate_limit::tests
@@ -177,6 +191,7 @@ RUST_LOG=debug cargo test test_rate_limit_exceeded
 ```
 
 ### 3. Validation Tests
+
 ```bash
 # Run model validation tests
 cargo test --lib -- models::tests::test_conversion_request_validation
@@ -200,6 +215,7 @@ hey -n 100 -c 10 -m POST \
 ## Test Debugging
 
 ### 1. Enable Debug Logs
+
 ```bash
 # Set log level
 export RUST_LOG=debug
@@ -209,6 +225,7 @@ RUST_LOG=debug cargo test test_simple_conversion_validation -- --nocapture
 ```
 
 ### 2. Test Timeouts
+
 ```bash
 # Run tests with increased timeout
 RUST_TEST_THREADS=1 cargo test --test api -- --test-threads=1
@@ -217,6 +234,7 @@ RUST_TEST_THREADS=1 cargo test --test api -- --test-threads=1
 ## Common Test Scenarios
 
 ### 1. Error Cases
+
 - Missing API key
 - Invalid country names
 - Zero or negative amounts
@@ -224,6 +242,7 @@ RUST_TEST_THREADS=1 cargo test --test api -- --test-threads=1
 - API service unavailable
 
 ### 2. Edge Cases
+
 - Same country conversion
 - Case sensitivity
 - Special characters in country names
@@ -233,6 +252,7 @@ RUST_TEST_THREADS=1 cargo test --test api -- --test-threads=1
 ## Test Results Analysis
 
 Example test output:
+
 ```bash
 running 12 tests
 test cache::tests::test_cache_expiration ... ok
@@ -248,26 +268,29 @@ test result: ok. 12 passed; 0 failed; 0 ignored
 ### Common Issues
 
 1. Test Timeouts
-```bash
-# Increase test timeout
-export RUST_TEST_TIMEOUT=120
-```
+
+    ```bash
+    # Increase test timeout
+    export RUST_TEST_TIMEOUT=120
+    ```
 
 2. API Key Issues
-```bash
-# Verify test environment
-cat .env.test
-echo $EXCHANGE_RATE_API_KEY
-```
+
+    ```bash
+    # Verify test environment
+    cat .env.test
+    echo $EXCHANGE_RATE_API_KEY
+    ```
 
 3. Port Conflicts
-```bash
-# Check if port 8080 is in use
-lsof -i :8080
 
-# Kill process if needed
-kill -9 <PID>
-```
+    ```bash
+    # Check if port 8080 is in use
+    lsof -i :8080
+
+    # Kill process if needed
+    kill -9 <PID>
+    ```
 
 ### Debug Commands
 
@@ -330,6 +353,7 @@ When adding new features:
 ---
 
 For more information, see:
+
 - [README.md](README.md) for general information
 - [SETUP.md](SETUP.md) for environment setup
 - [UPGRADE_PLAN.md](UPGRADE_PLAN.md) for future improvements

@@ -3,6 +3,7 @@
 ## Technical Improvements
 
 ### 1. Error Handling Enhancements
+
 Implemented a comprehensive error handling system using thiserror:
 
 ```rust
@@ -32,6 +33,7 @@ pub enum ServiceError {
 ```
 
 ### 2. Request Validation
+
 Added trait-based validation for requests:
 
 ```rust
@@ -57,6 +59,7 @@ impl Validate for ConversionRequest {
 ```
 
 ### 3. HTTP Client Abstraction
+
 Implemented trait-based HTTP client with proper error handling:
 
 ```rust
@@ -80,6 +83,7 @@ pub struct HttpClient {
 ```
 
 ### 4. Enhanced Response Types
+
 Added detailed response types with optional fields:
 
 ```rust
@@ -96,6 +100,7 @@ pub struct ResponseMetadata {
 ```
 
 ### 5. Test Infrastructure
+
 Updated test framework with async support and better organization:
 
 ```rust
@@ -117,6 +122,7 @@ mod tests {
 ```
 
 ### 6. Cache Implementation
+
 Added in-memory caching with expiration:
 
 ```rust
@@ -138,6 +144,7 @@ impl<T: Clone + Send + Sync + 'static> Cache<T> {
 ```
 
 ### 7. Rate Limiting
+
 Implemented rate limiting with configurable windows:
 
 ```rust
@@ -150,6 +157,7 @@ pub struct RateLimiter {
 ```
 
 ### 8. Service Registry
+
 Added centralized service management:
 
 ```rust
@@ -166,6 +174,7 @@ impl ServiceRegistry {
 ```
 
 ### 9. Configuration Management
+
 Enhanced configuration with validation:
 
 ```rust
@@ -184,6 +193,7 @@ impl Config {
 ```
 
 ### 10. Integration Testing
+
 Added comprehensive integration tests:
 
 ```rust
@@ -206,16 +216,19 @@ async fn test_basic_conversion_flow() {
 ```
 
 ## Breaking Changes
+
 - Changed error response format for better error handling
 - Updated API response structure to include more metadata
 - Modified request validation to be more strict
 
 ## Dependencies Updates
+
 - Added thiserror = "2.0.3"
 - Added async-trait = "0.1.77"
 - Updated actix-web to 4.5.1
 
 ## Future Improvements
+
 1. Database integration for audit logging
 2. Metrics collection with Prometheus
 3. OpenAPI/Swagger documentation
@@ -230,30 +243,33 @@ async fn test_basic_conversion_flow() {
 ### For 0.0.1 Users
 
 1. Update Error Handling:
-```rust
-// Old
-use crate::models::AppError;
 
-// New
-use crate::errors::ServiceError;
-```
+    ```rust
+    // Old
+    use crate::models::AppError;
+
+    // New
+    use crate::errors::ServiceError;
+    ```
 
 2. Update Request Validation:
-```rust
-// Old
-if amount <= 0.0 { return Err(...) }
 
-// New
-data.validate()?;
-```
+    ```rust
+    // Old
+    if amount <= 0.0 { return Err(...) }
+
+    // New
+    data.validate()?;
+    ```
 
 3. Update HTTP Client Usage:
-```rust
-// Old
-let client = reqwest::Client::new();
 
-// New
-let http_client = HttpClient::new(client, api_key);
-```
+    ```rust
+    // Old
+    let client = reqwest::Client::new();
+
+    // New
+    let http_client = HttpClient::new(client, api_key);
+    ```
 
 For more detailed implementation examples, see the respective module documentation.

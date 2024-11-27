@@ -192,8 +192,10 @@ mod tests {
     use crate::clients::tests::{MockClient, create_test_country_info};
     use std::collections::HashMap;
 
-    fn create_mock_exchange_rate_response(_base: &str, rates: &[(&str, f64)]) -> ExchangeRateResponse {
+    fn create_mock_exchange_rate_response(base: &str, rates: &[(&str, f64)]) -> ExchangeRateResponse {
         let mut conversion_rates = HashMap::new();
+        // Always include base currency with rate 1.0
+        conversion_rates.insert(base.to_string(), 1.0);
         for (currency, rate) in rates {
             conversion_rates.insert(currency.to_string(), *rate);
         }
@@ -211,7 +213,7 @@ mod tests {
         let from_country = create_test_country_info(
             "United States", "USD", "US Dollar", "$"
         );
-        let _to_country = create_test_country_info(
+        let to_country = create_test_country_info(
             "France", "EUR", "Euro", "€"
         );
         let exchange_rates = create_mock_exchange_rate_response(
@@ -220,7 +222,8 @@ mod tests {
         );
 
         let mock_client = MockClient::new()
-            .with_country_response(from_country)
+            .with_country_response(from_country.clone())
+            .with_country_response(to_country)
             .with_rate_response(exchange_rates);
 
         let cache = Arc::new(Cache::new(60, 100));
@@ -241,5 +244,19 @@ mod tests {
         assert_eq!(result.data.to.currency_code, "EUR");
         assert_eq!(result.data.exchange_rate, 0.85);
         assert_eq!(result.data.to.amount, 85.0);
+        
+        // Also test same currency conversion
+        let same_currency_request = ConversionRequest {
+            from: "United States".to_string(),
+            to: "United States".to_string(),
+            amount: 100.0,
+            preferred_currency: None,
+        };
+
+        let result = service.convert_currency(&same_currency_request).await.unwrap();
+        assert_eq!(result.data.from.currency_code, "USD");
+        assert_eq!(result.data.to.currency_code, "USD");
+        assert_eq!(result.data.exchange_rate, 1.0);
+        assert_eq!(result.data.to.amount, 100.0);
     }
 }

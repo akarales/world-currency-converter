@@ -8,10 +8,8 @@ use currency_converter::{
 use dotenv::dotenv;
 use log::{info, error, debug};
 use std::{io, time::Duration};
-
-async fn health_check() -> actix_web::Result<&'static str> {
-    Ok("OK")
-}
+use currency_converter::health_check;
+use reqwest::Client;
 
 #[actix_web::main]
 async fn main() -> io::Result<()> {
@@ -25,12 +23,18 @@ async fn main() -> io::Result<()> {
         io::Error::new(io::ErrorKind::Other, e)
     })?;
 
+    // Initialize HTTP client
+    let client = Client::builder()
+        .timeout(Duration::from_secs(30))
+        .build()
+        .expect("Failed to create HTTP client");
+    let client_data = web::Data::new(client);
+    
     // Initialize service registry
     let registry = ServiceRegistry::new(&config).map_err(|e| {
         error!("Failed to initialize services: {}", e);
         io::Error::new(io::ErrorKind::Other, e)
     })?;
-    
     let registry = web::Data::new(registry);
     
     // Initialize caches
@@ -57,6 +61,8 @@ async fn main() -> io::Result<()> {
     // Start HTTP server
     HttpServer::new(move || {
         App::new()
+            // Add shared HTTP client
+            .app_data(client_data.clone())
             // Add registry
             .app_data(registry.clone())
             // Add shared services

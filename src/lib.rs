@@ -1,3 +1,6 @@
+pub async fn health_check() -> actix_web::Result<&'static str> {
+    Ok("OK")
+}
 pub mod registry;
 pub mod handlers;
 pub mod handlers_v1;

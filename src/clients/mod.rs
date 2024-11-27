@@ -123,22 +123,23 @@ impl ExchangeRateClient for HttpClient {
 pub mod tests {
     use super::*;
     use std::collections::HashMap;
+    use crate::models::{CountryName, CurrencyInfo};
 
     pub struct MockClient {
-        pub country_response: Option<CountryInfo>,
+        pub country_responses: HashMap<String, CountryInfo>,
         pub rate_response: Option<ExchangeRateResponse>,
     }
 
     impl MockClient {
         pub fn new() -> Self {
             Self {
-                country_response: None,
+                country_responses: HashMap::new(),
                 rate_response: None,
             }
         }
 
-        pub fn with_country_response(mut self, response: CountryInfo) -> Self {
-            self.country_response = Some(response);
+        pub fn with_country_response(mut self, country_info: CountryInfo) -> Self {
+            self.country_responses.insert(country_info.name.common.clone(), country_info);
             self
         }
 
@@ -151,25 +152,22 @@ pub mod tests {
     #[async_trait]
     impl CountryClient for MockClient {
         async fn get_country_info(&self, country_name: &str) -> Result<CountryInfo, ServiceError> {
-            self.country_response.clone()
+            self.country_responses
+                .get(country_name)
+                .cloned()
                 .ok_or_else(|| ServiceError::CountryNotFound(country_name.to_string()))
         }
     }
 
     #[async_trait]
     impl ExchangeRateClient for MockClient {
-        async fn get_exchange_rate(
-            &self,
-            from_currency: &str,
-        ) -> Result<ExchangeRateResponse, ServiceError> {
-            self.rate_response.clone()
-                .ok_or_else(|| ServiceError::ServiceUnavailable(
-                    format!("No mock response for currency: {}", from_currency)
-                ))
+        async fn get_exchange_rate(&self, _from_currency: &str) -> Result<ExchangeRateResponse, ServiceError> {
+            self.rate_response
+                .clone()
+                .ok_or_else(|| ServiceError::ServiceUnavailable("No mock response configured".to_string()))
         }
     }
 
-    // Helper function to create test data
     pub fn create_test_country_info(
         common_name: &str,
         currency_code: &str,
@@ -179,14 +177,14 @@ pub mod tests {
         let mut currencies = HashMap::new();
         currencies.insert(
             currency_code.to_string(),
-            crate::models::CurrencyInfo {
+            CurrencyInfo {
                 name: currency_name.to_string(),
                 symbol: currency_symbol.to_string(),
             },
         );
 
         CountryInfo {
-            name: crate::models::CountryName {
+            name: CountryName {
                 common: common_name.to_string(),
                 official: format!("Official {}", common_name),
             },
@@ -197,7 +195,6 @@ pub mod tests {
     #[cfg(test)]
     mod client_tests {
         use super::*;
-        use tokio;
 
         #[tokio::test]
         async fn test_mock_client() {
