@@ -102,6 +102,8 @@ where
                 source: "exchangerate-api.com".to_string(),
                 response_time_ms: start_time.elapsed().as_millis() as u64,
                 multiple_currencies_available,
+                cache_hit: None,  // TODO implement cache tracking
+                rate_limit_remaining: None,  // TODO implement rate limiting
             },
         })
     }

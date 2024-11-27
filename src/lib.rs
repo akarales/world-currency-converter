@@ -1,3 +1,4 @@
+pub mod registry;
 pub mod handlers;
 pub mod handlers_v1;
 pub mod models;

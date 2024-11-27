@@ -1,8 +1,14 @@
-use crate::models::{AppError, ConversionRequest, SimpleConversionResponse};
+// File: src/handlers.rs
+
+use crate::{
+    models::{ConversionRequest, SimpleConversionResponse, Validate},
+    errors::ServiceError,
+    clients::{HttpClient, CountryClient, ExchangeRateClient},
+};
 use actix_web::{web, HttpResponse, http::header::ContentType};
 use log::{debug, error, info};
 use reqwest::Client;
-use std::{env, time::Duration};
+use std::env;
 
 fn round_to_cents(amount: f64) -> f64 {
     (amount * 100.0).round() / 100.0
@@ -31,10 +37,10 @@ pub async fn convert_currency(
 ) -> Result<HttpResponse, actix_web::Error> {
     debug!("Processing simple conversion request: {:?}", data);
 
-    // Check for API key first - before any other operations
-    if env::var("EXCHANGE_RATE_API_KEY").is_err() {
-        error!("Exchange rate API key not found");
-        return Ok(HttpResponse::ServiceUnavailable()
+    // Validate request
+    if let Err(e) = data.0.validate() {
+        error!("Validation error: {}", e);
+        return Ok(HttpResponse::BadRequest()
             .content_type(ContentType::json())
             .json(SimpleConversionResponse {
                 from: "ERROR".to_string(),
@@ -43,19 +49,40 @@ pub async fn convert_currency(
             }));
     }
 
+    // Check for API key first - before any other operations
+    let api_key = match env::var("EXCHANGE_RATE_API_KEY") {
+        Ok(key) => key,
+        Err(_) => {
+            error!("Exchange rate API key not found");
+            return Ok(HttpResponse::ServiceUnavailable()
+                .content_type(ContentType::json())
+                .json(SimpleConversionResponse {
+                    from: "ERROR".to_string(),
+                    to: "ERROR".to_string(),
+                    amount: 0.0,
+                }));
+        }
+    };
+
+    let http_client = HttpClient::new(client.get_ref().clone(), api_key);
     let from_country = format_country_name(&data.from);
     let to_country = format_country_name(&data.to);
 
     // Get source country details
-    let (from_currency_code, _) = match get_country_details(&client, &from_country).await {
-        Ok(info) => info,
+    let (from_currency_code, _) = match get_country_details(&http_client, &from_country).await {
+        Ok(info) => {
+            let first_currency = info.currencies.iter().next().ok_or_else(|| {
+                ServiceError::InvalidCurrency(format!("No currency found for {}", from_country))
+            })?;
+            (first_currency.0.clone(), first_currency.1.clone())
+        }
         Err(e) => {
             debug!(
                 "Country lookup failed for '{}': {}. This may be expected for invalid country tests.", 
                 from_country, e
             );
             return Ok(HttpResponse::Ok()
-                .content_type(ContentType::plaintext())
+                .content_type(ContentType::json())
                 .json(SimpleConversionResponse {
                     from: "INVALID".to_string(),
                     to: "INVALID".to_string(),
@@ -65,15 +92,20 @@ pub async fn convert_currency(
     };
 
     // Get destination country details
-    let (to_currency_code, _) = match get_country_details(&client, &to_country).await {
-        Ok(info) => info,
+    let (to_currency_code, _) = match get_country_details(&http_client, &to_country).await {
+        Ok(info) => {
+            let first_currency = info.currencies.iter().next().ok_or_else(|| {
+                ServiceError::InvalidCurrency(format!("No currency found for {}", to_country))
+            })?;
+            (first_currency.0.clone(), first_currency.1.clone())
+        }
         Err(e) => {
             debug!(
                 "Country lookup failed for '{}': {}. This may be expected for invalid country tests.", 
                 to_country, e
             );
             return Ok(HttpResponse::Ok()
-                .content_type(ContentType::plaintext())
+                .content_type(ContentType::json())
                 .json(SimpleConversionResponse {
                     from: "INVALID".to_string(),
                     to: "INVALID".to_string(),
@@ -89,7 +121,7 @@ pub async fn convert_currency(
             from_currency_code, to_currency_code
         );
         return Ok(HttpResponse::Ok()
-            .content_type(ContentType::plaintext())
+            .content_type(ContentType::json())
             .json(SimpleConversionResponse {
                 from: from_currency_code.clone(),
                 to: to_currency_code,
@@ -98,14 +130,14 @@ pub async fn convert_currency(
     }
 
     // Get exchange rates and perform conversion
-    match get_conversion_details(&client, &from_currency_code, &to_currency_code, data.amount).await {
+    match get_conversion_details(&http_client, &from_currency_code, &to_currency_code, data.amount).await {
         Ok((converted_amount, rate, _)) => {
             info!(
                 "Conversion successful: {} {} -> {} {} (rate: {})",
                 data.amount, from_currency_code, converted_amount, to_currency_code, rate
             );
             Ok(HttpResponse::Ok()
-                .content_type(ContentType::plaintext())
+                .content_type(ContentType::json())
                 .json(SimpleConversionResponse {
                     from: from_currency_code,
                     to: to_currency_code,
@@ -115,7 +147,7 @@ pub async fn convert_currency(
         Err(e) => {
             error!("Exchange rate service error: {}", e);
             Ok(HttpResponse::ServiceUnavailable()
-                .content_type(ContentType::plaintext())
+                .content_type(ContentType::json())
                 .json(SimpleConversionResponse {
                     from: "ERROR".to_string(),
                     to: "ERROR".to_string(),
@@ -125,109 +157,29 @@ pub async fn convert_currency(
     }
 }
 
-async fn get_country_details(client: &Client, country: &str) -> Result<(String, String), AppError> {
-    let url = format!(
-        "https://restcountries.com/v3.1/name/{}?fields=name,currencies",
-        urlencoding::encode(country)
-    );
-    
+async fn get_country_details(client: &HttpClient, country: &str) -> Result<crate::models::CountryInfo, ServiceError> {
     debug!("Looking up country details for: {}", country);
-    let response = client
-        .get(&url)
-        .timeout(Duration::from_secs(5))
-        .send()
-        .await
-        .map_err(|e| {
-            error!("Country service connection error for {}: {}", country, e);
-            AppError(format!("Failed to connect to country service: {}", e))
-        })?;
-
-    if response.status() == reqwest::StatusCode::NOT_FOUND {
-        debug!("Country not found: {}. This is expected for invalid country tests.", country);
-        return Err(AppError(format!("Country not found: {}", country)));
-    }
-
-    let countries: Vec<serde_json::Value> = response
-        .json()
-        .await
-        .map_err(|e| {
-            error!("Failed to parse country data for {}: {}", country, e);
-            AppError("Failed to parse country data".into())
-        })?;
-
-    let country_info = countries
-        .first()
-        .ok_or_else(|| {
-            debug!("No country data returned for: {}. This may be expected for invalid country tests.", country);
-            AppError(format!("Country not found: {}", country))
-        })?;
-
-    let currencies = country_info["currencies"]
-        .as_object()
-        .ok_or_else(|| {
-            error!("No currency information found in country data for: {}", country);
-            AppError(format!("No currency information found for: {}", country))
-        })?;
-
-    let currency_code = currencies
-        .keys()
-        .next()
-        .ok_or_else(|| {
-            error!("No currency code found in currency data for: {}", country);
-            AppError(format!("No currency code found for: {}", country))
-        })?
-        .to_string();
-
-    debug!("Successfully found currency code {} for country {}", currency_code, country);
-    Ok((currency_code, country.to_string()))
+    client.get_country_info(country).await
 }
 
 async fn get_conversion_details(
-    client: &Client,
+    client: &HttpClient,
     from_currency: &str,
     to_currency: &str,
     amount: f64,
-) -> Result<(f64, f64, chrono::DateTime<chrono::Utc>), AppError> {
-    let api_key = env::var("EXCHANGE_RATE_API_KEY")
-        .map_err(|_| AppError("Exchange rate API key not found".into()))?;
-    
-    let url = format!(
-        "https://v6.exchangerate-api.com/v6/{}/latest/{}",
-        api_key, from_currency
-    );
-    
+) -> Result<(f64, f64, chrono::DateTime<chrono::Utc>), ServiceError> {
     debug!("Fetching exchange rate for {} -> {}", from_currency, to_currency);
-    let response = client
-        .get(&url)
-        .timeout(Duration::from_secs(5))
-        .send()
-        .await
-        .map_err(|e| {
-            error!("Exchange rate service connection error: {}", e);
-            AppError(format!("Failed to connect to exchange rate service: {}", e))
-        })?;
-
-    if response.status() == reqwest::StatusCode::TOO_MANY_REQUESTS {
-        error!("Exchange rate API rate limit exceeded");
-        return Err(AppError("Rate limit exceeded".into()));
-    }
-
-    let data: serde_json::Value = response
-        .json()
-        .await
-        .map_err(|e| {
-            error!("Failed to parse exchange rate data: {}", e);
-            AppError("Failed to parse exchange rate data".into())
-        })?;
-
-    let rate = data["conversion_rates"][to_currency]
-        .as_f64()
+    
+    let response = client.get_exchange_rate(from_currency).await?;
+    
+    let rate = response.conversion_rates.get(to_currency)
         .ok_or_else(|| {
-            error!("Exchange rate not found for {}->{}", from_currency, to_currency);
-            AppError(format!("Exchange rate not found for {}->{}", from_currency, to_currency))
+            ServiceError::InvalidCurrency(
+                format!("Exchange rate not found for {}->{}", from_currency, to_currency)
+            )
         })?;
 
-    let converted_amount = round_to_cents(amount * rate);
+    let converted_amount = amount * rate;
     let last_updated = chrono::Utc::now();
     
     debug!(
@@ -235,5 +187,83 @@ async fn get_conversion_details(
         amount, from_currency, converted_amount, to_currency, rate
     );
     
-    Ok((converted_amount, rate, last_updated))
+    Ok((converted_amount, *rate, last_updated))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use actix_web::test;
+
+    #[actix_web::test]
+    async fn test_simple_conversion_validation() {
+        let app = test::init_service(
+            actix_web::App::new()
+                .app_data(web::Data::new(reqwest::Client::new()))
+                .service(web::resource("/currency")
+                    .route(web::post().to(convert_currency)))
+        ).await;
+
+        let req = test::TestRequest::post()
+            .uri("/currency")
+            .set_json(ConversionRequest {
+                from: "USA".into(),
+                to: "France".into(),
+                amount: 0.0,
+                preferred_currency: None,
+            })
+            .to_request();
+
+        let resp = test::call_service(&app, req).await;
+        assert_eq!(resp.status(), 400);
+
+        let body: SimpleConversionResponse = test::read_body_json(resp).await;
+        assert_eq!(body.from, "ERROR");
+        assert_eq!(body.to, "ERROR");
+        assert_eq!(body.amount, 0.0);
+    }
+
+    #[actix_web::test]
+    async fn test_convert_currency_missing_api_key() {
+        let app = test::init_service(
+            actix_web::App::new()
+                .app_data(web::Data::new(reqwest::Client::new()))
+                .service(web::resource("/currency")
+                    .route(web::post().to(convert_currency)))
+        ).await;
+
+        env::remove_var("EXCHANGE_RATE_API_KEY");
+
+        let req = test::TestRequest::post()
+            .uri("/currency")
+            .set_json(ConversionRequest {
+                from: "USA".into(),
+                to: "France".into(),
+                amount: 100.0,
+                preferred_currency: None,
+            })
+            .to_request();
+
+        let resp = test::call_service(&app, req).await;
+        assert_eq!(resp.status(), 503);
+
+        let body: SimpleConversionResponse = test::read_body_json(resp).await;
+        assert_eq!(body.from, "ERROR");
+        assert_eq!(body.to, "ERROR");
+        assert_eq!(body.amount, 0.0);
+    }
+
+    #[actix_web::test]
+    async fn test_format_country_name() {
+        assert_eq!(format_country_name("united states"), "United States");
+        assert_eq!(format_country_name("FRANCE"), "France");
+        assert_eq!(format_country_name("new zealand"), "New Zealand");
+    }
+
+    #[actix_web::test]
+    async fn test_round_to_cents() {
+        assert_eq!(round_to_cents(10.456), 10.46);
+        assert_eq!(round_to_cents(10.454), 10.45);
+        assert_eq!(round_to_cents(10.0), 10.0);
+    }
 }
