@@ -1,69 +1,45 @@
-use crate::models::*;
+use crate::{
+    models::*,
+    errors::ServiceError,
+    clients::{CountryClient, ExchangeRateClient},
+    cache::{Cache, ExchangeRateData}
+};
 use chrono::{DateTime, Utc};
 use log::{debug, error, info};
-use reqwest::Client;
-use std::env;
+use std::sync::Arc;
 use uuid::Uuid;
 
-pub struct CurrencyService {
-    client: Client,
+pub struct CurrencyService<C>
+where
+    C: CountryClient + ExchangeRateClient,
+{
+    client: C,
+    cache: Arc<Cache<ExchangeRateData>>,
 }
 
-impl CurrencyService {
-    pub fn new(client: Client) -> Self {
-        Self { client }
-    }
-
-    pub async fn get_country_currencies(&self, country_name: &str) -> Result<CountryInfo, AppError> {
-        let url = format!(
-            "https://restcountries.com/v3.1/name/{}?fields=name,currencies",
-            urlencoding::encode(country_name)
-        );
-        
-        debug!("Fetching country info for: {}", country_name);
-        let response = self.client
-            .get(&url)
-            .send()
-            .await
-            .map_err(|e| {
-                error!("Failed to connect to country service: {}", e);
-                AppError(format!("Failed to connect to country service: {}", e))
-            })?;
-
-        if response.status() == reqwest::StatusCode::NOT_FOUND {
-            debug!("Country not found: {}", country_name);
-            return Err(AppError(format!("Country not found: {}", country_name)));
-        }
-
-        let countries: Vec<CountryInfo> = response
-            .json()
-            .await
-            .map_err(|e| {
-                error!("Failed to parse country data for {}: {}", country_name, e);
-                AppError(format!("Failed to parse country data: {}", e))
-            })?;
-
-        countries
-            .into_iter()
-            .next()
-            .ok_or_else(|| AppError(format!("No data found for country: {}", country_name)))
+impl<C> CurrencyService<C>
+where
+    C: CountryClient + ExchangeRateClient,
+{
+    pub fn new(client: C, cache: Arc<Cache<ExchangeRateData>>) -> Self {
+        Self { client, cache }
     }
 
     pub async fn convert_currency(
         &self,
         request: &ConversionRequest,
-    ) -> Result<DetailedConversionResponse, AppError> {
+    ) -> Result<DetailedConversionResponse, ServiceError> {
         let start_time = std::time::Instant::now();
         let request_id = Uuid::new_v4().to_string();
 
         debug!("Processing conversion request: {:?}", request);
 
         // Get source country details
-        let from_country = self.get_country_currencies(&request.from).await?;
+        let from_country = self.client.get_country_info(&request.from).await?;
         let from_currencies = Self::get_available_currencies(&from_country);
 
         // Get destination country details
-        let to_country = self.get_country_currencies(&request.to).await?;
+        let to_country = self.client.get_country_info(&request.to).await?;
         let to_currencies = Self::get_available_currencies(&to_country);
 
         // Select appropriate currencies
@@ -71,7 +47,7 @@ impl CurrencyService {
         let to_currency = self.select_currency(&to_currencies, request.preferred_currency.as_deref())?;
 
         // Get exchange rate
-        let (converted_amount, rate, last_updated) = self.get_exchange_rate(
+        let (converted_amount, rate, last_updated) = self.get_conversion_rate(
             &from_currency.code,
             &to_currency.code,
             request.amount,
@@ -148,79 +124,120 @@ impl CurrencyService {
         &self,
         currencies: &'a [AvailableCurrency],
         preferred: Option<&str>,
-    ) -> Result<&'a AvailableCurrency, AppError> {
+    ) -> Result<&'a AvailableCurrency, ServiceError> {
         match (preferred, currencies.len()) {
             (Some(preferred), _) => currencies
                 .iter()
                 .find(|c| c.code == preferred)
-                .ok_or_else(|| AppError(format!("Preferred currency {} not available", preferred))),
+                .ok_or_else(|| ServiceError::InvalidCurrency(format!("Preferred currency {} not available", preferred))),
             (None, 1) => Ok(&currencies[0]),
             (None, _) => currencies
                 .iter()
                 .find(|c| c.is_primary)
-                .ok_or_else(|| AppError("No primary currency found".to_string())),
+                .ok_or_else(|| ServiceError::InvalidCurrency("No primary currency found".to_string())),
         }
     }
 
-    async fn get_exchange_rate(
+    async fn get_conversion_rate(
         &self,
         from_currency: &str,
         to_currency: &str,
         amount: f64,
-    ) -> Result<(f64, f64, DateTime<Utc>), AppError> {
-        let api_key = env::var("EXCHANGE_RATE_API_KEY")
-            .map_err(|_| {
-                error!("Exchange rate API key not found in environment");
-                AppError("Exchange rate API key not found".into())
-            })?;
-        
-        let url = format!(
-            "https://v6.exchangerate-api.com/v6/{}/latest/{}",
-            api_key, from_currency
-        );
-        
-        debug!("Fetching exchange rate for {} -> {}", from_currency, to_currency);
-        let response = self.client
-            .get(&url)
-            .send()
-            .await
-            .map_err(|e| {
-                error!("Failed to connect to exchange rate service: {}", e);
-                AppError(format!("Failed to connect to exchange rate service: {}", e))
-            })?;
-
-        if response.status() == reqwest::StatusCode::TOO_MANY_REQUESTS {
-            error!("Exchange rate API rate limit exceeded");
-            return Err(AppError("Rate limit exceeded. Please try again later.".into()));
+    ) -> Result<(f64, f64, DateTime<Utc>), ServiceError> {
+        // Check cache first
+        let cache_key = format!("{}_{}", from_currency, to_currency);
+        if let Some(cached) = self.cache.get(&cache_key).await {
+            debug!("Cache hit for {}->{}", from_currency, to_currency);
+            let rate = cached.rate;
+            let converted_amount = (amount * rate * 100.0).round() / 100.0;
+            return Ok((converted_amount, rate, cached.last_updated));
         }
 
-        if !response.status().is_success() {
-            error!("Exchange rate API error: {}", response.status());
-            return Err(AppError("Failed to fetch exchange rates".into()));
-        }
+        // Get fresh rates from API
+        let response = self.client.get_exchange_rate(from_currency).await?;
+        let now = Utc::now();
 
-        let data: ExchangeRateResponse = response
-            .json()
-            .await
-            .map_err(|e| {
-                error!("Failed to parse exchange rate data: {}", e);
-                AppError("Failed to parse exchange rate data".into())
-            })?;
-
-        let rate = data.conversion_rates
+        let rate = response.conversion_rates
             .get(to_currency)
             .ok_or_else(|| {
                 error!("Exchange rate not found for {}->{}", from_currency, to_currency);
-                AppError(format!("Exchange rate not found for {}->{}", from_currency, to_currency))
+                ServiceError::InvalidCurrency(format!("Exchange rate not found for {}->{}", from_currency, to_currency))
             })?;
 
         let converted_amount = (amount * rate * 100.0).round() / 100.0;
+
+        // Cache the result
+        self.cache.set(
+            cache_key,
+            ExchangeRateData {
+                rate: *rate,
+                last_updated: now,
+            },
+        ).await;
         
         debug!(
-            "Exchange rate lookup successful: {} {} = {} {} (rate: {})", 
+            "Exchange rate lookup successful: {} {} = {} {} (rate: {})",
             amount, from_currency, converted_amount, to_currency, rate
         );
         
-        Ok((converted_amount, *rate, Utc::now()))
+        Ok((converted_amount, *rate, now))
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::clients::tests::{MockClient, create_test_country_info};
+    use std::collections::HashMap;
+
+    fn create_mock_exchange_rate_response(_base: &str, rates: &[(&str, f64)]) -> ExchangeRateResponse {
+        let mut conversion_rates = HashMap::new();
+        for (currency, rate) in rates {
+            conversion_rates.insert(currency.to_string(), *rate);
+        }
+
+        ExchangeRateResponse {
+            result: "success".to_string(),
+            conversion_rates,
+            time_last_update_utc: Some("2024-01-01".to_string()),
+        }
+    }
+
+    #[tokio::test]
+    async fn test_basic_conversion() {
+        // Setup
+        let from_country = create_test_country_info(
+            "United States", "USD", "US Dollar", "$"
+        );
+        let _to_country = create_test_country_info(
+            "France", "EUR", "Euro", "€"
+        );
+        let exchange_rates = create_mock_exchange_rate_response(
+            "USD",
+            &[("EUR", 0.85)]
+        );
+
+        let mock_client = MockClient::new()
+            .with_country_response(from_country)
+            .with_rate_response(exchange_rates);
+
+        let cache = Arc::new(Cache::new(60, 100));
+        let service = CurrencyService::new(mock_client, cache);
+
+        // Test
+        let request = ConversionRequest {
+            from: "United States".to_string(),
+            to: "France".to_string(),
+            amount: 100.0,
+            preferred_currency: None,
+        };
+
+        let result = service.convert_currency(&request).await.unwrap();
+
+        // Assert
+        assert_eq!(result.data.from.currency_code, "USD");
+        assert_eq!(result.data.to.currency_code, "EUR");
+        assert_eq!(result.data.exchange_rate, 0.85);
+        assert_eq!(result.data.to.amount, 85.0);
     }
 }

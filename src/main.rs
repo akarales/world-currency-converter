@@ -1,9 +1,12 @@
 use actix_web::{web, App, HttpServer};
-use currency_converter::{handlers, handlers_v1};
-use currency_converter::cache::{Cache, ExchangeRateData};
+use currency_converter::{
+    handlers, handlers_v1,
+    cache::{Cache, ExchangeRateData},
+    config::Config,
+    registry::ServiceRegistry,
+};
 use dotenv::dotenv;
 use log::{info, error, debug};
-use reqwest::Client;
 use std::{io, time::Duration};
 
 async fn health_check() -> actix_web::Result<&'static str> {
@@ -16,9 +19,19 @@ async fn main() -> io::Result<()> {
     dotenv().ok();
     env_logger::init();
     
-    // Initialize HTTP client
-    let client = build_http_client()?;
-    let client_data = web::Data::new(client);
+    // Load configuration
+    let config = Config::new().map_err(|e| {
+        error!("Failed to load configuration: {}", e);
+        io::Error::new(io::ErrorKind::Other, e)
+    })?;
+
+    // Initialize service registry
+    let registry = ServiceRegistry::new(&config).map_err(|e| {
+        error!("Failed to initialize services: {}", e);
+        io::Error::new(io::ErrorKind::Other, e)
+    })?;
+    
+    let registry = web::Data::new(registry);
     
     // Initialize caches
     let exchange_rate_cache = web::Data::new(ExchangeRateData::new_cache());
@@ -44,8 +57,9 @@ async fn main() -> io::Result<()> {
     // Start HTTP server
     HttpServer::new(move || {
         App::new()
+            // Add registry
+            .app_data(registry.clone())
             // Add shared services
-            .app_data(client_data.clone())
             .app_data(exchange_rate_cache.clone())
             .app_data(country_cache.clone())
             
@@ -78,20 +92,6 @@ fn configure_v1_routes(cfg: &mut web::ServiceConfig) {
         web::scope("/currency")
             .route("", web::post().to(handlers_v1::convert_currency))
     );
-}
-
-fn build_http_client() -> io::Result<Client> {
-    Client::builder()
-        .timeout(Duration::from_secs(30))
-        .user_agent("currency-converter/1.0")
-        .pool_idle_timeout(Duration::from_secs(15))
-        .pool_max_idle_per_host(1)
-        .connect_timeout(Duration::from_secs(10))
-        .build()
-        .map_err(|e| {
-            error!("Failed to create HTTP client: {}", e);
-            io::Error::new(io::ErrorKind::Other, format!("Client creation failed: {}", e))
-        })
 }
 
 async fn start_cache_cleanup(

@@ -6,6 +6,10 @@ pub mod config;
 pub mod monitor;
 pub mod rate_limit;
 pub mod currency_service;
+pub mod errors;
+pub mod clients;
+
+pub use errors::{ServiceError, ErrorResponse};
 
 /// Formats a country name for consistent usage.
 /// Capitalizes the first letter of each word and trims whitespace.

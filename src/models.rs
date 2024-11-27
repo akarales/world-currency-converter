@@ -85,7 +85,7 @@ pub struct DetailedErrorResponse {
     pub available_currencies: Option<Vec<AvailableCurrency>>,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 pub struct ExchangeRateResponse {
     pub result: String,
     pub conversion_rates: HashMap<String, f64>,
