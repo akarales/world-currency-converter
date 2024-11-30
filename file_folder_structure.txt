@@ -1,0 +1,47 @@
+.
+├── Cargo.toml
+├── config
+│   ├── backups
+│   │   ├── country_currencies_20241130_122828.json
+│   │   └── country_currencies_20241130_122829.json
+│   ├── country_currencies.json
+│   └── test
+│       └── country_currencies.json
+├── DOCS
+│   ├── v0.0.1
+│   │   ├── DEVELOPER_UPDATE.md
+│   │   ├── SETUP.md
+│   │   ├── TESTING_GUIDE.md
+│   │   └── UPGRADE_PLAN.md
+│   └── v0.0.2
+│       └── UPGRADE_PLAN.md
+├── file_folder_structure.txt
+├── LICENSE
+├── README.md
+├── src
+│   ├── cache.rs
+│   ├── clients
+│   │   └── mod.rs
+│   ├── config.rs
+│   ├── currency_data.rs
+│   ├── currency_manager.rs
+│   ├── currency_service.rs
+│   ├── data.rs
+│   ├── errors.rs
+│   ├── handlers.rs
+│   ├── handlers_v1.rs
+│   ├── lib.rs
+│   ├── main.rs
+│   ├── models.rs
+│   ├── monitor.rs
+│   ├── rate_limit.rs
+│   ├── registry.rs
+│   └── update_service.rs
+├── test_currency_api.sh
+├── test_currency_api.txt
+├── tests
+│   ├── api.rs
+│   └── health.rs
+└── test.txt
+
+10 directories, 35 files

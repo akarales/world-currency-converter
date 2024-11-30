@@ -1,59 +1,44 @@
 use actix_web::{test, web, App};
-use currency_converter::{handlers, handlers_v1, models::*};
+use currency_converter::{handlers, handlers_v1, models::*, data::{GLOBAL_DATA, GlobalData}};
 use log::debug;
 use serde_json::json;
-use std::sync::{Arc, Mutex, Once};
+use tokio::sync::OnceCell;
 use std::env;
+use std::time::Duration;
 
-static INIT: Once = Once::new();
-static API_KEY_INIT: Once = Once::new();
-static mut ORIGINAL_API_KEY: Option<Arc<Mutex<Option<String>>>> = None;
+static TEST_ENV_INIT: OnceCell<()> = OnceCell::const_new();
+static API_KEY_STORAGE: OnceCell<String> = OnceCell::const_new();
 
-fn save_api_key() -> Arc<Mutex<Option<String>>> {
-    let key_storage = Arc::new(Mutex::new(None));
-    unsafe {
-        API_KEY_INIT.call_once(|| {
-            ORIGINAL_API_KEY = Some(key_storage.clone());
-        });
-        if let Some(original) = env::var("EXCHANGE_RATE_API_KEY").ok() {
-            *key_storage.lock().unwrap() = Some(original);
-        }
-    }
-    key_storage
-}
-
-fn restore_api_key(key_storage: &Arc<Mutex<Option<String>>>) {
-    if let Some(key) = key_storage.lock().unwrap().as_ref() {
-        env::set_var("EXCHANGE_RATE_API_KEY", key);
+async fn save_api_key() {
+    if let Ok(key) = env::var("EXCHANGE_RATE_API_KEY") {
+        let _ = API_KEY_STORAGE.set(key);
     }
 }
 
-/// Ensures test environment is properly configured
-fn setup_test_env() {
-    INIT.call_once(|| {
+async fn setup_test_env() {
+    let _ = TEST_ENV_INIT.get_or_init(|| async {
         std::env::set_var("RUST_LOG", "debug");
         env_logger::init();
-    });
 
-    // Try to load API key from different sources
-    if env::var("EXCHANGE_RATE_API_KEY").is_err() {
-        // Try loading from .env files
-        for env_file in &[".env", ".env.test", ".env.testing"] {
-            if dotenv::from_filename(env_file).is_ok() {
-                if env::var("EXCHANGE_RATE_API_KEY").is_ok() {
-                    debug!("Loaded API key from {}", env_file);
-                    return;
+        // Try to load API key from different sources
+        if env::var("EXCHANGE_RATE_API_KEY").is_err() {
+            // Try loading from .env files
+            for env_file in &[".env", ".env.test", ".env.testing"] {
+                if dotenv::from_filename(env_file).is_ok() {
+                    if env::var("EXCHANGE_RATE_API_KEY").is_ok() {
+                        debug!("Loaded API key from {}", env_file);
+                        return;
+                    }
                 }
             }
-        }
 
-        // If no API key is found, panic with helpful message
-        panic!("No exchange rate API key found. Please ensure one of the following:
-            1. EXCHANGE_RATE_API_KEY is set in the environment
-            2. .env file exists with EXCHANGE_RATE_API_KEY
-            3. .env.test file exists with EXCHANGE_RATE_API_KEY
-            4. .env.testing file exists with EXCHANGE_RATE_API_KEY");
-    }
+            panic!("No exchange rate API key found. Please ensure one of the following:
+                1. EXCHANGE_RATE_API_KEY is set in the environment
+                2. .env file exists with EXCHANGE_RATE_API_KEY
+                3. .env.test file exists with EXCHANGE_RATE_API_KEY
+                4. .env.testing file exists with EXCHANGE_RATE_API_KEY");
+        }
+    }).await;
 }
 
 fn build_test_app() -> actix_web::App<
@@ -66,7 +51,7 @@ fn build_test_app() -> actix_web::App<
     >
 > {
     let client = reqwest::Client::builder()
-        .timeout(std::time::Duration::from_secs(30))
+        .timeout(Duration::from_secs(30))
         .build()
         .expect("Failed to create HTTP client");
     
@@ -86,8 +71,13 @@ fn build_test_app() -> actix_web::App<
 
 #[actix_web::test]
 async fn test_simple_endpoint_valid_conversion() {
-    setup_test_env();
-    let key_storage = save_api_key();
+    setup_test_env().await;
+    save_api_key().await;
+    
+    GLOBAL_DATA.get_or_init(|| async {
+        GlobalData::new(API_KEY_STORAGE.get().unwrap().clone())
+    }).await;
+
     let app = test::init_service(build_test_app()).await;
 
     let req = test::TestRequest::post()
@@ -96,7 +86,8 @@ async fn test_simple_endpoint_valid_conversion() {
         .set_payload(json!({
             "from": "United States",
             "to": "France",
-            "amount": 100.0
+            "amount": 100.0,
+            "preferred_currency": null
         }).to_string())
         .to_request();
 
@@ -110,7 +101,6 @@ async fn test_simple_endpoint_valid_conversion() {
     );
 
     let body: SimpleConversionResponse = test::read_body_json(resp).await;
-    restore_api_key(&key_storage);
     
     assert_eq!(body.from, "USD");
     assert_eq!(body.to, "EUR");
@@ -119,8 +109,13 @@ async fn test_simple_endpoint_valid_conversion() {
 
 #[actix_web::test]
 async fn test_simple_endpoint_invalid_country() {
-    setup_test_env();
-    let key_storage = save_api_key();
+    setup_test_env().await;
+    save_api_key().await;
+    
+    GLOBAL_DATA.get_or_init(|| async {
+        GlobalData::new(API_KEY_STORAGE.get().unwrap().clone())
+    }).await;
+
     let app = test::init_service(build_test_app()).await;
 
     let req = test::TestRequest::post()
@@ -129,24 +124,27 @@ async fn test_simple_endpoint_invalid_country() {
         .set_payload(json!({
             "from": "Narnia",
             "to": "France",
-            "amount": 100.0
+            "amount": 100.0,
+            "preferred_currency": null
         }).to_string())
         .to_request();
 
     let resp = test::call_service(&app, req).await;
+    assert_eq!(resp.status().as_u16(), 404);
 
-    let body: SimpleConversionResponse = test::read_body_json(resp).await;
-    restore_api_key(&key_storage);
-    
-    assert_eq!(body.from, "INVALID");
-    assert_eq!(body.to, "INVALID");
-    assert_eq!(body.amount, 0.0);
+    let body: DetailedErrorResponse = test::read_body_json(resp).await;
+    assert!(body.error.contains("Country not found"));
 }
 
 #[actix_web::test]
 async fn test_case_sensitivity() {
-    setup_test_env();
-    let key_storage = save_api_key();
+    setup_test_env().await;
+    save_api_key().await;
+    
+    GLOBAL_DATA.get_or_init(|| async {
+        GlobalData::new(API_KEY_STORAGE.get().unwrap().clone())
+    }).await;
+
     let app = test::init_service(build_test_app()).await;
 
     let req = test::TestRequest::post()
@@ -155,7 +153,8 @@ async fn test_case_sensitivity() {
         .set_payload(json!({
             "from": "japan",
             "to": "australia",
-            "amount": 1000.0
+            "amount": 1000.0,
+            "preferred_currency": null
         }).to_string())
         .to_request();
 
@@ -163,7 +162,6 @@ async fn test_case_sensitivity() {
     assert!(resp.status().is_success());
 
     let body: SimpleConversionResponse = test::read_body_json(resp).await;
-    restore_api_key(&key_storage);
 
     assert_eq!(body.from, "JPY");
     assert_eq!(body.to, "AUD");
@@ -172,8 +170,13 @@ async fn test_case_sensitivity() {
 
 #[actix_web::test]
 async fn test_v1_endpoint_valid_conversion() {
-    setup_test_env();
-    let key_storage = save_api_key();
+    setup_test_env().await;
+    save_api_key().await;
+    
+    GLOBAL_DATA.get_or_init(|| async {
+        GlobalData::new(API_KEY_STORAGE.get().unwrap().clone())
+    }).await;
+
     let app = test::init_service(build_test_app()).await;
 
     let req = test::TestRequest::post()
@@ -202,8 +205,6 @@ async fn test_v1_endpoint_valid_conversion() {
     
     let body: DetailedConversionResponse = serde_json::from_str(&body_str)
         .unwrap_or_else(|e| panic!("Failed to parse response: {}. Response was: {}", e, body_str));
-
-    restore_api_key(&key_storage);
     
     assert_eq!(body.data.from.currency_code, "USD");
     assert_eq!(body.data.to.currency_code, "EUR");
@@ -215,8 +216,13 @@ async fn test_v1_endpoint_valid_conversion() {
 
 #[actix_web::test]
 async fn test_v1_endpoint_invalid_country() {
-    setup_test_env();
-    let key_storage = save_api_key();  // Add this
+    setup_test_env().await;
+    save_api_key().await;
+    
+    GLOBAL_DATA.get_or_init(|| async {
+        GlobalData::new(API_KEY_STORAGE.get().unwrap().clone())
+    }).await;
+
     let app = test::init_service(build_test_app()).await;
 
     let req = test::TestRequest::post()
@@ -231,31 +237,23 @@ async fn test_v1_endpoint_invalid_country() {
         .to_request();
 
     let resp = test::call_service(&app, req).await;
-    let status = resp.status();
-    
-    // Use bytes first to debug the response if needed
-    let body_bytes = test::read_body(resp).await;
-    let body_str = String::from_utf8(body_bytes.to_vec())
-        .expect("Response was not valid UTF-8");
-    
-    let body: DetailedErrorResponse = serde_json::from_str(&body_str)
-        .unwrap_or_else(|e| panic!("Failed to parse response: {}. Response was: {}", e, body_str));
+    assert_eq!(resp.status().as_u16(), 404);
 
-    restore_api_key(&key_storage);  // Add this
-    
-    assert_eq!(status.as_u16(), 400);
-    assert!(body.error.contains("Country not found: Narnia"));
+    let body: DetailedErrorResponse = test::read_body_json(resp).await;
+    assert!(body.error.contains("Country not found"));
     assert!(!body.request_id.is_empty());
 }
 
 #[actix_web::test]
 async fn test_service_errors() {
-    setup_test_env();
-    let key_storage = save_api_key();
-    let app = test::init_service(build_test_app()).await;
+    setup_test_env().await;
+    save_api_key().await;
+    
+    GLOBAL_DATA.get_or_init(|| async {
+        GlobalData::new("invalid_key".to_string())
+    }).await;
 
-    // Remove API key to force error
-    env::remove_var("EXCHANGE_RATE_API_KEY");
+    let app = test::init_service(build_test_app()).await;
 
     let req = test::TestRequest::post()
         .uri("/currency")
@@ -263,17 +261,128 @@ async fn test_service_errors() {
         .set_payload(json!({
             "from": "United States",
             "to": "France",
-            "amount": 100.0
+            "amount": 100.0,
+            "preferred_currency": null
         }).to_string())
         .to_request();
 
     let resp = test::call_service(&app, req).await;
-    assert_eq!(resp.status().as_u16(), 503, "Expected 503 Service Unavailable when API key is missing");
+    assert_eq!(resp.status().as_u16(), 503);
 
-    let body: SimpleConversionResponse = test::read_body_json(resp).await;
-    restore_api_key(&key_storage);
+    let body: DetailedErrorResponse = test::read_body_json(resp).await;
+    assert!(body.error.contains("Service temporarily unavailable"));
+}
+
+#[actix_web::test]
+async fn test_multi_currency_with_preferred() {
+    setup_test_env().await;
+    save_api_key().await;
     
-    assert_eq!(body.from, "ERROR");
-    assert_eq!(body.to, "ERROR");
-    assert_eq!(body.amount, 0.0);
+    GLOBAL_DATA.get_or_init(|| async {
+        GlobalData::new(API_KEY_STORAGE.get().unwrap().clone())
+    }).await;
+
+    let app = test::init_service(build_test_app()).await;
+
+    let req = test::TestRequest::post()
+        .uri("/v1/currency")
+        .insert_header(("content-type", "application/json"))
+        .set_payload(json!({
+            "from": "Panama",
+            "to": "France",
+            "amount": 100.0,
+            "preferred_currency": "USD"
+        }).to_string())
+        .to_request();
+
+    let resp = test::call_service(&app, req).await;
+    assert!(resp.status().is_success());
+
+    let body: DetailedConversionResponse = test::read_body_json(resp).await;
+    
+    assert_eq!(body.data.from.currency_code, "USD");
+    assert_eq!(body.data.to.currency_code, "EUR");
+    assert!(body.meta.multiple_currencies_available);
+    assert!(body.data.available_currencies.is_some());
+    
+    if let Some(currencies) = body.data.available_currencies {
+        assert!(currencies.iter().any(|c| c.code == "USD"));
+        assert!(currencies.iter().any(|c| c.code == "PAB"));
+    }
+}
+
+#[actix_web::test]
+async fn test_invalid_preferred_currency() {
+    setup_test_env().await;
+    save_api_key().await;
+    
+    GLOBAL_DATA.get_or_init(|| async {
+        GlobalData::new(API_KEY_STORAGE.get().unwrap().clone())
+    }).await;
+
+    let app = test::init_service(build_test_app()).await;
+
+    let req = test::TestRequest::post()
+        .uri("/v1/currency")
+        .insert_header(("content-type", "application/json"))
+        .set_payload(json!({
+            "from": "Panama",
+            "to": "France",
+            "amount": 100.0,
+            "preferred_currency": "XYZ"
+        }).to_string())
+        .to_request();
+
+    let resp = test::call_service(&app, req).await;
+    assert_eq!(resp.status().as_u16(), 400);
+
+    let body: DetailedErrorResponse = test::read_body_json(resp).await;
+    assert!(body.error.contains("Currency not available"));
+}
+
+#[actix_web::test]
+async fn test_validation_errors() {
+    setup_test_env().await;
+    save_api_key().await;
+    
+    GLOBAL_DATA.get_or_init(|| async {
+        GlobalData::new(API_KEY_STORAGE.get().unwrap().clone())
+    }).await;
+
+    let app = test::init_service(build_test_app()).await;
+
+    let test_cases = vec![
+        (json!({
+            "from": "", 
+            "to": "France", 
+            "amount": 100.0,
+            "preferred_currency": null
+        }), "Source country cannot be empty"),
+        (json!({
+            "from": "USA", 
+            "to": "", 
+            "amount": 100.0,
+            "preferred_currency": null
+        }), "Destination country cannot be empty"),
+        (json!({
+            "from": "USA", 
+            "to": "France", 
+            "amount": 0.0,
+            "preferred_currency": null
+        }), "Amount must be greater than 0"),
+    ];
+
+    for (payload, expected_error) in test_cases {
+        let req = test::TestRequest::post()
+            .uri("/v1/currency")
+            .insert_header(("content-type", "application/json"))
+            .set_payload(payload.to_string())
+            .to_request();
+
+        let resp = test::call_service(&app, req).await;
+        assert_eq!(resp.status().as_u16(), 400);
+
+        let body: DetailedErrorResponse = test::read_body_json(resp).await;
+        assert!(body.error.contains(expected_error));
+    }
 }

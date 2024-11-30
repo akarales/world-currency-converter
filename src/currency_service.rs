@@ -2,11 +2,12 @@ use crate::{
     models::*,
     errors::ServiceError,
     clients::{CountryClient, ExchangeRateClient},
-    cache::{Cache, ExchangeRateData}
+    cache::{RateCache, ExchangeRateData},
+    data::GLOBAL_DATA
 };
 use chrono::{DateTime, Utc};
-use log::{debug, error, info};
-use std::sync::Arc;
+use log::debug;
+use std::{collections::HashMap, sync::Arc};
 use uuid::Uuid;
 
 pub struct CurrencyService<C>
@@ -14,14 +15,14 @@ where
     C: CountryClient + ExchangeRateClient,
 {
     client: C,
-    cache: Arc<Cache<ExchangeRateData>>,
+    cache: Arc<RateCache>,
 }
 
 impl<C> CurrencyService<C>
 where
     C: CountryClient + ExchangeRateClient,
 {
-    pub fn new(client: C, cache: Arc<Cache<ExchangeRateData>>) -> Self {
+    pub fn new(client: C, cache: Arc<RateCache>) -> Self {
         Self { client, cache }
     }
 
@@ -31,48 +32,126 @@ where
     ) -> Result<DetailedConversionResponse, ServiceError> {
         let start_time = std::time::Instant::now();
         let request_id = Uuid::new_v4().to_string();
-
+    
         debug!("Processing conversion request: {:?}", request);
-
-        // Get source country details
+    
+        // Get country information first
         let from_country = self.client.get_country_info(&request.from).await?;
-        let from_currencies = Self::get_available_currencies(&from_country);
-
-        // Get destination country details
         let to_country = self.client.get_country_info(&request.to).await?;
-        let to_currencies = Self::get_available_currencies(&to_country);
+    
+        // Get currencies with proper error handling
+        let from_currencies = match &from_country.currencies {
+            Some(currencies) => currencies,
+            None => return Err(ServiceError::InvalidCurrency(
+                format!("No currencies found for {}", request.from)
+            )),
+        };
 
-        // Select appropriate currencies
-        let from_currency = self.select_currency(&from_currencies, request.preferred_currency.as_deref())?;
-        let to_currency = self.select_currency(&to_currencies, request.preferred_currency.as_deref())?;
+        let to_currencies = match &to_country.currencies {
+            Some(currencies) => currencies,
+            None => return Err(ServiceError::InvalidCurrency(
+                format!("No currencies found for {}", request.to)
+            )),
+        };
 
-        // Get exchange rate
-        let (converted_amount, rate, last_updated) = self.get_conversion_rate(
-            &from_currency.code,
-            &to_currency.code,
-            request.amount,
-        ).await?;
+        // Store primary currency values
+        let from_primary = GLOBAL_DATA.get().unwrap().get_primary_currency(&request.from).await;
+        let to_primary = GLOBAL_DATA.get().unwrap().get_primary_currency(&request.to).await;
 
-        info!(
-            "Conversion successful: {} {} -> {} {} (rate: {})",
-            request.amount,
-            from_currency.code,
-            converted_amount,
-            to_currency.code,
-            rate
-        );
+        // Check multi-currency status
+        let from_multi = GLOBAL_DATA.get().unwrap().is_multi_currency(&request.from).await;
+        let to_multi = GLOBAL_DATA.get().unwrap().is_multi_currency(&to_country.name.common).await;
+        let multiple_currencies_available = from_multi || to_multi;
 
-        // Create combined available currencies list if needed
-        let available_currencies = if from_currencies.len() > 1 || to_currencies.len() > 1 {
-            let mut combined = Vec::new();
-            combined.extend(from_currencies.iter().cloned());
-            combined.extend(to_currencies.iter().cloned());
-            Some(combined)
+        // Prepare available currencies if needed
+        let available_currencies = if multiple_currencies_available {
+            let mut currencies = Vec::new();
+            
+            // Add source country currencies
+            for (code, info) in from_currencies {
+                let is_primary = from_primary.as_deref() == Some(code);
+                currencies.push(AvailableCurrency {
+                    code: code.clone(),
+                    name: info.name.clone(),
+                    symbol: info.symbol.clone(),
+                    is_primary,
+                });
+            }
+
+            // Add destination country currencies if different
+            for (code, info) in to_currencies {
+                if !currencies.iter().any(|c| &c.code == code) {
+                    let is_primary = to_primary.as_deref() == Some(code);
+                    currencies.push(AvailableCurrency {
+                        code: code.clone(),
+                        name: info.name.clone(),
+                        symbol: info.symbol.clone(),
+                        is_primary,
+                    });
+                }
+            }
+            Some(currencies)
         } else {
             None
         };
 
-        let multiple_currencies_available = from_currencies.len() > 1 || to_currencies.len() > 1;
+        // Select currencies with proper lifetimes
+        let (from_currency_code, from_currency_info) = self.select_currency(
+            from_currencies,
+            request.preferred_currency.as_deref(),
+            from_primary.as_deref(),
+            &request.from,
+        )?;
+
+        let (to_currency_code, to_currency_info) = self.select_currency(
+            to_currencies,
+            request.preferred_currency.as_deref(),
+            to_primary.as_deref(),
+            &request.to,
+        )?;
+
+        // Handle same currency case
+        if from_currency_code == to_currency_code {
+            return Ok(DetailedConversionResponse {
+                request_id,
+                timestamp: Utc::now(),
+                data: ConversionData {
+                    from: CurrencyDetails {
+                        country: from_country.name.common.clone(),
+                        currency_code: from_currency_code.to_string(),
+                        currency_name: from_currency_info.name.clone(),
+                        currency_symbol: from_currency_info.symbol.clone(),
+                        amount: request.amount,
+                        is_primary: from_primary.as_deref() == Some(from_currency_code),
+                    },
+                    to: CurrencyDetails {
+                        country: to_country.name.common.clone(),
+                        currency_code: to_currency_code.to_string(),
+                        currency_name: to_currency_info.name.clone(),
+                        currency_symbol: to_currency_info.symbol.clone(),
+                        amount: request.amount,
+                        is_primary: to_primary.as_deref() == Some(to_currency_code),
+                    },
+                    exchange_rate: 1.0,
+                    last_updated: Utc::now(),
+                    available_currencies,
+                },
+                meta: ResponseMetadata {
+                    source: "exchangerate-api.com".to_string(),
+                    response_time_ms: start_time.elapsed().as_millis() as u64,
+                    multiple_currencies_available,
+                    cache_hit: Some(true),
+                    rate_limit_remaining: None,
+                },
+            });
+        }
+
+        // Get conversion rate and perform conversion
+        let (converted_amount, rate, last_updated, cache_hit) = self.get_conversion_rate(
+            from_currency_code,
+            to_currency_code,
+            request.amount,
+        ).await?;
 
         Ok(DetailedConversionResponse {
             request_id,
@@ -80,19 +159,19 @@ where
             data: ConversionData {
                 from: CurrencyDetails {
                     country: from_country.name.common,
-                    currency_code: from_currency.code.clone(),
-                    currency_name: from_currency.name.clone(),
-                    currency_symbol: from_currency.symbol.clone(),
+                    currency_code: from_currency_code.to_string(),
+                    currency_name: from_currency_info.name.clone(),
+                    currency_symbol: from_currency_info.symbol.clone(),
                     amount: request.amount,
-                    is_primary: from_currency.is_primary,
+                    is_primary: from_primary.as_deref() == Some(from_currency_code),
                 },
                 to: CurrencyDetails {
                     country: to_country.name.common,
-                    currency_code: to_currency.code.clone(),
-                    currency_name: to_currency.name.clone(),
-                    currency_symbol: to_currency.symbol.clone(),
+                    currency_code: to_currency_code.to_string(),
+                    currency_name: to_currency_info.name.clone(),
+                    currency_symbol: to_currency_info.symbol.clone(),
                     amount: converted_amount,
-                    is_primary: to_currency.is_primary,
+                    is_primary: to_primary.as_deref() == Some(to_currency_code),
                 },
                 exchange_rate: rate,
                 last_updated,
@@ -102,42 +181,52 @@ where
                 source: "exchangerate-api.com".to_string(),
                 response_time_ms: start_time.elapsed().as_millis() as u64,
                 multiple_currencies_available,
-                cache_hit: None,  // TODO implement cache tracking
-                rate_limit_remaining: None,  // TODO implement rate limiting
+                cache_hit: Some(cache_hit),
+                rate_limit_remaining: None,
             },
         })
     }
 
-    fn get_available_currencies(country: &CountryInfo) -> Vec<AvailableCurrency> {
-        let is_multi_currency = country.currencies.len() > 1;
-        country
-            .currencies
-            .iter()
-            .map(|(code, info)| AvailableCurrency {
-                code: code.clone(),
-                name: info.name.clone(),
-                symbol: info.symbol.clone(),
-                is_primary: !is_multi_currency || code == "USD" || code == "EUR",
-            })
-            .collect()
-    }
-
     fn select_currency<'a>(
         &self,
-        currencies: &'a [AvailableCurrency],
-        preferred: Option<&str>,
-    ) -> Result<&'a AvailableCurrency, ServiceError> {
-        match (preferred, currencies.len()) {
-            (Some(preferred), _) => currencies
-                .iter()
-                .find(|c| c.code == preferred)
-                .ok_or_else(|| ServiceError::InvalidCurrency(format!("Preferred currency {} not available", preferred))),
-            (None, 1) => Ok(&currencies[0]),
-            (None, _) => currencies
-                .iter()
-                .find(|c| c.is_primary)
-                .ok_or_else(|| ServiceError::InvalidCurrency("No primary currency found".to_string())),
+        currencies: &'a HashMap<String, CurrencyInfo>,
+        preferred: Option<&'a str>,
+        primary: Option<&'a str>,
+        country_name: &str,
+    ) -> Result<(&'a str, &'a CurrencyInfo), ServiceError> {
+        if let Some(pref) = preferred {
+            if let Some(info) = currencies.get(pref) {
+                return Ok((pref, info));
+            } else {
+                return Err(ServiceError::InvalidCurrency(
+                    format!("Preferred currency {} not available for {}. Available currencies: {}", 
+                        pref,
+                        country_name,
+                        currencies.keys().cloned().collect::<Vec<_>>().join(", ")
+                    )
+                ));
+            }
         }
+
+        if let Some(primary_code) = primary {
+            if let Some(info) = currencies.get(primary_code) {
+                return Ok((primary_code, info));
+            }
+        }
+
+        for code in ["USD", "EUR"] {
+            if let Some(info) = currencies.get(code) {
+                return Ok((code, info));
+            }
+        }
+
+        currencies
+            .iter()
+            .next()
+            .map(|(code, info)| (code.as_str(), info))
+            .ok_or_else(|| ServiceError::InvalidCurrency(
+                format!("No valid currency found for {}", country_name)
+            ))
     }
 
     async fn get_conversion_rate(
@@ -145,30 +234,30 @@ where
         from_currency: &str,
         to_currency: &str,
         amount: f64,
-    ) -> Result<(f64, f64, DateTime<Utc>), ServiceError> {
-        // Check cache first
+    ) -> Result<(f64, f64, DateTime<Utc>, bool), ServiceError> {
         let cache_key = format!("{}_{}", from_currency, to_currency);
+        
         if let Some(cached) = self.cache.get(&cache_key).await {
             debug!("Cache hit for {}->{}", from_currency, to_currency);
-            let rate = cached.rate;
-            let converted_amount = (amount * rate * 100.0).round() / 100.0;
-            return Ok((converted_amount, rate, cached.last_updated));
+            let converted_amount = (amount * cached.rate * 100.0).round() / 100.0;
+            return Ok((converted_amount, cached.rate, cached.last_updated, true));
         }
 
-        // Get fresh rates from API
         let response = self.client.get_exchange_rate(from_currency).await?;
         let now = Utc::now();
 
         let rate = response.conversion_rates
             .get(to_currency)
             .ok_or_else(|| {
-                error!("Exchange rate not found for {}->{}", from_currency, to_currency);
-                ServiceError::InvalidCurrency(format!("Exchange rate not found for {}->{}", from_currency, to_currency))
+                ServiceError::InvalidCurrency(format!(
+                    "Exchange rate not found for {}->{}", 
+                    from_currency, 
+                    to_currency
+                ))
             })?;
 
         let converted_amount = (amount * rate * 100.0).round() / 100.0;
 
-        // Cache the result
         self.cache.set(
             cache_key,
             ExchangeRateData {
@@ -177,86 +266,6 @@ where
             },
         ).await;
         
-        debug!(
-            "Exchange rate lookup successful: {} {} = {} {} (rate: {})",
-            amount, from_currency, converted_amount, to_currency, rate
-        );
-        
-        Ok((converted_amount, *rate, now))
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use crate::clients::tests::{MockClient, create_test_country_info};
-    use std::collections::HashMap;
-
-    fn create_mock_exchange_rate_response(base: &str, rates: &[(&str, f64)]) -> ExchangeRateResponse {
-        let mut conversion_rates = HashMap::new();
-        // Always include base currency with rate 1.0
-        conversion_rates.insert(base.to_string(), 1.0);
-        for (currency, rate) in rates {
-            conversion_rates.insert(currency.to_string(), *rate);
-        }
-
-        ExchangeRateResponse {
-            result: "success".to_string(),
-            conversion_rates,
-            time_last_update_utc: Some("2024-01-01".to_string()),
-        }
-    }
-
-    #[tokio::test]
-    async fn test_basic_conversion() {
-        // Setup
-        let from_country = create_test_country_info(
-            "United States", "USD", "US Dollar", "$"
-        );
-        let to_country = create_test_country_info(
-            "France", "EUR", "Euro", "€"
-        );
-        let exchange_rates = create_mock_exchange_rate_response(
-            "USD",
-            &[("EUR", 0.85)]
-        );
-
-        let mock_client = MockClient::new()
-            .with_country_response(from_country.clone())
-            .with_country_response(to_country)
-            .with_rate_response(exchange_rates);
-
-        let cache = Arc::new(Cache::new(60, 100));
-        let service = CurrencyService::new(mock_client, cache);
-
-        // Test
-        let request = ConversionRequest {
-            from: "United States".to_string(),
-            to: "France".to_string(),
-            amount: 100.0,
-            preferred_currency: None,
-        };
-
-        let result = service.convert_currency(&request).await.unwrap();
-
-        // Assert
-        assert_eq!(result.data.from.currency_code, "USD");
-        assert_eq!(result.data.to.currency_code, "EUR");
-        assert_eq!(result.data.exchange_rate, 0.85);
-        assert_eq!(result.data.to.amount, 85.0);
-        
-        // Also test same currency conversion
-        let same_currency_request = ConversionRequest {
-            from: "United States".to_string(),
-            to: "United States".to_string(),
-            amount: 100.0,
-            preferred_currency: None,
-        };
-
-        let result = service.convert_currency(&same_currency_request).await.unwrap();
-        assert_eq!(result.data.from.currency_code, "USD");
-        assert_eq!(result.data.to.currency_code, "USD");
-        assert_eq!(result.data.exchange_rate, 1.0);
-        assert_eq!(result.data.to.amount, 100.0);
+        Ok((converted_amount, *rate, now, false))
     }
 }

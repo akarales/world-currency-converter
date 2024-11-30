@@ -12,6 +12,9 @@ pub mod rate_limit;
 pub mod currency_service;
 pub mod errors;
 pub mod clients;
+pub mod data;
+pub mod update_service;
+pub mod currency_manager;
 
 pub use errors::{ServiceError, ErrorResponse};
 
@@ -109,14 +112,15 @@ mod tests {
             name: CountryName {
                 common: "United States".to_string(),
                 official: "United States of America".to_string(),
+                native_name: None,
             },
-            currencies,
+            currencies: Some(currencies),
         };
 
         assert_eq!(country.name.common, "United States");
-        assert_eq!(country.currencies.len(), 1);
-        
-        if let Some(usd) = country.currencies.get("USD") {
+        assert_eq!(country.currencies.as_ref().expect("Currencies missing").len(), 1);
+                
+        if let Some(usd) = country.currencies.as_ref().expect("Currencies missing").get("USD") {
             assert_eq!(usd.symbol, "$");
             assert_eq!(usd.name, "United States Dollar");
         } else {

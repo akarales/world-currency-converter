@@ -1,15 +1,16 @@
-use actix_web::{web, App, HttpServer};
 use currency_converter::{
     handlers, handlers_v1,
-    cache::{Cache, ExchangeRateData},
     config::Config,
     registry::ServiceRegistry,
+    data::{GLOBAL_DATA, GlobalData},
+    currency_manager::CurrencyManager,
 };
+use actix_web::{web, App, HttpServer};
 use dotenv::dotenv;
 use log::{info, error, debug};
 use std::{io, time::Duration};
-use currency_converter::health_check;
 use reqwest::Client;
+use tokio::signal;
 
 #[actix_web::main]
 async fn main() -> io::Result<()> {
@@ -23,11 +24,46 @@ async fn main() -> io::Result<()> {
         io::Error::new(io::ErrorKind::Other, e)
     })?;
 
-    // Initialize HTTP client
+    // Initialize HTTP client with configured timeouts
     let client = Client::builder()
-        .timeout(Duration::from_secs(30))
+        .timeout(Duration::from_secs(config.api_settings.request_timeout_seconds))
+        .connect_timeout(Duration::from_secs(config.api_settings.connect_timeout_seconds))
+        .user_agent(&config.api_settings.user_agent)
         .build()
-        .expect("Failed to create HTTP client");
+        .map_err(|e| {
+            error!("Failed to create HTTP client: {}", e);
+            io::Error::new(io::ErrorKind::Other, e)
+        })?;
+
+    // Initialize currency manager
+    debug!("Initializing currency manager...");
+    let currency_manager = CurrencyManager::new(
+        config.exchange_rate_api_key.clone(),
+        false // Not test mode
+    );
+
+    // Ensure currency data is ready
+    if let Err(e) = currency_manager.ensure_currency_data().await {
+        error!("Failed to initialize currency data: {}", e);
+        return Err(io::Error::new(io::ErrorKind::Other, e));
+    }
+    info!("Currency data initialized successfully");
+
+    // Initialize global data with API key
+    GLOBAL_DATA.set(GlobalData::new(config.exchange_rate_api_key.clone()))
+        .map_err(|_| {
+            error!("Failed to initialize global data");
+            io::Error::new(io::ErrorKind::Other, "Failed to initialize global data")
+        })?;
+
+    // Initialize global data
+    info!("Initializing global country and currency data...");
+    GLOBAL_DATA.get()
+        .expect("Global data not initialized")
+        .ensure_initialized()
+        .await;
+    info!("Global data initialization complete");
+
     let client_data = web::Data::new(client);
     
     // Initialize service registry
@@ -35,44 +71,26 @@ async fn main() -> io::Result<()> {
         error!("Failed to initialize services: {}", e);
         io::Error::new(io::ErrorKind::Other, e)
     })?;
+
+    // Start background tasks
+    registry.start_background_tasks(&config).await;
+
     let registry = web::Data::new(registry);
     
-    // Initialize caches
-    let exchange_rate_cache = web::Data::new(ExchangeRateData::new_cache());
-    let country_cache = web::Data::new(Cache::<String>::new(
-        24 * 60, // 24 hours TTL
-        500      // Maximum number of country entries to cache
-    ));
-
-    // Start cache cleanup task
-    let cleanup_exchange_rate_cache = exchange_rate_cache.clone();
-    let cleanup_country_cache = country_cache.clone();
-    tokio::spawn(async move {
-        let cleanup_interval = Duration::from_secs(300); // 5 minutes
-        start_cache_cleanup(
-            cleanup_exchange_rate_cache,
-            cleanup_country_cache,
-            cleanup_interval
-        ).await;
-    });
-
     info!("Starting currency converter service at http://localhost:8080");
+    debug!("Using configuration: {:?}", config);
     
-    // Start HTTP server
-    HttpServer::new(move || {
+    // Create server
+    let server = HttpServer::new(move || {
         App::new()
-            // Add shared HTTP client
-            .app_data(client_data.clone())
-            // Add registry
-            .app_data(registry.clone())
             // Add shared services
-            .app_data(exchange_rate_cache.clone())
-            .app_data(country_cache.clone())
+            .app_data(client_data.clone())
+            .app_data(registry.clone())
             
             // Health check endpoint
             .service(
                 web::resource("/health")
-                    .route(web::get().to(health_check))
+                    .route(web::get().to(currency_converter::health_check))
             )
             
             // API v1 routes
@@ -89,8 +107,19 @@ async fn main() -> io::Result<()> {
     })
     .bind("127.0.0.1:8080")?
     .workers(4)
-    .run()
-    .await
+    .shutdown_timeout(30) // 30 seconds shutdown timeout
+    .run();
+
+    // Start the server
+    let server_handle = server.handle();
+    
+    // Handle shutdown signals
+    tokio::spawn(async move {
+        handle_shutdown_signals(server_handle).await;
+    });
+
+    info!("Server started successfully");
+    server.await
 }
 
 fn configure_v1_routes(cfg: &mut web::ServiceConfig) {
@@ -100,27 +129,75 @@ fn configure_v1_routes(cfg: &mut web::ServiceConfig) {
     );
 }
 
-async fn start_cache_cleanup(
-    exchange_rate_cache: web::Data<Cache<ExchangeRateData>>,
-    country_cache: web::Data<Cache<String>>,
-    cleanup_interval: Duration
-) {
-    loop {
-        tokio::time::sleep(cleanup_interval).await;
-        debug!("Running periodic cache cleanup");
-        
-        exchange_rate_cache.clear_expired().await;
-        country_cache.clear_expired().await;
+async fn handle_shutdown_signals(server: actix_web::dev::ServerHandle) {
+    let ctrl_c = async {
+        signal::ctrl_c()
+            .await
+            .expect("Failed to install Ctrl+C handler");
+    };
+
+    #[cfg(unix)]
+    let terminate = async {
+        signal::unix::signal(signal::unix::SignalKind::terminate())
+            .expect("Failed to install signal handler")
+            .recv()
+            .await;
+    };
+
+    #[cfg(not(unix))]
+    let terminate = std::future::pending::<()>();
+
+    tokio::select! {
+        _ = ctrl_c => {
+            info!("Received Ctrl+C signal");
+        },
+        _ = terminate => {
+            info!("Received terminate signal");
+        },
     }
+
+    info!("Starting graceful shutdown (30s timeout)...");
+    
+    // Stop accepting new connections and perform cleanup
+    server.stop(true).await;
+
+    // Give the update service time to finish any pending updates
+    tokio::time::sleep(Duration::from_secs(1)).await;
+    
+    info!("Server shutdown completed");
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use actix_web::test;
 
     #[actix_web::test]
     async fn test_health_check() {
-        let resp = health_check().await.unwrap();
+        let resp = currency_converter::health_check().await.unwrap();
         assert_eq!(resp, "OK");
+    }
+
+    #[actix_web::test]
+    async fn test_server_configuration() {
+        let config = Config::with_test_settings();
+        let client = Client::new();
+        let client_data = web::Data::new(client);
+        let registry = ServiceRegistry::new(&config).unwrap();
+        let registry_data = web::Data::new(registry);
+
+        let app = test::init_service(
+            App::new()
+                .app_data(client_data)
+                .app_data(registry_data)
+                .service(web::resource("/health").route(web::get().to(currency_converter::health_check)))
+        ).await;
+
+        let req = test::TestRequest::get()
+            .uri("/health")
+            .to_request();
+
+        let resp = test::call_service(&app, req).await;
+        assert!(resp.status().is_success());
     }
 }

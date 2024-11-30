@@ -22,11 +22,19 @@ test_endpoint() {
     local amount=$4
     local description=$5
     local endpoint_version=$6  # 'simple' or 'v1'
+    local preferred_currency=$7  # optional
 
     echo -e "\n${BLUE}Testing: ${description}${NC}"
     echo "POST ${endpoint}"
 
-    local request_body="{\"from\": \"${from}\", \"to\": \"${to}\", \"amount\": ${amount}, \"preferred_currency\": null}"
+    # Construct request body based on whether preferred_currency is provided
+    local request_body
+    if [ -n "$preferred_currency" ]; then
+        request_body="{\"from\": \"${from}\", \"to\": \"${to}\", \"amount\": ${amount}, \"preferred_currency\": \"${preferred_currency}\"}"
+    else
+        request_body="{\"from\": \"${from}\", \"to\": \"${to}\", \"amount\": ${amount}, \"preferred_currency\": null}"
+    fi
+
     echo "Request: ${request_body}"
     
     response=$(curl -s -X POST "${BASE_URL}${endpoint}" \
@@ -44,16 +52,38 @@ test_endpoint() {
         # V1 endpoint validation
         if [[ $status_code == 2* ]]; then
             if echo "$response_body" | jq -e '.request_id and .timestamp and .data and .meta' > /dev/null; then
-                echo -e "${GREEN}✓ Test passed${NC}"
-                return 0
+                # For multi-currency tests, verify additional fields if needed
+                if [[ "$description" == *"multi-currency"* ]]; then
+                    if echo "$response_body" | jq -e '.meta.multiple_currencies_available and .data.available_currencies' > /dev/null; then
+                        echo -e "${GREEN}✓ Test passed (multi-currency response verified)${NC}"
+                        return 0
+                    else
+                        echo -e "${RED}✗ Test failed (Missing multi-currency fields)${NC}"
+                        return 1
+                    fi
+                else
+                    echo -e "${GREEN}✓ Test passed${NC}"
+                    return 0
+                fi
             else
                 echo -e "${RED}✗ Test failed (Invalid v1 response format)${NC}"
                 return 1
             fi
         elif [[ $status_code == 400 ]]; then
             if echo "$response_body" | jq -e '.error and .request_id and .timestamp' > /dev/null; then
-                echo -e "${GREEN}✓ Test passed (Expected error response)${NC}"
-                return 0
+                # For invalid preferred currency tests
+                if [[ "$description" == *"invalid preferred currency"* ]]; then
+                    if echo "$response_body" | jq -e '.error | contains("not available")' > /dev/null; then
+                        echo -e "${GREEN}✓ Test passed (Expected invalid currency error)${NC}"
+                        return 0
+                    else
+                        echo -e "${RED}✗ Test failed (Invalid error message for invalid currency)${NC}"
+                        return 1
+                    fi
+                else
+                    echo -e "${GREEN}✓ Test passed (Expected error response)${NC}"
+                    return 0
+                fi
             else
                 echo -e "${RED}✗ Test failed (Invalid error response format)${NC}"
                 return 1
@@ -64,12 +94,20 @@ test_endpoint() {
         fi
     else
         # Simple endpoint validation
-        if [[ $status_code == 2* ]] || [[ ($status_code == 400 && $(echo "$request_body" | jq '.amount') == 0) ]]; then
+        if [[ $status_code == 2* ]]; then
             if echo "$response_body" | jq -e '.from and .to and .amount' > /dev/null; then
                 echo -e "${GREEN}✓ Test passed${NC}"
                 return 0
             else
                 echo -e "${RED}✗ Test failed (Invalid response format)${NC}"
+                return 1
+            fi
+        elif [[ $status_code == 400 ]] && echo "$response_body" | jq -e '.error and .request_id and .timestamp' > /dev/null; then
+            if [[ $(echo "$request_body" | jq '.amount') == 0 ]] || echo "$response_body" | jq -e '.error | contains("Currency not found") or contains("not available")' > /dev/null; then
+                echo -e "${GREEN}✓ Test passed (Expected validation error)${NC}"
+                return 0
+            else
+                echo -e "${RED}✗ Test failed (Unexpected error message)${NC}"
                 return 1
             fi
         else
@@ -84,6 +122,14 @@ echo -e "${BLUE}Checking if server is running...${NC}"
 if ! curl -s "http://localhost:8080/health" > /dev/null; then
     echo -e "${RED}Server is not running. Please start the server first with:${NC}"
     echo "cargo run"
+    exit 1
+fi
+
+# Check if jq is installed
+if ! command -v jq &> /dev/null; then
+    echo -e "${RED}jq is required but not installed. Please install jq first:${NC}"
+    echo "sudo apt-get install jq  # For Ubuntu/Debian"
+    echo "brew install jq         # For macOS"
     exit 1
 fi
 
@@ -135,11 +181,33 @@ for test_case in "${v1_test_cases[@]}"; do
     fi
 done
 
+# Test multi-currency support
+echo -e "\n${BLUE}=== Testing Multi-Currency Support ===${NC}"
+
+multi_currency_test_cases=(
+    "test_mc_panama_default|Panama|France|100|Panama multi-currency test (default)|v1"
+    "test_mc_panama_usd|Panama|France|100|Panama with USD preferred|v1|USD"
+    "test_mc_panama_pab|Panama|France|100|Panama with PAB preferred|v1|PAB"
+    "test_mc_zimbabwe|Zimbabwe|United States|50|Zimbabwe multi-currency test|v1"
+    "test_mc_invalid_currency|Panama|France|100|Invalid preferred currency test|v1|XYZ"
+    "test_mc_swiss|Switzerland|France|100|Swiss multi-currency test|v1"
+    "test_mc_hongkong|Hong Kong|United States|100|Hong Kong multi-currency test|v1"
+)
+
+# Run multi-currency tests
+for test_case in "${multi_currency_test_cases[@]}"; do
+    IFS='|' read -r test_name from to amount description version preferred_currency <<< "$test_case"
+    ((total_tests++))
+    if test_endpoint "/v1/currency" "$from" "$to" "$amount" "$description" "$version" "$preferred_currency"; then
+        ((passed_tests++))
+    fi
+done
+
 # Print summary
 echo -e "\n${BLUE}=== Test Summary ===${NC}"
 echo -e "Total tests: ${total_tests}"
-echo -e "Passed tests: ${passed_tests}"
-echo -e "Failed tests: $((total_tests - passed_tests))"
+echo -e "Passed tests: ${GREEN}${passed_tests}${NC}"
+echo -e "Failed tests: ${RED}$((total_tests - passed_tests))${NC}"
 
 # Set exit code based on test results
 if [ $passed_tests -eq $total_tests ]; then

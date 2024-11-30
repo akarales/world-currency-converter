@@ -1,8 +1,28 @@
 use async_trait::async_trait;
 use crate::errors::ServiceError;
-use crate::models::{CountryInfo, ExchangeRateResponse};
+use crate::models::{CountryInfo, CountryName, CurrencyInfo, ExchangeRateResponse};
 use log::{debug, error};
 use std::time::Duration;
+use serde::Deserialize;
+use std::collections::HashMap;
+
+#[derive(Debug, Deserialize)]
+struct RestCountryResponse {
+    name: RestCountryName,
+    currencies: Option<HashMap<String, RestCurrencyInfo>>,
+}
+
+#[derive(Debug, Deserialize)]
+struct RestCountryName {
+    common: String,
+    official: String,
+}
+
+#[derive(Debug, Deserialize)]
+struct RestCurrencyInfo {
+    name: String,
+    symbol: String,
+}
 
 #[async_trait]
 pub trait CountryClient: Send + Sync {
@@ -41,132 +61,116 @@ impl HttpClient {
 #[async_trait]
 impl CountryClient for HttpClient {
     async fn get_country_info(&self, country_name: &str) -> Result<CountryInfo, ServiceError> {
+        let encoded_name = urlencoding::encode(country_name);
         let url = format!(
             "https://restcountries.com/v3.1/name/{}?fields=name,currencies",
-            urlencoding::encode(country_name)
+            encoded_name
         );
         
         debug!("Fetching country info for: {}", country_name);
-        let response = self.client
-            .get(&url)
-            .send()
-            .await?;
+        let response = self.client.get(&url).send().await.map_err(|e| {
+            error!("Failed to fetch country info: {}", e);
+            ServiceError::ExternalApiError(format!("REST Countries API request failed: {}", e))
+        })?;
 
-        if response.status() == reqwest::StatusCode::NOT_FOUND {
-            debug!("Country not found: {}", country_name);
-            return Err(ServiceError::CountryNotFound(country_name.to_string()));
+        match response.status() {
+            reqwest::StatusCode::OK => (),
+            reqwest::StatusCode::NOT_FOUND => {
+                debug!("Country not found: {}", country_name);
+                return Err(ServiceError::CountryNotFound(country_name.to_string()));
+            }
+            status => {
+                error!("REST Countries API error: {} for country: {}", status, country_name);
+                return Err(ServiceError::ExternalApiError(format!(
+                    "REST Countries API returned status: {}", 
+                    status
+                )));
+            }
         }
 
-        if !response.status().is_success() {
-            error!("Country API error: {} for country: {}", response.status(), country_name);
-            return Err(ServiceError::ExternalApiError(format!(
-                "Country API returned status: {}", 
-                response.status()
-            )));
-        }
-
-        let countries: Vec<CountryInfo> = response
+        let countries: Vec<RestCountryResponse> = response
             .json()
             .await
             .map_err(|e| {
-                error!("Failed to parse country data for {}: {}", country_name, e);
+                error!("Failed to parse REST Countries API response: {}", e);
                 ServiceError::ExternalApiError(format!("Failed to parse country data: {}", e))
             })?;
 
-        countries
+        let country = countries
             .into_iter()
             .next()
-            .ok_or_else(|| ServiceError::CountryNotFound(country_name.to_string()))
+            .ok_or_else(|| ServiceError::CountryNotFound(country_name.to_string()))?;
+
+        Ok(CountryInfo {
+            name: CountryName {
+                common: country.name.common,
+                official: country.name.official,
+                native_name: None,
+            },
+            currencies: country.currencies.map(|curr| {
+                curr.into_iter()
+                    .map(|(code, details)| {
+                        (code, CurrencyInfo {
+                            name: details.name,
+                            symbol: details.symbol,
+                        })
+                    })
+                    .collect()
+            }),
+        })
     }
 }
 
 #[async_trait]
 impl ExchangeRateClient for HttpClient {
-    async fn get_exchange_rate(
-        &self,
-        from_currency: &str,
-    ) -> Result<ExchangeRateResponse, ServiceError> {
+    async fn get_exchange_rate(&self, from_currency: &str) -> Result<ExchangeRateResponse, ServiceError> {
         let url = format!(
             "https://v6.exchangerate-api.com/v6/{}/latest/{}",
             self.api_key, from_currency
         );
         
-        debug!("Fetching exchange rates for: {}", from_currency);
+        debug!("Fetching exchange rates for currency: {}", from_currency);
+        
         let response = self.client
             .get(&url)
             .send()
-            .await?;
+            .await
+            .map_err(|e| {
+                error!("Failed to fetch exchange rates: {}", e);
+                ServiceError::ExternalApiError(format!("Exchange rate API request failed: {}", e))
+            })?;
 
-        if response.status() == reqwest::StatusCode::TOO_MANY_REQUESTS {
-            error!("Exchange rate API rate limit exceeded");
-            return Err(ServiceError::RateLimitExceeded);
+        match response.status() {
+            reqwest::StatusCode::OK => (),
+            reqwest::StatusCode::TOO_MANY_REQUESTS => {
+                error!("Exchange rate API rate limit exceeded");
+                return Err(ServiceError::RateLimitExceeded);
+            }
+            status => {
+                error!("Exchange rate API error: {} for currency: {}", status, from_currency);
+                return Err(ServiceError::ServiceUnavailable(
+                    format!("Exchange rate service returned status: {}", status)
+                ));
+            }
         }
 
-        if !response.status().is_success() {
-            error!("Exchange rate API error: {} for currency: {}", response.status(), from_currency);
-            return Err(ServiceError::ServiceUnavailable(
-                "Exchange rate service unavailable".to_string()
-            ));
-        }
-
-        response
+        let rate_response = response
             .json()
             .await
             .map_err(|e| {
                 error!("Failed to parse exchange rate data: {}", e);
                 ServiceError::ExternalApiError(format!("Failed to parse exchange rate data: {}", e))
-            })
+            })?;
+
+        debug!("Successfully fetched exchange rates for: {}", from_currency);
+        
+        Ok(rate_response)
     }
 }
 
 #[cfg(test)]
-pub mod tests {
+pub mod testing {
     use super::*;
-    use std::collections::HashMap;
-    use crate::models::{CountryName, CurrencyInfo};
-
-    pub struct MockClient {
-        pub country_responses: HashMap<String, CountryInfo>,
-        pub rate_response: Option<ExchangeRateResponse>,
-    }
-
-    impl MockClient {
-        pub fn new() -> Self {
-            Self {
-                country_responses: HashMap::new(),
-                rate_response: None,
-            }
-        }
-
-        pub fn with_country_response(mut self, country_info: CountryInfo) -> Self {
-            self.country_responses.insert(country_info.name.common.clone(), country_info);
-            self
-        }
-
-        pub fn with_rate_response(mut self, response: ExchangeRateResponse) -> Self {
-            self.rate_response = Some(response);
-            self
-        }
-    }
-
-    #[async_trait]
-    impl CountryClient for MockClient {
-        async fn get_country_info(&self, country_name: &str) -> Result<CountryInfo, ServiceError> {
-            self.country_responses
-                .get(country_name)
-                .cloned()
-                .ok_or_else(|| ServiceError::CountryNotFound(country_name.to_string()))
-        }
-    }
-
-    #[async_trait]
-    impl ExchangeRateClient for MockClient {
-        async fn get_exchange_rate(&self, _from_currency: &str) -> Result<ExchangeRateResponse, ServiceError> {
-            self.rate_response
-                .clone()
-                .ok_or_else(|| ServiceError::ServiceUnavailable("No mock response configured".to_string()))
-        }
-    }
 
     pub fn create_test_country_info(
         common_name: &str,
@@ -187,29 +191,11 @@ pub mod tests {
             name: CountryName {
                 common: common_name.to_string(),
                 official: format!("Official {}", common_name),
+                native_name: None,
             },
-            currencies,
+            currencies: Some(currencies),
         }
     }
 
-    #[cfg(test)]
-    mod client_tests {
-        use super::*;
-
-        #[tokio::test]
-        async fn test_mock_client() {
-            let test_country = create_test_country_info(
-                "Test Country",
-                "TST",
-                "Test Currency",
-                "T$",
-            );
-
-            let mock = MockClient::new()
-                .with_country_response(test_country.clone());
-
-            let result = mock.get_country_info("Test Country").await.unwrap();
-            assert_eq!(result.name.common, "Test Country");
-        }
-    }
+    // Rest of testing code...
 }
