@@ -1,0 +1,1400 @@
+   Compiling currency-converter v0.1.0 (/home/anubix/Documents/CODE/world-currency-converter)
+warning: unused variable: `api_key`
+  --> src/update_service.rs:59:13
+   |
+59 |         let api_key = self.api_key.clone();
+   |             ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_api_key`
+   |
+   = note: `#[warn(unused_variables)]` on by default
+
+warning: `currency-converter` (lib) generated 1 warning
+warning: `currency-converter` (lib test) generated 1 warning (1 duplicate)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.21s
+     Running unittests src/lib.rs (target/debug/deps/currency_converter-fcad5bbd86b46766)
+
+running 44 tests
+test config::tests::test_config_validation ... ok
+test config::tests::test_config_creation ... ok
+test config::tests::test_currency_settings ... ok
+test config::tests::test_test_settings ... ok
+test cache::tests::test_cache_basic_operations ... ok
+test cache::tests::test_cache_max_size ... ok
+test cache::tests::test_cache_stats ... ok
+test currency_manager::tests::test_update_check ... ok
+test currency_manager::tests::test_multi_currency_detection ... ok
+test currency_manager::tests::test_currency_priority ... ok
+test currency_manager::tests::test_config_loading ... ok
+test data::tests::test_multi_currency_detection ... ok
+test errors::tests::test_error_response_creation ... ok
+test errors::tests::test_reqwest_error_conversion ... ok
+test errors::tests::test_service_error_conversion ... ok
+test handlers::tests::test_format_country_name ... ok
+[2024-11-30T12:28:28Z DEBUG hyper_util::client::legacy::connect::http] connected to 146.190.198.121:443
+[2024-11-30T12:28:28Z DEBUG currency_converter::handlers] Processing simple conversion request: Json(ConversionRequest { from: "Narnia", to: "France", amount: 100.0, preferred_currency: None })
+[2024-11-30T12:28:28Z DEBUG currency_converter::clients] Fetching country info for: Narnia
+[2024-11-30T12:28:28Z DEBUG reqwest::connect] starting new connection: https://restcountries.com/
+[2024-11-30T12:28:28Z DEBUG hyper_util::client::legacy::connect::dns] resolve; host=restcountries.com
+[2024-11-30T12:28:28Z DEBUG hyper_util::client::legacy::connect::http] connecting to 146.190.198.121:443
+[2024-11-30T12:28:28Z DEBUG hyper_util::client::legacy::connect::http] connected to 146.190.198.121:443
+[2024-11-30T12:28:28Z DEBUG hyper_util::client::legacy::pool] pooling idle connection for ("https", restcountries.com)
+[2024-11-30T12:28:28Z DEBUG reqwest::connect] starting new connection: https://v6.exchangerate-api.com/
+[2024-11-30T12:28:28Z DEBUG hyper_util::client::legacy::connect::dns] resolve; host=v6.exchangerate-api.com
+[2024-11-30T12:28:28Z DEBUG hyper_util::client::legacy::connect::http] connecting to 172.66.43.49:443
+[2024-11-30T12:28:28Z DEBUG hyper_util::client::legacy::pool] pooling idle connection for ("https", restcountries.com)
+[2024-11-30T12:28:28Z DEBUG currency_converter::clients] Country not found: Narnia
+[2024-11-30T12:28:28Z DEBUG currency_converter::handlers] Country not found: Narnia - Country not found: Narnia
+test handlers::tests::test_invalid_country ... ok
+test handlers::tests::test_round_to_cents ... ok
+[2024-11-30T12:28:28Z DEBUG hyper_util::client::legacy::connect::http] connected to 172.66.43.49:443
+[2024-11-30T12:28:28Z DEBUG hyper_util::client::legacy::pool] pooling idle connection for ("https", v6.exchangerate-api.com)
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing South Georgia: 1 currencies, primary: SHP, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Grenada: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Switzerland: 1 currencies, primary: CHF, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Sierra Leone: 1 currencies, primary: SLL, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Hungary: 1 currencies, primary: HUF, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Taiwan: 1 currencies, primary: TWD, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Wallis and Futuna: 1 currencies, primary: XPF, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Barbados: 1 currencies, primary: BBD, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Pitcairn Islands: 1 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Ivory Coast: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Tunisia: 1 currencies, primary: TND, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Italy: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Benin: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Indonesia: 1 currencies, primary: IDR, multi: false
+[2024-11-30T12:28:28Z DEBUG hyper_util::client::legacy::pool] pooling idle connection for ("https", restcountries.com)
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Cape Verde: 1 currencies, primary: CVE, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Saint Kitts and Nevis: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Laos: 1 currencies, primary: LAK, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Caribbean Netherlands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Uganda: 1 currencies, primary: UGX, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Andorra: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Burundi: 1 currencies, primary: BIF, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing South Africa: 1 currencies, primary: ZAR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing France: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Libya: 1 currencies, primary: LYD, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Mexico: 1 currencies, primary: MXN, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Gabon: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Northern Mariana Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing North Macedonia: 1 currencies, primary: MKD, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing China: 1 currencies, primary: CNY, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Yemen: 1 currencies, primary: YER, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Saint Barthélemy: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Guernsey: 2 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Solomon Islands: 1 currencies, primary: SBD, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Svalbard and Jan Mayen: 1 currencies, primary: NOK, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Faroe Islands: 2 currencies, primary: DKK, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Uzbekistan: 1 currencies, primary: UZS, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Egypt: 1 currencies, primary: EGP, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Senegal: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Sri Lanka: 1 currencies, primary: LKR, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Palestine: 3 currencies, primary: JOD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Bangladesh: 1 currencies, primary: BDT, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Peru: 1 currencies, primary: PEN, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Singapore: 1 currencies, primary: SGD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Turkey: 1 currencies, primary: TRY, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Afghanistan: 1 currencies, primary: AFN, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Aruba: 1 currencies, primary: AWG, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Cook Islands: 2 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing United Kingdom: 1 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Zambia: 1 currencies, primary: ZMW, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Finland: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Niger: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Christmas Island: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Tokelau: 1 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Guinea-Bissau: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Azerbaijan: 1 currencies, primary: AZN, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Réunion: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Djibouti: 1 currencies, primary: DJF, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing North Korea: 1 currencies, primary: KPW, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Mauritius: 1 currencies, primary: MUR, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Montserrat: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing United States Virgin Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Colombia: 1 currencies, primary: COP, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Greece: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Croatia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Morocco: 1 currencies, primary: MAD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Algeria: 1 currencies, primary: DZD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Netherlands: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Sudan: 1 currencies, primary: SDG, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Fiji: 1 currencies, primary: FJD, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Liechtenstein: 1 currencies, primary: CHF, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Nepal: 1 currencies, primary: NPR, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Puerto Rico: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Georgia: 1 currencies, primary: GEL, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Pakistan: 1 currencies, primary: PKR, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Monaco: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Botswana: 1 currencies, primary: BWP, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Lebanon: 1 currencies, primary: LBP, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Papua New Guinea: 1 currencies, primary: PGK, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Mayotte: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Dominican Republic: 1 currencies, primary: DOP, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Norfolk Island: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Qatar: 1 currencies, primary: QAR, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Madagascar: 1 currencies, primary: MGA, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing India: 1 currencies, primary: INR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Syria: 1 currencies, primary: SYP, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Montenegro: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Eswatini: 2 currencies, primary: ZAR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Paraguay: 1 currencies, primary: PYG, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing El Salvador: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Ukraine: 1 currencies, primary: UAH, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Isle of Man: 2 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Namibia: 2 currencies, primary: ZAR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing United Arab Emirates: 1 currencies, primary: AED, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Bulgaria: 1 currencies, primary: BGN, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Greenland: 1 currencies, primary: DKK, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Germany: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG reqwest::connect] starting new connection: https://v6.exchangerate-api.com/
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Cambodia: 2 currencies, primary: USD, multi: true
+[2024-11-30T12:28:28Z DEBUG hyper_util::client::legacy::connect::dns] resolve; host=v6.exchangerate-api.com
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Iraq: 1 currencies, primary: IQD, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing French Southern and Antarctic Lands: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Sweden: 1 currencies, primary: SEK, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Cuba: 2 currencies, primary: CUC, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Kyrgyzstan: 1 currencies, primary: KGS, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Russia: 1 currencies, primary: RUB, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Malaysia: 1 currencies, primary: MYR, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing São Tomé and Príncipe: 1 currencies, primary: STN, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Cyprus: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Canada: 1 currencies, primary: CAD, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Malawi: 1 currencies, primary: MWK, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Saudi Arabia: 1 currencies, primary: SAR, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Bosnia and Herzegovina: 1 currencies, primary: BAM, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Ethiopia: 1 currencies, primary: ETB, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Spain: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Slovenia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG hyper_util::client::legacy::connect::http] connecting to 172.66.43.49:443
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Oman: 1 currencies, primary: OMR, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Saint Pierre and Miquelon: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Macau: 1 currencies, primary: MOP, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing San Marino: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Lesotho: 2 currencies, primary: ZAR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Marshall Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Sint Maarten: 1 currencies, primary: ANG, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Iceland: 1 currencies, primary: ISK, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Luxembourg: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Argentina: 1 currencies, primary: ARS, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Turks and Caicos Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Nauru: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Cocos (Keeling) Islands: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Western Sahara: 3 currencies, primary: DZD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Dominica: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Costa Rica: 1 currencies, primary: CRC, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Australia: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Thailand: 1 currencies, primary: THB, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Haiti: 1 currencies, primary: HTG, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Tuvalu: 2 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Honduras: 1 currencies, primary: HNL, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Equatorial Guinea: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Saint Lucia: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing French Polynesia: 1 currencies, primary: XPF, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Belarus: 1 currencies, primary: BYN, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Latvia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Palau: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Guadeloupe: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Philippines: 1 currencies, primary: PHP, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Gibraltar: 1 currencies, primary: GIP, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Denmark: 1 currencies, primary: DKK, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Cameroon: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Guinea: 1 currencies, primary: GNF, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Bahrain: 1 currencies, primary: BHD, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Suriname: 1 currencies, primary: SRD, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing DR Congo: 1 currencies, primary: CDF, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Somalia: 1 currencies, primary: SOS, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Czechia: 1 currencies, primary: CZK, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing New Caledonia: 1 currencies, primary: XPF, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Vanuatu: 1 currencies, primary: VUV, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Saint Helena, Ascension and Tristan da Cunha: 2 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Togo: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing British Virgin Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Kenya: 1 currencies, primary: KES, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Niue: 1 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Rwanda: 1 currencies, primary: RWF, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Estonia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Romania: 1 currencies, primary: RON, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Trinidad and Tobago: 1 currencies, primary: TTD, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Guyana: 1 currencies, primary: GYD, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Timor-Leste: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Vietnam: 1 currencies, primary: VND, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Uruguay: 1 currencies, primary: UYU, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Vatican City: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Hong Kong: 1 currencies, primary: HKD, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Austria: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Antigua and Barbuda: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Turkmenistan: 1 currencies, primary: TMT, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Mozambique: 1 currencies, primary: MZN, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Panama: 2 currencies, primary: USD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Micronesia: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Ireland: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Curaçao: 1 currencies, primary: ANG, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing French Guiana: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Norway: 1 currencies, primary: NOK, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Åland Islands: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Central African Republic: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Burkina Faso: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Eritrea: 1 currencies, primary: ERN, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Tanzania: 1 currencies, primary: TZS, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing South Korea: 1 currencies, primary: KRW, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Jordan: 1 currencies, primary: JOD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Mauritania: 1 currencies, primary: MRU, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Lithuania: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing United States Minor Outlying Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Slovakia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Angola: 1 currencies, primary: AOA, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Kazakhstan: 1 currencies, primary: KZT, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Moldova: 1 currencies, primary: MDL, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Mali: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Falkland Islands: 1 currencies, primary: FKP, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Armenia: 1 currencies, primary: AMD, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Samoa: 1 currencies, primary: WST, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Jersey: 2 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Japan: 1 currencies, primary: JPY, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Bolivia: 1 currencies, primary: BOB, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Chile: 1 currencies, primary: CLP, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing United States: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Saint Vincent and the Grenadines: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Bermuda: 1 currencies, primary: BMD, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Seychelles: 1 currencies, primary: SCR, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing British Indian Ocean Territory: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Guatemala: 1 currencies, primary: GTQ, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Ecuador: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Martinique: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Tajikistan: 1 currencies, primary: TJS, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Malta: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Gambia: 1 currencies, primary: GMD, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Nigeria: 1 currencies, primary: NGN, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Bahamas: 2 currencies, primary: USD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Kosovo: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Kuwait: 1 currencies, primary: KWD, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Maldives: 1 currencies, primary: MVR, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing South Sudan: 1 currencies, primary: SSP, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Iran: 1 currencies, primary: IRR, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Albania: 1 currencies, primary: ALL, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Brazil: 1 currencies, primary: BRL, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Serbia: 1 currencies, primary: RSD, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Belize: 1 currencies, primary: BZD, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Myanmar: 1 currencies, primary: MMK, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Bhutan: 2 currencies, primary: INR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Venezuela: 1 currencies, primary: VES, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Liberia: 1 currencies, primary: LRD, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Jamaica: 1 currencies, primary: JMD, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Poland: 1 currencies, primary: PLN, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Cayman Islands: 1 currencies, primary: KYD, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Brunei: 2 currencies, primary: SGD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Comoros: 1 currencies, primary: KMF, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Guam: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Tonga: 1 currencies, primary: TOP, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Kiribati: 2 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Ghana: 1 currencies, primary: GHS, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Chad: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Zimbabwe: 1 currencies, primary: ZWL, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Saint Martin: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Mongolia: 1 currencies, primary: MNT, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Portugal: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing American Samoa: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Republic of the Congo: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Belgium: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Israel: 1 currencies, primary: ILS, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing New Zealand: 1 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Nicaragua: 1 currencies, primary: NIO, multi: false
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Processing Anguilla: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:28Z DEBUG currency_converter::currency_manager] Successfully processed 247 countries
+test currency_manager::tests::test_currency_manager ... ok
+[2024-11-30T12:28:28Z DEBUG currency_converter::handlers] Selecting currency for Test - Preferred: Some("USD"), Primary: Some("EUR"), Available: ["EUR", "USD"]
+[2024-11-30T12:28:28Z DEBUG currency_converter::handlers] Using preferred currency USD for Test
+[2024-11-30T12:28:28Z DEBUG currency_converter::handlers] Selecting currency for Test - Preferred: Some("GBP"), Primary: Some("EUR"), Available: ["EUR", "USD"]
+[2024-11-30T12:28:28Z DEBUG currency_converter::handlers] Preferred currency GBP not available for Test
+[2024-11-30T12:28:28Z DEBUG currency_converter::handlers] Selecting currency for Test - Preferred: None, Primary: Some("EUR"), Available: ["EUR", "USD"]
+[2024-11-30T12:28:28Z DEBUG currency_converter::handlers] Using primary currency EUR for Test
+[2024-11-30T12:28:28Z DEBUG currency_converter::handlers] Selecting currency for Test - Preferred: None, Primary: None, Available: ["USD", "GBP"]
+[2024-11-30T12:28:28Z DEBUG currency_converter::handlers] Using standard currency USD for Test
+test handlers::tests::test_select_currency ... ok
+[2024-11-30T12:28:28Z DEBUG currency_converter::handlers] Processing simple conversion request: Json(ConversionRequest { from: "France", to: "France", amount: 100.0, preferred_currency: None })
+[2024-11-30T12:28:28Z DEBUG currency_converter::clients] Fetching country info for: France
+[2024-11-30T12:28:28Z DEBUG hyper_util::client::legacy::connect::http] connected to 172.66.43.49:443
+[2024-11-30T12:28:28Z DEBUG reqwest::connect] starting new connection: https://restcountries.com/
+[2024-11-30T12:28:28Z DEBUG hyper_util::client::legacy::connect::dns] resolve; host=restcountries.com
+[2024-11-30T12:28:29Z DEBUG currency_converter::handlers] Processing simple conversion request: Json(ConversionRequest { from: "United States", to: "France", amount: 100.0, preferred_currency: None })
+[2024-11-30T12:28:29Z DEBUG currency_converter::handlers] API key missing
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::connect::http] connecting to 146.190.198.121:443
+test handlers::tests::test_service_errors ... ok
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::pool] pooling idle connection for ("https", restcountries.com)
+[2024-11-30T12:28:29Z DEBUG reqwest::connect] starting new connection: https://v6.exchangerate-api.com/
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::connect::dns] resolve; host=v6.exchangerate-api.com
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::connect::http] connecting to 172.66.40.207:443
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::connect::http] connected to 146.190.198.121:443
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::connect::http] connected to 172.66.40.207:443
+[2024-11-30T12:28:29Z DEBUG currency_converter::handlers] Processing simple conversion request: Json(ConversionRequest { from: "United States", to: "France", amount: 100.0, preferred_currency: None })
+[2024-11-30T12:28:29Z DEBUG currency_converter::clients] Fetching country info for: United States
+[2024-11-30T12:28:29Z DEBUG reqwest::connect] starting new connection: https://restcountries.com/
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::connect::dns] resolve; host=restcountries.com
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::connect::http] connecting to 146.190.198.121:443
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::pool] pooling idle connection for ("https", restcountries.com)
+[2024-11-30T12:28:29Z DEBUG currency_converter::handlers] Got country info for France: CountryInfo { name: CountryName { common: "France", official: "French Republic", native_name: None }, currencies: Some({"EUR": CurrencyInfo { name: "Euro", symbol: "€" }}) }
+[2024-11-30T12:28:29Z DEBUG currency_converter::clients] Fetching country info for: France
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::pool] reuse idle connection for ("https", restcountries.com)
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::connect::http] connected to 146.190.198.121:443
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::pool] pooling idle connection for ("https", restcountries.com)
+[2024-11-30T12:28:29Z DEBUG currency_converter::handlers] Got country info for France: CountryInfo { name: CountryName { common: "France", official: "French Republic", native_name: None }, currencies: Some({"EUR": CurrencyInfo { name: "Euro", symbol: "€" }}) }
+test handlers::tests::test_same_currency_conversion ... FAILED
+[2024-11-30T12:28:29Z DEBUG currency_converter::handlers] Processing simple conversion request: Json(ConversionRequest { from: "", to: "France", amount: 100.0, preferred_currency: None })
+[2024-11-30T12:28:29Z DEBUG currency_converter::handlers] Validation error: Source country cannot be empty
+[2024-11-30T12:28:29Z DEBUG currency_converter::handlers] Processing simple conversion request: Json(ConversionRequest { from: "USA", to: "", amount: 100.0, preferred_currency: None })
+[2024-11-30T12:28:29Z DEBUG currency_converter::handlers] Validation error: Destination country cannot be empty
+[2024-11-30T12:28:29Z DEBUG currency_converter::handlers] Processing simple conversion request: Json(ConversionRequest { from: "USA", to: "France", amount: 0.0, preferred_currency: None })
+[2024-11-30T12:28:29Z DEBUG currency_converter::handlers] Validation error: Amount must be greater than 0
+test handlers::tests::test_validation_errors ... ok
+test handlers_v1::tests::test_invalid_preferred_currency ... FAILED
+test handlers_v1::tests::test_multi_currency_conversion ... FAILED
+test handlers_v1::tests::test_same_currency ... FAILED
+test handlers_v1::tests::test_select_currency ... FAILED
+test handlers_v1::tests::test_validation_errors ... FAILED
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::pool] pooling idle connection for ("https", restcountries.com)
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::pool] pooling idle connection for ("https", v6.exchangerate-api.com)
+[2024-11-30T12:28:29Z DEBUG currency_converter::handlers] Got country info for United States: CountryInfo { name: CountryName { common: "United States Minor Outlying Islands", official: "United States Minor Outlying Islands", native_name: None }, currencies: Some({"USD": CurrencyInfo { name: "United States dollar", symbol: "$" }}) }
+[2024-11-30T12:28:29Z DEBUG currency_converter::clients] Fetching country info for: France
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing South Georgia: 1 currencies, primary: SHP, multi: true
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::pool] reuse idle connection for ("https", restcountries.com)
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Grenada: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Switzerland: 1 currencies, primary: CHF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Sierra Leone: 1 currencies, primary: SLL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Hungary: 1 currencies, primary: HUF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Taiwan: 1 currencies, primary: TWD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Wallis and Futuna: 1 currencies, primary: XPF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Barbados: 1 currencies, primary: BBD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Pitcairn Islands: 1 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ivory Coast: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tunisia: 1 currencies, primary: TND, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Italy: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Benin: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Indonesia: 1 currencies, primary: IDR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cape Verde: 1 currencies, primary: CVE, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Kitts and Nevis: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Laos: 1 currencies, primary: LAK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Caribbean Netherlands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Uganda: 1 currencies, primary: UGX, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Andorra: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Burundi: 1 currencies, primary: BIF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing South Africa: 1 currencies, primary: ZAR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing France: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Libya: 1 currencies, primary: LYD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mexico: 1 currencies, primary: MXN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Gabon: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Northern Mariana Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing North Macedonia: 1 currencies, primary: MKD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing China: 1 currencies, primary: CNY, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Yemen: 1 currencies, primary: YER, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Barthélemy: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guernsey: 2 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Solomon Islands: 1 currencies, primary: SBD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Svalbard and Jan Mayen: 1 currencies, primary: NOK, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Faroe Islands: 2 currencies, primary: DKK, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Uzbekistan: 1 currencies, primary: UZS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Egypt: 1 currencies, primary: EGP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Senegal: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Sri Lanka: 1 currencies, primary: LKR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Palestine: 3 currencies, primary: JOD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bangladesh: 1 currencies, primary: BDT, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Peru: 1 currencies, primary: PEN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Singapore: 1 currencies, primary: SGD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Turkey: 1 currencies, primary: TRY, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Afghanistan: 1 currencies, primary: AFN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Aruba: 1 currencies, primary: AWG, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cook Islands: 2 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing United Kingdom: 1 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Zambia: 1 currencies, primary: ZMW, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Finland: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Niger: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Christmas Island: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tokelau: 1 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guinea-Bissau: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Azerbaijan: 1 currencies, primary: AZN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Réunion: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Djibouti: 1 currencies, primary: DJF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing North Korea: 1 currencies, primary: KPW, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mauritius: 1 currencies, primary: MUR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Montserrat: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing United States Virgin Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Colombia: 1 currencies, primary: COP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Greece: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Croatia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Morocco: 1 currencies, primary: MAD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Algeria: 1 currencies, primary: DZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Netherlands: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Sudan: 1 currencies, primary: SDG, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Fiji: 1 currencies, primary: FJD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Liechtenstein: 1 currencies, primary: CHF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Nepal: 1 currencies, primary: NPR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Puerto Rico: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Georgia: 1 currencies, primary: GEL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Pakistan: 1 currencies, primary: PKR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Monaco: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Botswana: 1 currencies, primary: BWP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Lebanon: 1 currencies, primary: LBP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Papua New Guinea: 1 currencies, primary: PGK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mayotte: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Dominican Republic: 1 currencies, primary: DOP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Norfolk Island: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Qatar: 1 currencies, primary: QAR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Madagascar: 1 currencies, primary: MGA, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing India: 1 currencies, primary: INR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Syria: 1 currencies, primary: SYP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Montenegro: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Eswatini: 2 currencies, primary: ZAR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Paraguay: 1 currencies, primary: PYG, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing El Salvador: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ukraine: 1 currencies, primary: UAH, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Isle of Man: 2 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Namibia: 2 currencies, primary: ZAR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing United Arab Emirates: 1 currencies, primary: AED, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bulgaria: 1 currencies, primary: BGN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Greenland: 1 currencies, primary: DKK, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Germany: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cambodia: 2 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Iraq: 1 currencies, primary: IQD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing French Southern and Antarctic Lands: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Sweden: 1 currencies, primary: SEK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cuba: 2 currencies, primary: CUC, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kyrgyzstan: 1 currencies, primary: KGS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Russia: 1 currencies, primary: RUB, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Malaysia: 1 currencies, primary: MYR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing São Tomé and Príncipe: 1 currencies, primary: STN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cyprus: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Canada: 1 currencies, primary: CAD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Malawi: 1 currencies, primary: MWK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saudi Arabia: 1 currencies, primary: SAR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bosnia and Herzegovina: 1 currencies, primary: BAM, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ethiopia: 1 currencies, primary: ETB, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Spain: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Slovenia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Oman: 1 currencies, primary: OMR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Pierre and Miquelon: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Macau: 1 currencies, primary: MOP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing San Marino: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Lesotho: 2 currencies, primary: ZAR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Marshall Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Sint Maarten: 1 currencies, primary: ANG, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Iceland: 1 currencies, primary: ISK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Luxembourg: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Argentina: 1 currencies, primary: ARS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Turks and Caicos Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Nauru: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cocos (Keeling) Islands: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Western Sahara: 3 currencies, primary: DZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Dominica: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Costa Rica: 1 currencies, primary: CRC, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Australia: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Thailand: 1 currencies, primary: THB, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Haiti: 1 currencies, primary: HTG, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tuvalu: 2 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Honduras: 1 currencies, primary: HNL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Equatorial Guinea: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Lucia: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing French Polynesia: 1 currencies, primary: XPF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Belarus: 1 currencies, primary: BYN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Latvia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Palau: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guadeloupe: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Philippines: 1 currencies, primary: PHP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Gibraltar: 1 currencies, primary: GIP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Denmark: 1 currencies, primary: DKK, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cameroon: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guinea: 1 currencies, primary: GNF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bahrain: 1 currencies, primary: BHD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Suriname: 1 currencies, primary: SRD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing DR Congo: 1 currencies, primary: CDF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Somalia: 1 currencies, primary: SOS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Czechia: 1 currencies, primary: CZK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing New Caledonia: 1 currencies, primary: XPF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Vanuatu: 1 currencies, primary: VUV, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Helena, Ascension and Tristan da Cunha: 2 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Togo: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing British Virgin Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kenya: 1 currencies, primary: KES, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Niue: 1 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Rwanda: 1 currencies, primary: RWF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Estonia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Romania: 1 currencies, primary: RON, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Trinidad and Tobago: 1 currencies, primary: TTD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guyana: 1 currencies, primary: GYD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Timor-Leste: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Vietnam: 1 currencies, primary: VND, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Uruguay: 1 currencies, primary: UYU, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Vatican City: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Hong Kong: 1 currencies, primary: HKD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Austria: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Antigua and Barbuda: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Turkmenistan: 1 currencies, primary: TMT, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mozambique: 1 currencies, primary: MZN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Panama: 2 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Micronesia: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ireland: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Curaçao: 1 currencies, primary: ANG, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing French Guiana: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Norway: 1 currencies, primary: NOK, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Åland Islands: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Central African Republic: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Burkina Faso: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Eritrea: 1 currencies, primary: ERN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tanzania: 1 currencies, primary: TZS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing South Korea: 1 currencies, primary: KRW, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Jordan: 1 currencies, primary: JOD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mauritania: 1 currencies, primary: MRU, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Lithuania: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing United States Minor Outlying Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Slovakia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Angola: 1 currencies, primary: AOA, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kazakhstan: 1 currencies, primary: KZT, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Moldova: 1 currencies, primary: MDL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mali: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Falkland Islands: 1 currencies, primary: FKP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Armenia: 1 currencies, primary: AMD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Samoa: 1 currencies, primary: WST, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Jersey: 2 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Japan: 1 currencies, primary: JPY, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bolivia: 1 currencies, primary: BOB, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Chile: 1 currencies, primary: CLP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing United States: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Vincent and the Grenadines: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bermuda: 1 currencies, primary: BMD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Seychelles: 1 currencies, primary: SCR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing British Indian Ocean Territory: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guatemala: 1 currencies, primary: GTQ, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ecuador: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Martinique: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tajikistan: 1 currencies, primary: TJS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Malta: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Gambia: 1 currencies, primary: GMD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Nigeria: 1 currencies, primary: NGN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bahamas: 2 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kosovo: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kuwait: 1 currencies, primary: KWD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Maldives: 1 currencies, primary: MVR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing South Sudan: 1 currencies, primary: SSP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Iran: 1 currencies, primary: IRR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Albania: 1 currencies, primary: ALL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Brazil: 1 currencies, primary: BRL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Serbia: 1 currencies, primary: RSD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Belize: 1 currencies, primary: BZD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Myanmar: 1 currencies, primary: MMK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bhutan: 2 currencies, primary: INR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Venezuela: 1 currencies, primary: VES, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Liberia: 1 currencies, primary: LRD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Jamaica: 1 currencies, primary: JMD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Poland: 1 currencies, primary: PLN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cayman Islands: 1 currencies, primary: KYD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Brunei: 2 currencies, primary: SGD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Comoros: 1 currencies, primary: KMF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guam: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tonga: 1 currencies, primary: TOP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kiribati: 2 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ghana: 1 currencies, primary: GHS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Chad: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Zimbabwe: 1 currencies, primary: ZWL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Martin: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mongolia: 1 currencies, primary: MNT, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Portugal: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing American Samoa: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Republic of the Congo: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Belgium: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Israel: 1 currencies, primary: ILS, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing New Zealand: 1 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Nicaragua: 1 currencies, primary: NIO, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Anguilla: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Successfully processed 247 countries
+[2024-11-30T12:28:29Z DEBUG currency_converter::data] Loaded 247 countries and 162 currencies
+test data::tests::test_currency_loading ... FAILED
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::pool] pooling idle connection for ("https", restcountries.com)
+[2024-11-30T12:28:29Z DEBUG currency_converter::handlers] Got country info for France: CountryInfo { name: CountryName { common: "France", official: "French Republic", native_name: None }, currencies: Some({"EUR": CurrencyInfo { name: "Euro", symbol: "€" }}) }
+test handlers::tests::test_simple_conversion ... FAILED
+[2024-11-30T12:28:29Z INFO  currency_converter::registry] Service registry initialized with caches: rate_cache=1000 entries, country_cache=500 entries
+[2024-11-30T12:28:29Z INFO  currency_converter::registry] Service registry initialized with caches: rate_cache=1000 entries, country_cache=500 entries
+[2024-11-30T12:28:29Z DEBUG currency_converter::cache] Cached data for key: test_rate
+[2024-11-30T12:28:29Z DEBUG currency_converter::cache] Cached data for key: test_country
+[2024-11-30T12:28:29Z INFO  currency_converter::registry] Cache stats - Rates: 1/1000 entries (hit rate: 0.00%), Countries: 1/500 entries (hit rate: 0.00%)
+[2024-11-30T12:28:29Z INFO  currency_converter::registry] Service registry initialized with caches: rate_cache=1000 entries, country_cache=500 entries
+test registry::tests::test_cache_cleanup ... ok
+test registry::tests::test_registry_creation ... ok
+test tests::test_country_info_creation ... ok
+test tests::test_currency_formatting ... ok
+test tests::test_currency_math ... ok
+test tests::test_format_country_name ... ok
+test tests::test_round_to_cents ... ok
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::pool] pooling idle connection for ("https", v6.exchangerate-api.com)
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing South Georgia: 1 currencies, primary: SHP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Grenada: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Switzerland: 1 currencies, primary: CHF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Sierra Leone: 1 currencies, primary: SLL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Hungary: 1 currencies, primary: HUF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Taiwan: 1 currencies, primary: TWD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Wallis and Futuna: 1 currencies, primary: XPF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Barbados: 1 currencies, primary: BBD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Pitcairn Islands: 1 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ivory Coast: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tunisia: 1 currencies, primary: TND, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Italy: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Benin: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Indonesia: 1 currencies, primary: IDR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cape Verde: 1 currencies, primary: CVE, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Kitts and Nevis: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Laos: 1 currencies, primary: LAK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Caribbean Netherlands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Uganda: 1 currencies, primary: UGX, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Andorra: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Burundi: 1 currencies, primary: BIF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing South Africa: 1 currencies, primary: ZAR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing France: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Libya: 1 currencies, primary: LYD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mexico: 1 currencies, primary: MXN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Gabon: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Northern Mariana Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing North Macedonia: 1 currencies, primary: MKD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing China: 1 currencies, primary: CNY, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Yemen: 1 currencies, primary: YER, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Barthélemy: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guernsey: 2 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Solomon Islands: 1 currencies, primary: SBD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Svalbard and Jan Mayen: 1 currencies, primary: NOK, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Faroe Islands: 2 currencies, primary: DKK, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Uzbekistan: 1 currencies, primary: UZS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Egypt: 1 currencies, primary: EGP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Senegal: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Sri Lanka: 1 currencies, primary: LKR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Palestine: 3 currencies, primary: EGP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bangladesh: 1 currencies, primary: BDT, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Peru: 1 currencies, primary: PEN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Singapore: 1 currencies, primary: SGD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Turkey: 1 currencies, primary: TRY, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Afghanistan: 1 currencies, primary: AFN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Aruba: 1 currencies, primary: AWG, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cook Islands: 2 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing United Kingdom: 1 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Zambia: 1 currencies, primary: ZMW, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Finland: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Niger: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Christmas Island: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tokelau: 1 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guinea-Bissau: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Azerbaijan: 1 currencies, primary: AZN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Réunion: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Djibouti: 1 currencies, primary: DJF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing North Korea: 1 currencies, primary: KPW, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mauritius: 1 currencies, primary: MUR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Montserrat: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing United States Virgin Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Colombia: 1 currencies, primary: COP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Greece: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Croatia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Morocco: 1 currencies, primary: MAD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Algeria: 1 currencies, primary: DZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Netherlands: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Sudan: 1 currencies, primary: SDG, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Fiji: 1 currencies, primary: FJD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Liechtenstein: 1 currencies, primary: CHF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Nepal: 1 currencies, primary: NPR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Puerto Rico: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Georgia: 1 currencies, primary: GEL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Pakistan: 1 currencies, primary: PKR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Monaco: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Botswana: 1 currencies, primary: BWP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Lebanon: 1 currencies, primary: LBP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Papua New Guinea: 1 currencies, primary: PGK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mayotte: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Dominican Republic: 1 currencies, primary: DOP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Norfolk Island: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Qatar: 1 currencies, primary: QAR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Madagascar: 1 currencies, primary: MGA, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing India: 1 currencies, primary: INR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Syria: 1 currencies, primary: SYP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Montenegro: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Eswatini: 2 currencies, primary: ZAR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Paraguay: 1 currencies, primary: PYG, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing El Salvador: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ukraine: 1 currencies, primary: UAH, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Isle of Man: 2 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Namibia: 2 currencies, primary: ZAR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing United Arab Emirates: 1 currencies, primary: AED, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bulgaria: 1 currencies, primary: BGN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Greenland: 1 currencies, primary: DKK, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Germany: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cambodia: 2 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Iraq: 1 currencies, primary: IQD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing French Southern and Antarctic Lands: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Sweden: 1 currencies, primary: SEK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cuba: 2 currencies, primary: CUP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kyrgyzstan: 1 currencies, primary: KGS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Russia: 1 currencies, primary: RUB, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Malaysia: 1 currencies, primary: MYR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing São Tomé and Príncipe: 1 currencies, primary: STN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cyprus: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Canada: 1 currencies, primary: CAD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Malawi: 1 currencies, primary: MWK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saudi Arabia: 1 currencies, primary: SAR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bosnia and Herzegovina: 1 currencies, primary: BAM, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ethiopia: 1 currencies, primary: ETB, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Spain: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Slovenia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Oman: 1 currencies, primary: OMR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Pierre and Miquelon: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Macau: 1 currencies, primary: MOP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing San Marino: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Lesotho: 2 currencies, primary: ZAR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Marshall Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Sint Maarten: 1 currencies, primary: ANG, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Iceland: 1 currencies, primary: ISK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Luxembourg: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Argentina: 1 currencies, primary: ARS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Turks and Caicos Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Nauru: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cocos (Keeling) Islands: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Western Sahara: 3 currencies, primary: MRU, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Dominica: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Costa Rica: 1 currencies, primary: CRC, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Australia: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Thailand: 1 currencies, primary: THB, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Haiti: 1 currencies, primary: HTG, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tuvalu: 2 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Honduras: 1 currencies, primary: HNL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Equatorial Guinea: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Lucia: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing French Polynesia: 1 currencies, primary: XPF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Belarus: 1 currencies, primary: BYN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Latvia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Palau: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guadeloupe: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Philippines: 1 currencies, primary: PHP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Gibraltar: 1 currencies, primary: GIP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Denmark: 1 currencies, primary: DKK, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cameroon: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guinea: 1 currencies, primary: GNF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bahrain: 1 currencies, primary: BHD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Suriname: 1 currencies, primary: SRD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing DR Congo: 1 currencies, primary: CDF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Somalia: 1 currencies, primary: SOS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Czechia: 1 currencies, primary: CZK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing New Caledonia: 1 currencies, primary: XPF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Vanuatu: 1 currencies, primary: VUV, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Helena, Ascension and Tristan da Cunha: 2 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Togo: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing British Virgin Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kenya: 1 currencies, primary: KES, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Niue: 1 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Rwanda: 1 currencies, primary: RWF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Estonia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Romania: 1 currencies, primary: RON, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Trinidad and Tobago: 1 currencies, primary: TTD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guyana: 1 currencies, primary: GYD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Timor-Leste: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Vietnam: 1 currencies, primary: VND, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Uruguay: 1 currencies, primary: UYU, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Vatican City: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Hong Kong: 1 currencies, primary: HKD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Austria: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Antigua and Barbuda: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Turkmenistan: 1 currencies, primary: TMT, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mozambique: 1 currencies, primary: MZN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Panama: 2 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Micronesia: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ireland: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Curaçao: 1 currencies, primary: ANG, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing French Guiana: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Norway: 1 currencies, primary: NOK, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Åland Islands: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Central African Republic: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Burkina Faso: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Eritrea: 1 currencies, primary: ERN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tanzania: 1 currencies, primary: TZS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing South Korea: 1 currencies, primary: KRW, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Jordan: 1 currencies, primary: JOD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mauritania: 1 currencies, primary: MRU, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Lithuania: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing United States Minor Outlying Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Slovakia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Angola: 1 currencies, primary: AOA, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kazakhstan: 1 currencies, primary: KZT, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Moldova: 1 currencies, primary: MDL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mali: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Falkland Islands: 1 currencies, primary: FKP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Armenia: 1 currencies, primary: AMD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Samoa: 1 currencies, primary: WST, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Jersey: 2 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Japan: 1 currencies, primary: JPY, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bolivia: 1 currencies, primary: BOB, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Chile: 1 currencies, primary: CLP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing United States: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Vincent and the Grenadines: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bermuda: 1 currencies, primary: BMD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Seychelles: 1 currencies, primary: SCR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing British Indian Ocean Territory: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guatemala: 1 currencies, primary: GTQ, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ecuador: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Martinique: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tajikistan: 1 currencies, primary: TJS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Malta: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Gambia: 1 currencies, primary: GMD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Nigeria: 1 currencies, primary: NGN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bahamas: 2 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kosovo: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kuwait: 1 currencies, primary: KWD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Maldives: 1 currencies, primary: MVR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing South Sudan: 1 currencies, primary: SSP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Iran: 1 currencies, primary: IRR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Albania: 1 currencies, primary: ALL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Brazil: 1 currencies, primary: BRL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Serbia: 1 currencies, primary: RSD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Belize: 1 currencies, primary: BZD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Myanmar: 1 currencies, primary: MMK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bhutan: 2 currencies, primary: INR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Venezuela: 1 currencies, primary: VES, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Liberia: 1 currencies, primary: LRD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Jamaica: 1 currencies, primary: JMD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Poland: 1 currencies, primary: PLN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cayman Islands: 1 currencies, primary: KYD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Brunei: 2 currencies, primary: SGD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Comoros: 1 currencies, primary: KMF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guam: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tonga: 1 currencies, primary: TOP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kiribati: 2 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ghana: 1 currencies, primary: GHS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Chad: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Zimbabwe: 1 currencies, primary: ZWL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Martin: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mongolia: 1 currencies, primary: MNT, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Portugal: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing American Samoa: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Republic of the Congo: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Belgium: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Israel: 1 currencies, primary: ILS, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing New Zealand: 1 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Nicaragua: 1 currencies, primary: NIO, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Anguilla: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Successfully processed 247 countries
+[2024-11-30T12:28:29Z DEBUG currency_converter::data] Loaded 247 countries and 162 currencies
+test data::tests::test_initialization ... ok
+[2024-11-30T12:28:29Z INFO  currency_converter::registry] Service registry initialized with caches: rate_cache=1000 entries, country_cache=500 entries
+[2024-11-30T12:28:29Z DEBUG currency_converter::cache] Cached data for key: test_rate
+[2024-11-30T12:28:29Z INFO  currency_converter::registry] Initiating service registry shutdown
+[2024-11-30T12:28:29Z INFO  currency_converter::registry] Final cache statistics:
+[2024-11-30T12:28:29Z INFO  currency_converter::registry] Rate cache: 0 hits, 0 misses, 0.00% hit rate
+[2024-11-30T12:28:29Z INFO  currency_converter::registry] Country cache: 0 hits, 0 misses, 0.00% hit rate
+test registry::tests::test_shutdown ... ok
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::pool] pooling idle connection for ("https", v6.exchangerate-api.com)
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing South Georgia: 1 currencies, primary: SHP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Grenada: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Switzerland: 1 currencies, primary: CHF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Sierra Leone: 1 currencies, primary: SLL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Hungary: 1 currencies, primary: HUF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Taiwan: 1 currencies, primary: TWD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Wallis and Futuna: 1 currencies, primary: XPF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Barbados: 1 currencies, primary: BBD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Pitcairn Islands: 1 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ivory Coast: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tunisia: 1 currencies, primary: TND, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Italy: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Benin: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Indonesia: 1 currencies, primary: IDR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cape Verde: 1 currencies, primary: CVE, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Kitts and Nevis: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Laos: 1 currencies, primary: LAK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Caribbean Netherlands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Uganda: 1 currencies, primary: UGX, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Andorra: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Burundi: 1 currencies, primary: BIF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing South Africa: 1 currencies, primary: ZAR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing France: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Libya: 1 currencies, primary: LYD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mexico: 1 currencies, primary: MXN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Gabon: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Northern Mariana Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing North Macedonia: 1 currencies, primary: MKD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing China: 1 currencies, primary: CNY, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Yemen: 1 currencies, primary: YER, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Barthélemy: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guernsey: 2 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Solomon Islands: 1 currencies, primary: SBD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Svalbard and Jan Mayen: 1 currencies, primary: NOK, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Faroe Islands: 2 currencies, primary: DKK, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Uzbekistan: 1 currencies, primary: UZS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Egypt: 1 currencies, primary: EGP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Senegal: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Sri Lanka: 1 currencies, primary: LKR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Palestine: 3 currencies, primary: JOD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bangladesh: 1 currencies, primary: BDT, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Peru: 1 currencies, primary: PEN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Singapore: 1 currencies, primary: SGD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Turkey: 1 currencies, primary: TRY, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Afghanistan: 1 currencies, primary: AFN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Aruba: 1 currencies, primary: AWG, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cook Islands: 2 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing United Kingdom: 1 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Zambia: 1 currencies, primary: ZMW, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Finland: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Niger: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Christmas Island: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tokelau: 1 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guinea-Bissau: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Azerbaijan: 1 currencies, primary: AZN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Réunion: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Djibouti: 1 currencies, primary: DJF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing North Korea: 1 currencies, primary: KPW, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mauritius: 1 currencies, primary: MUR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Montserrat: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing United States Virgin Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Colombia: 1 currencies, primary: COP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Greece: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Croatia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Morocco: 1 currencies, primary: MAD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Algeria: 1 currencies, primary: DZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Netherlands: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Sudan: 1 currencies, primary: SDG, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Fiji: 1 currencies, primary: FJD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Liechtenstein: 1 currencies, primary: CHF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Nepal: 1 currencies, primary: NPR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Puerto Rico: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Georgia: 1 currencies, primary: GEL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Pakistan: 1 currencies, primary: PKR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Monaco: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Botswana: 1 currencies, primary: BWP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Lebanon: 1 currencies, primary: LBP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Papua New Guinea: 1 currencies, primary: PGK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mayotte: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Dominican Republic: 1 currencies, primary: DOP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Norfolk Island: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Qatar: 1 currencies, primary: QAR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Madagascar: 1 currencies, primary: MGA, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing India: 1 currencies, primary: INR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Syria: 1 currencies, primary: SYP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Montenegro: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Eswatini: 2 currencies, primary: ZAR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Paraguay: 1 currencies, primary: PYG, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing El Salvador: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ukraine: 1 currencies, primary: UAH, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Isle of Man: 2 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Namibia: 2 currencies, primary: ZAR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing United Arab Emirates: 1 currencies, primary: AED, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bulgaria: 1 currencies, primary: BGN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Greenland: 1 currencies, primary: DKK, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Germany: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cambodia: 2 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Iraq: 1 currencies, primary: IQD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing French Southern and Antarctic Lands: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Sweden: 1 currencies, primary: SEK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cuba: 2 currencies, primary: CUP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kyrgyzstan: 1 currencies, primary: KGS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Russia: 1 currencies, primary: RUB, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Malaysia: 1 currencies, primary: MYR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing São Tomé and Príncipe: 1 currencies, primary: STN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cyprus: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Canada: 1 currencies, primary: CAD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Malawi: 1 currencies, primary: MWK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saudi Arabia: 1 currencies, primary: SAR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bosnia and Herzegovina: 1 currencies, primary: BAM, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ethiopia: 1 currencies, primary: ETB, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Spain: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Slovenia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Oman: 1 currencies, primary: OMR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Pierre and Miquelon: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Macau: 1 currencies, primary: MOP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing San Marino: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Lesotho: 2 currencies, primary: ZAR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Marshall Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Sint Maarten: 1 currencies, primary: ANG, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Iceland: 1 currencies, primary: ISK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Luxembourg: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Argentina: 1 currencies, primary: ARS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Turks and Caicos Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Nauru: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cocos (Keeling) Islands: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Western Sahara: 3 currencies, primary: DZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Dominica: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Costa Rica: 1 currencies, primary: CRC, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Australia: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Thailand: 1 currencies, primary: THB, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Haiti: 1 currencies, primary: HTG, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tuvalu: 2 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Honduras: 1 currencies, primary: HNL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Equatorial Guinea: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Lucia: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing French Polynesia: 1 currencies, primary: XPF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Belarus: 1 currencies, primary: BYN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Latvia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Palau: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guadeloupe: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Philippines: 1 currencies, primary: PHP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Gibraltar: 1 currencies, primary: GIP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Denmark: 1 currencies, primary: DKK, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cameroon: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guinea: 1 currencies, primary: GNF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bahrain: 1 currencies, primary: BHD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Suriname: 1 currencies, primary: SRD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing DR Congo: 1 currencies, primary: CDF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Somalia: 1 currencies, primary: SOS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Czechia: 1 currencies, primary: CZK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing New Caledonia: 1 currencies, primary: XPF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Vanuatu: 1 currencies, primary: VUV, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Helena, Ascension and Tristan da Cunha: 2 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Togo: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing British Virgin Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kenya: 1 currencies, primary: KES, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Niue: 1 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Rwanda: 1 currencies, primary: RWF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Estonia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Romania: 1 currencies, primary: RON, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Trinidad and Tobago: 1 currencies, primary: TTD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guyana: 1 currencies, primary: GYD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Timor-Leste: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Vietnam: 1 currencies, primary: VND, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Uruguay: 1 currencies, primary: UYU, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Vatican City: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Hong Kong: 1 currencies, primary: HKD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Austria: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Antigua and Barbuda: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Turkmenistan: 1 currencies, primary: TMT, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mozambique: 1 currencies, primary: MZN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Panama: 2 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Micronesia: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ireland: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Curaçao: 1 currencies, primary: ANG, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing French Guiana: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Norway: 1 currencies, primary: NOK, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Åland Islands: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Central African Republic: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Burkina Faso: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Eritrea: 1 currencies, primary: ERN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tanzania: 1 currencies, primary: TZS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing South Korea: 1 currencies, primary: KRW, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Jordan: 1 currencies, primary: JOD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mauritania: 1 currencies, primary: MRU, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Lithuania: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing United States Minor Outlying Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Slovakia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Angola: 1 currencies, primary: AOA, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kazakhstan: 1 currencies, primary: KZT, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Moldova: 1 currencies, primary: MDL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mali: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Falkland Islands: 1 currencies, primary: FKP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Armenia: 1 currencies, primary: AMD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Samoa: 1 currencies, primary: WST, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Jersey: 2 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Japan: 1 currencies, primary: JPY, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bolivia: 1 currencies, primary: BOB, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Chile: 1 currencies, primary: CLP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing United States: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Vincent and the Grenadines: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bermuda: 1 currencies, primary: BMD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Seychelles: 1 currencies, primary: SCR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing British Indian Ocean Territory: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guatemala: 1 currencies, primary: GTQ, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ecuador: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Martinique: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tajikistan: 1 currencies, primary: TJS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Malta: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Gambia: 1 currencies, primary: GMD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Nigeria: 1 currencies, primary: NGN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bahamas: 2 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kosovo: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kuwait: 1 currencies, primary: KWD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Maldives: 1 currencies, primary: MVR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing South Sudan: 1 currencies, primary: SSP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Iran: 1 currencies, primary: IRR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Albania: 1 currencies, primary: ALL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Brazil: 1 currencies, primary: BRL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Serbia: 1 currencies, primary: RSD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Belize: 1 currencies, primary: BZD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Myanmar: 1 currencies, primary: MMK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bhutan: 2 currencies, primary: INR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Venezuela: 1 currencies, primary: VES, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Liberia: 1 currencies, primary: LRD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Jamaica: 1 currencies, primary: JMD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Poland: 1 currencies, primary: PLN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cayman Islands: 1 currencies, primary: KYD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Brunei: 2 currencies, primary: SGD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Comoros: 1 currencies, primary: KMF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guam: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tonga: 1 currencies, primary: TOP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kiribati: 2 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ghana: 1 currencies, primary: GHS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Chad: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Zimbabwe: 1 currencies, primary: ZWL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Martin: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mongolia: 1 currencies, primary: MNT, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Portugal: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing American Samoa: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Republic of the Congo: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Belgium: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Israel: 1 currencies, primary: ILS, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing New Zealand: 1 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Nicaragua: 1 currencies, primary: NIO, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Anguilla: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Successfully processed 247 countries
+[2024-11-30T12:28:29Z DEBUG currency_converter::data] Loaded 247 countries and 162 currencies
+[2024-11-30T12:28:29Z INFO  currency_converter::data] Starting to load country and currency data...
+[2024-11-30T12:28:29Z INFO  currency_converter::currency_manager] Test mode: Fetching fresh currency data
+[2024-11-30T12:28:29Z INFO  currency_converter::currency_manager] Fetching country data from REST Countries API
+[2024-11-30T12:28:29Z DEBUG reqwest::connect] starting new connection: https://restcountries.com/
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::connect::dns] resolve; host=restcountries.com
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::connect::http] connecting to 146.190.198.121:443
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::connect::http] connected to 146.190.198.121:443
+[2024-11-30T12:28:29Z DEBUG currency_converter::cache] Cleared 1 expired cache entries
+test cache::tests::test_clear_expired ... ok
+[2024-11-30T12:28:29Z DEBUG currency_converter::cache] Cache miss for key: test
+test cache::tests::test_cache_expiration ... ok
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::pool] pooling idle connection for ("https", restcountries.com)
+[2024-11-30T12:28:29Z DEBUG reqwest::connect] starting new connection: https://v6.exchangerate-api.com/
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::connect::dns] resolve; host=v6.exchangerate-api.com
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::connect::http] connecting to 172.66.40.207:443
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::connect::http] connected to 172.66.40.207:443
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Created backup: country_currencies_20241130_122829.json
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Saved currency data to config/country_currencies.json
+test currency_manager::tests::test_backup_creation ... ok
+[2024-11-30T12:28:29Z DEBUG hyper_util::client::legacy::pool] pooling idle connection for ("https", v6.exchangerate-api.com)
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing South Georgia: 1 currencies, primary: SHP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Grenada: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Switzerland: 1 currencies, primary: CHF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Sierra Leone: 1 currencies, primary: SLL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Hungary: 1 currencies, primary: HUF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Taiwan: 1 currencies, primary: TWD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Wallis and Futuna: 1 currencies, primary: XPF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Barbados: 1 currencies, primary: BBD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Pitcairn Islands: 1 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ivory Coast: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tunisia: 1 currencies, primary: TND, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Italy: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Benin: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Indonesia: 1 currencies, primary: IDR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cape Verde: 1 currencies, primary: CVE, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Kitts and Nevis: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Laos: 1 currencies, primary: LAK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Caribbean Netherlands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Uganda: 1 currencies, primary: UGX, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Andorra: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Burundi: 1 currencies, primary: BIF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing South Africa: 1 currencies, primary: ZAR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing France: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Libya: 1 currencies, primary: LYD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mexico: 1 currencies, primary: MXN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Gabon: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Northern Mariana Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing North Macedonia: 1 currencies, primary: MKD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing China: 1 currencies, primary: CNY, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Yemen: 1 currencies, primary: YER, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Barthélemy: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guernsey: 2 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Solomon Islands: 1 currencies, primary: SBD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Svalbard and Jan Mayen: 1 currencies, primary: NOK, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Faroe Islands: 2 currencies, primary: DKK, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Uzbekistan: 1 currencies, primary: UZS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Egypt: 1 currencies, primary: EGP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Senegal: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Sri Lanka: 1 currencies, primary: LKR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Palestine: 3 currencies, primary: JOD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bangladesh: 1 currencies, primary: BDT, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Peru: 1 currencies, primary: PEN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Singapore: 1 currencies, primary: SGD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Turkey: 1 currencies, primary: TRY, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Afghanistan: 1 currencies, primary: AFN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Aruba: 1 currencies, primary: AWG, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cook Islands: 2 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing United Kingdom: 1 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Zambia: 1 currencies, primary: ZMW, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Finland: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Niger: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Christmas Island: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tokelau: 1 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guinea-Bissau: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Azerbaijan: 1 currencies, primary: AZN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Réunion: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Djibouti: 1 currencies, primary: DJF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing North Korea: 1 currencies, primary: KPW, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mauritius: 1 currencies, primary: MUR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Montserrat: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing United States Virgin Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Colombia: 1 currencies, primary: COP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Greece: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Croatia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Morocco: 1 currencies, primary: MAD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Algeria: 1 currencies, primary: DZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Netherlands: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Sudan: 1 currencies, primary: SDG, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Fiji: 1 currencies, primary: FJD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Liechtenstein: 1 currencies, primary: CHF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Nepal: 1 currencies, primary: NPR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Puerto Rico: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Georgia: 1 currencies, primary: GEL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Pakistan: 1 currencies, primary: PKR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Monaco: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Botswana: 1 currencies, primary: BWP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Lebanon: 1 currencies, primary: LBP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Papua New Guinea: 1 currencies, primary: PGK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mayotte: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Dominican Republic: 1 currencies, primary: DOP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Norfolk Island: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Qatar: 1 currencies, primary: QAR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Madagascar: 1 currencies, primary: MGA, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing India: 1 currencies, primary: INR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Syria: 1 currencies, primary: SYP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Montenegro: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Eswatini: 2 currencies, primary: ZAR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Paraguay: 1 currencies, primary: PYG, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing El Salvador: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ukraine: 1 currencies, primary: UAH, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Isle of Man: 2 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Namibia: 2 currencies, primary: ZAR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing United Arab Emirates: 1 currencies, primary: AED, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bulgaria: 1 currencies, primary: BGN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Greenland: 1 currencies, primary: DKK, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Germany: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cambodia: 2 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Iraq: 1 currencies, primary: IQD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing French Southern and Antarctic Lands: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Sweden: 1 currencies, primary: SEK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cuba: 2 currencies, primary: CUC, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kyrgyzstan: 1 currencies, primary: KGS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Russia: 1 currencies, primary: RUB, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Malaysia: 1 currencies, primary: MYR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing São Tomé and Príncipe: 1 currencies, primary: STN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cyprus: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Canada: 1 currencies, primary: CAD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Malawi: 1 currencies, primary: MWK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saudi Arabia: 1 currencies, primary: SAR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bosnia and Herzegovina: 1 currencies, primary: BAM, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ethiopia: 1 currencies, primary: ETB, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Spain: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Slovenia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Oman: 1 currencies, primary: OMR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Pierre and Miquelon: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Macau: 1 currencies, primary: MOP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing San Marino: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Lesotho: 2 currencies, primary: ZAR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Marshall Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Sint Maarten: 1 currencies, primary: ANG, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Iceland: 1 currencies, primary: ISK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Luxembourg: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Argentina: 1 currencies, primary: ARS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Turks and Caicos Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Nauru: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cocos (Keeling) Islands: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Western Sahara: 3 currencies, primary: MRU, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Dominica: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Costa Rica: 1 currencies, primary: CRC, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Australia: 1 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Thailand: 1 currencies, primary: THB, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Haiti: 1 currencies, primary: HTG, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tuvalu: 2 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Honduras: 1 currencies, primary: HNL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Equatorial Guinea: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Lucia: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing French Polynesia: 1 currencies, primary: XPF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Belarus: 1 currencies, primary: BYN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Latvia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Palau: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guadeloupe: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Philippines: 1 currencies, primary: PHP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Gibraltar: 1 currencies, primary: GIP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Denmark: 1 currencies, primary: DKK, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cameroon: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guinea: 1 currencies, primary: GNF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bahrain: 1 currencies, primary: BHD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Suriname: 1 currencies, primary: SRD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing DR Congo: 1 currencies, primary: CDF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Somalia: 1 currencies, primary: SOS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Czechia: 1 currencies, primary: CZK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing New Caledonia: 1 currencies, primary: XPF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Vanuatu: 1 currencies, primary: VUV, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Helena, Ascension and Tristan da Cunha: 2 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Togo: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing British Virgin Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kenya: 1 currencies, primary: KES, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Niue: 1 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Rwanda: 1 currencies, primary: RWF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Estonia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Romania: 1 currencies, primary: RON, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Trinidad and Tobago: 1 currencies, primary: TTD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guyana: 1 currencies, primary: GYD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Timor-Leste: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Vietnam: 1 currencies, primary: VND, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Uruguay: 1 currencies, primary: UYU, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Vatican City: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Hong Kong: 1 currencies, primary: HKD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Austria: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Antigua and Barbuda: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Turkmenistan: 1 currencies, primary: TMT, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mozambique: 1 currencies, primary: MZN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Panama: 2 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Micronesia: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ireland: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Curaçao: 1 currencies, primary: ANG, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing French Guiana: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Norway: 1 currencies, primary: NOK, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Åland Islands: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Central African Republic: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Burkina Faso: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Eritrea: 1 currencies, primary: ERN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tanzania: 1 currencies, primary: TZS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing South Korea: 1 currencies, primary: KRW, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Jordan: 1 currencies, primary: JOD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mauritania: 1 currencies, primary: MRU, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Lithuania: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing United States Minor Outlying Islands: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Slovakia: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Angola: 1 currencies, primary: AOA, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kazakhstan: 1 currencies, primary: KZT, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Moldova: 1 currencies, primary: MDL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mali: 1 currencies, primary: XOF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Falkland Islands: 1 currencies, primary: FKP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Armenia: 1 currencies, primary: AMD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Samoa: 1 currencies, primary: WST, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Jersey: 2 currencies, primary: GBP, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Japan: 1 currencies, primary: JPY, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bolivia: 1 currencies, primary: BOB, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Chile: 1 currencies, primary: CLP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing United States: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Vincent and the Grenadines: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bermuda: 1 currencies, primary: BMD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Seychelles: 1 currencies, primary: SCR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing British Indian Ocean Territory: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guatemala: 1 currencies, primary: GTQ, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ecuador: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Martinique: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tajikistan: 1 currencies, primary: TJS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Malta: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Gambia: 1 currencies, primary: GMD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Nigeria: 1 currencies, primary: NGN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bahamas: 2 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kosovo: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kuwait: 1 currencies, primary: KWD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Maldives: 1 currencies, primary: MVR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing South Sudan: 1 currencies, primary: SSP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Iran: 1 currencies, primary: IRR, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Albania: 1 currencies, primary: ALL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Brazil: 1 currencies, primary: BRL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Serbia: 1 currencies, primary: RSD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Belize: 1 currencies, primary: BZD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Myanmar: 1 currencies, primary: MMK, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Bhutan: 2 currencies, primary: INR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Venezuela: 1 currencies, primary: VES, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Liberia: 1 currencies, primary: LRD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Jamaica: 1 currencies, primary: JMD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Poland: 1 currencies, primary: PLN, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Cayman Islands: 1 currencies, primary: KYD, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Brunei: 2 currencies, primary: SGD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Comoros: 1 currencies, primary: KMF, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Guam: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Tonga: 1 currencies, primary: TOP, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Kiribati: 2 currencies, primary: AUD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Ghana: 1 currencies, primary: GHS, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Chad: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Zimbabwe: 1 currencies, primary: ZWL, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Saint Martin: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Mongolia: 1 currencies, primary: MNT, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Portugal: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing American Samoa: 1 currencies, primary: USD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Republic of the Congo: 1 currencies, primary: XAF, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Belgium: 1 currencies, primary: EUR, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Israel: 1 currencies, primary: ILS, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing New Zealand: 1 currencies, primary: NZD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Nicaragua: 1 currencies, primary: NIO, multi: false
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Processing Anguilla: 1 currencies, primary: XCD, multi: true
+[2024-11-30T12:28:29Z DEBUG currency_converter::currency_manager] Successfully processed 247 countries
+[2024-11-30T12:28:29Z DEBUG currency_converter::data] Loaded 247 countries and 162 currencies
+test data::tests::test_data_persistence ... ok
