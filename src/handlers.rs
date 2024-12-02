@@ -1,11 +1,10 @@
-//! src/handlers.rs
-//! Handles simple currency conversion requests
-
 use crate::{
     models::{ConversionRequest, SimpleConversionResponse, Validate, CurrencyInfo, DetailedErrorResponse},
     errors::ServiceError,
     clients::{HttpClient, CountryClient, ExchangeRateClient},
     data::GLOBAL_DATA,
+    format_country_name,
+    round_to_cents,
 };
 use actix_web::{web, HttpResponse, Error};
 use log::{debug, info, error};
@@ -207,23 +206,6 @@ pub async fn convert_currency(
     }))
 }
 
-fn format_country_name(name: &str) -> String {
-    name.split_whitespace()
-        .map(|word| {
-            let mut chars = word.chars();
-            match chars.next() {
-                None => String::new(),
-                Some(first) => {
-                    let mut word = first.to_uppercase().collect::<String>();
-                    word.extend(chars.map(|c| c.to_lowercase().next().unwrap_or(c)));
-                    word
-                }
-            }
-        })
-        .collect::<Vec<String>>()
-        .join(" ")
-}
-
 fn select_currency<'a>(
     currencies: &'a HashMap<String, CurrencyInfo>,
     preferred: Option<&'a str>,
@@ -267,7 +249,6 @@ fn select_currency<'a>(
     }
 
     // Fall back to first available
-    debug!("Falling back to first available currency for {}", country_name);
     currencies
         .iter()
         .next()
@@ -277,128 +258,122 @@ fn select_currency<'a>(
         ))
 }
 
-fn round_to_cents(amount: f64) -> f64 {
-    (amount * 100.0).round() / 100.0
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::sync::Once;
-    use actix_web::{test, web::Data};
+    use actix_web::{test, web, App, dev::Service, dev::ServiceRequest, http::header};
+    use crate::test_utils::mocks::MockHttpClient;
+    use crate::test_utils::init_test_env;
     use serde_json::json;
+    use std::sync::Once;
 
     static INIT: Once = Once::new();
 
-    fn setup() {
-        INIT.call_once(|| {
-            env::set_var("RUST_LOG", "debug");
-            env_logger::init();
-        });
+    impl Default for MockHttpClient {
+        fn default() -> Self {
+            Self {}
+        }
     }
 
-    #[actix_web::test]
-    async fn test_simple_conversion() {
-        setup();
+    async fn setup_test_app() -> impl Service<ServiceRequest, Response = ServiceResponse<BoxBody>, Error = actix_web::Error> {
+        INIT.call_once(|| {
+            std::env::set_var("RUST_LOG", "debug");
+            env_logger::try_init().ok();
+        });
+    
+        // Initialize test environment (no await)
+        init_test_env();
         
-        let app = test::init_service(
-            actix_web::App::new()
-                .app_data(Data::new(Client::new()))
-                .service(web::resource("/currency")
-                    .route(web::post().to(convert_currency)))
-        ).await;
+        test::init_service(
+            App::new()
+                .app_data(web::Data::new(MockHttpClient::default()))
+                .service(
+                    web::resource("/currency")
+                        .route(web::post().to(convert_currency))
+                )
+        ).await
+    }
 
-        env::set_var("EXCHANGE_RATE_API_KEY", "test_key");
-
-        let req = test::TestRequest::post()
+    fn create_test_request(payload: serde_json::Value) -> ServiceRequest {
+        test::TestRequest::post()
             .uri("/currency")
-            .insert_header(("content-type", "application/json"))
-            .set_payload(json!({
-                "from": "United States",
-                "to": "France",
-                "amount": 100.0,
-                "preferred_currency": null
-            }).to_string())
-            .to_request();
+            .insert_header((header::CONTENT_TYPE, "application/json"))
+            .set_payload(payload.to_string())
+            .to_srv_request()
+    }
+
+    #[actix_rt::test]
+    async fn test_simple_conversion() {
+        let app = setup_test_app().await;
+        
+        std::env::set_var("EXCHANGE_RATE_API_KEY", "test_key");
+
+        let req = create_test_request(json!({
+            "from": "United States",
+            "to": "France",
+            "amount": 100.0,
+            "preferred_currency": null
+        }));
 
         let resp = test::call_service(&app, req).await;
-        let status = resp.status();
-        
-        assert!(
-            status.is_success(),
-            "Response status: {}, expected success",
-            status
+        assert!(resp.status().is_success(), 
+            "Response status: {}, expected success", 
+            resp.status()
         );
 
         let body: SimpleConversionResponse = test::read_body_json(resp).await;
-        
         assert_eq!(body.from, "USD");
         assert_eq!(body.to, "EUR");
         assert!(body.amount > 0.0);
     }
 
-    #[actix_web::test]
+    #[actix_rt::test]
     async fn test_invalid_country() {
-        setup();
-        
-        let app = test::init_service(
-            actix_web::App::new()
-                .app_data(Data::new(Client::new()))
-                .service(web::resource("/currency")
-                    .route(web::post().to(convert_currency)))
-        ).await;
+        let app = setup_test_app().await;
 
-        let req = test::TestRequest::post()
-            .uri("/currency")
-            .insert_header(("content-type", "application/json"))
-            .set_payload(json!({
-                "from": "Narnia",
-                "to": "France",
-                "amount": 100.0,
-                "preferred_currency": null
-            }).to_string())
-            .to_request();
+        let req = create_test_request(json!({
+            "from": "Narnia",
+            "to": "France",
+            "amount": 100.0,
+            "preferred_currency": null
+        }));
 
         let resp = test::call_service(&app, req).await;
         assert_eq!(resp.status().as_u16(), 404);
 
         let body: DetailedErrorResponse = test::read_body_json(resp).await;
         assert!(body.error.contains("Country not found"));
+        assert_eq!(body.code, "COUNTRY_NOT_FOUND");
     }
 
-    #[actix_web::test]
+    #[actix_rt::test]
     async fn test_service_errors() {
-        setup();
+        let app = setup_test_app().await;
         
-        let app = test::init_service(
-            actix_web::App::new()
-                .app_data(Data::new(Client::new()))
-                .service(web::resource("/currency")
-                    .route(web::post().to(convert_currency)))
-        ).await;
+        let original_key = std::env::var("EXCHANGE_RATE_API_KEY").ok();
+        std::env::remove_var("EXCHANGE_RATE_API_KEY");
 
-        env::remove_var("EXCHANGE_RATE_API_KEY");
-
-        let req = test::TestRequest::post()
-            .uri("/currency")
-            .insert_header(("content-type", "application/json"))
-            .set_payload(json!({
-                "from": "United States",
-                "to": "France",
-                "amount": 100.0,
-                "preferred_currency": null
-            }).to_string())
-            .to_request();
+        let req = create_test_request(json!({
+            "from": "United States",
+            "to": "France",
+            "amount": 100.0,
+            "preferred_currency": null
+        }));
 
         let resp = test::call_service(&app, req).await;
         assert_eq!(resp.status().as_u16(), 500);
 
         let body: DetailedErrorResponse = test::read_body_json(resp).await;
         assert!(body.error.contains("Service configuration error"));
+        assert_eq!(body.code, "CONFIG_ERROR");
         assert_eq!(body.details.as_deref(), Some("API key not configured"));
+
+        if let Some(key) = original_key {
+            std::env::set_var("EXCHANGE_RATE_API_KEY", key);
+        }
     }
 
-    #[tokio::test]
+    #[actix_rt::test]
     async fn test_select_currency() {
         let mut currencies = HashMap::new();
         currencies.insert(
@@ -417,18 +392,20 @@ mod tests {
         );
 
         // Test preferred currency
-        let result = select_currency(&currencies, Some("USD"), Some("EUR"), "Test")
-            .unwrap();
-        assert_eq!(result.0, "USD");
+        let (code, info) = select_currency(&currencies, Some("USD"), Some("EUR"), "Test")
+            .expect("Currency selection failed");
+        assert_eq!(code, "USD");
+        assert_eq!(info.symbol, "$");
 
         // Test invalid preferred currency
         let result = select_currency(&currencies, Some("GBP"), Some("EUR"), "Test");
-        assert!(result.is_err());
+        assert!(matches!(result, Err(ServiceError::InvalidCurrency(_))));
 
         // Test primary currency fallback
-        let result = select_currency(&currencies, None, Some("EUR"), "Test")
-            .unwrap();
-        assert_eq!(result.0, "EUR");
+        let (code, info) = select_currency(&currencies, None, Some("EUR"), "Test")
+            .expect("Currency selection failed");
+        assert_eq!(code, "EUR");
+        assert_eq!(info.symbol, "€");
 
         // Test USD/EUR priority
         let mut currencies = HashMap::new();
@@ -447,51 +424,15 @@ mod tests {
             }
         );
 
-        let result = select_currency(&currencies, None, None, "Test")
-            .unwrap();
-        assert_eq!(result.0, "USD");
+        let (code, info) = select_currency(&currencies, None, None, "Test")
+            .expect("Currency selection failed");
+        assert_eq!(code, "USD");
+        assert_eq!(info.symbol, "$");
     }
 
-    #[tokio::test]
-    async fn test_format_country_name() {
-        let test_cases = vec![
-            ("united states", "United States"),
-            ("JAPAN", "Japan"),
-            ("new   zealand", "New Zealand"),
-            ("great  britain", "Great Britain"),
-            ("   france   ", "France"),
-        ];
-
-        for (input, expected) in test_cases {
-            assert_eq!(format_country_name(input), expected);
-        }
-    }
-
-    #[tokio::test]
-    async fn test_round_to_cents() {
-        let test_cases = vec![
-            (10.456, 10.46),
-            (10.454, 10.45),
-            (0.0, 0.0),
-            (99.999, 100.0),
-            (-10.456, -10.46),
-        ];
-
-        for (input, expected) in test_cases {
-            assert_eq!(round_to_cents(input), expected);
-        }
-    }
-
-    #[actix_web::test]
+    #[actix_rt::test]
     async fn test_validation_errors() {
-        setup();
-        
-        let app = test::init_service(
-            actix_web::App::new()
-                .app_data(Data::new(Client::new()))
-                .service(web::resource("/currency")
-                    .route(web::post().to(convert_currency)))
-        ).await;
+        let app = setup_test_app().await;
 
         let test_cases = vec![
             (json!({
@@ -499,65 +440,91 @@ mod tests {
                 "to": "France", 
                 "amount": 100.0,
                 "preferred_currency": null
-            }), "Source country cannot be empty"),
+            }), "Source country cannot be empty", 400),
             (json!({
                 "from": "USA", 
                 "to": "", 
                 "amount": 100.0,
                 "preferred_currency": null
-            }), "Destination country cannot be empty"),
+            }), "Destination country cannot be empty", 400),
             (json!({
                 "from": "USA", 
                 "to": "France", 
                 "amount": 0.0,
                 "preferred_currency": null
-            }), "Amount must be greater than 0"),
+            }), "Amount must be greater than 0", 400),
+            (json!({
+                "from": "USA", 
+                "to": "France", 
+                "amount": -1.0,
+                "preferred_currency": null
+            }), "Amount must be greater than 0", 400),
         ];
 
-        for (payload, expected_error) in test_cases {
-            let req = test::TestRequest::post()
-                .uri("/currency")
-                .insert_header(("content-type", "application/json"))
-                .set_payload(payload.to_string())
-                .to_request();
+        for (payload, expected_error, expected_status) in test_cases {
+            let req = create_test_request(payload);
 
             let resp = test::call_service(&app, req).await;
-            assert_eq!(resp.status().as_u16(), 400);
+            assert_eq!(
+                resp.status().as_u16(), 
+                expected_status,
+                "Expected status {} for error: {}", 
+                expected_status, 
+                expected_error
+            );
 
             let body: DetailedErrorResponse = test::read_body_json(resp).await;
-            assert!(body.error.contains(expected_error));
+            assert!(
+                body.error.contains(expected_error),
+                "Expected error '{}' but got '{}'",
+                expected_error,
+                body.error
+            );
+            assert_eq!(body.code, "INVALID_CURRENCY");
         }
     }
 
-    #[actix_web::test]
+    #[actix_rt::test]
     async fn test_same_currency_conversion() {
-        setup();
-        
-        let app = test::init_service(
-            actix_web::App::new()
-                .app_data(Data::new(Client::new()))
-                .service(web::resource("/currency")
-                    .route(web::post().to(convert_currency)))
-        ).await;
+        let app = setup_test_app().await;
 
-        env::set_var("EXCHANGE_RATE_API_KEY", "test_key");
+        std::env::set_var("EXCHANGE_RATE_API_KEY", "test_key");
 
-        let req = test::TestRequest::post()
-            .uri("/currency")
-            .insert_header(("content-type", "application/json"))
-            .set_payload(json!({
-                "from": "France",
-                "to": "France",
-                "amount": 100.0,
-                "preferred_currency": null
-            }).to_string())
-            .to_request();
+        let req = create_test_request(json!({
+            "from": "France",
+            "to": "France",
+            "amount": 100.0,
+            "preferred_currency": null
+        }));
 
         let resp = test::call_service(&app, req).await;
         assert!(resp.status().is_success());
 
         let body: SimpleConversionResponse = test::read_body_json(resp).await;
-        assert_eq!(body.from, body.to);
+        assert_eq!(body.from, "EUR");
+        assert_eq!(body.to, "EUR");
         assert_eq!(body.amount, 100.0);
+    }
+
+    #[actix_rt::test]
+    async fn test_multi_currency_conversions() {
+        let app = setup_test_app().await;
+
+        std::env::set_var("EXCHANGE_RATE_API_KEY", "test_key");
+
+        let req = create_test_request(json!({
+            "from": "Zimbabwe",
+            "to": "France",
+            "amount": 100.0,
+            "preferred_currency": "USD"
+        }));
+
+        let resp = test::call_service(&app, req).await;
+        assert!(resp.status().is_success());
+
+        let body: SimpleConversionResponse = test::read_body_json(resp).await;
+        assert_eq!(body.from, "USD");
+        assert_eq!(body.to, "EUR");
+        assert!(body.amount > 0.0);
     }
 }

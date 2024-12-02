@@ -7,16 +7,16 @@
 [0;34mTesting: Valid conversion (US to France)[0m
 POST /currency
 Request: {"from": "United States", "to": "France", "amount": 100, "preferred_currency": null}
-Response: {"from":"USD","to":"EUR","amount":94.64}
+Response: {"from":"USD","to":"EUR","amount":94.95}
 
 [0;32m✓ Test passed[0m
 
 [0;34mTesting: Invalid source country[0m
 POST /currency
 Request: {"from": "Narnia", "to": "France", "amount": 100, "preferred_currency": null}
-Response: {"error":"Country not found: Narnia","code":"COUNTRY_NOT_FOUND","request_id":"3cda7aa7-e4d8-422b-b422-33537550cb72","timestamp":"2024-11-30T12:27:52.771075062Z"}
+Response: {"error":"Country not found: Narnia","code":"COUNTRY_NOT_FOUND","request_id":"9ab64441-3d80-4d5b-86e2-35196746f5b6","timestamp":"2024-12-02T10:30:20.050737341Z"}
 
-[0;31m✗ Test failed (Status: 404)[0m
+[0;32m✓ Test passed (Expected 404 for invalid country)[0m
 
 [0;34mTesting: Valid European conversion[0m
 POST /currency
@@ -28,14 +28,14 @@ Response: {"from":"EUR","to":"EUR","amount":50.0}
 [0;34mTesting: Case insensitive test[0m
 POST /currency
 Request: {"from": "japan", "to": "australia", "amount": 1000, "preferred_currency": null}
-Response: {"from":"JPY","to":"AUD","amount":10.23}
+Response: {"from":"JPY","to":"AUD","amount":10.24}
 
 [0;32m✓ Test passed[0m
 
 [0;34mTesting: Zero amount validation[0m
 POST /currency
 Request: {"from": "United States", "to": "France", "amount": 0, "preferred_currency": null}
-Response: {"error":"Invalid currency: Amount must be greater than 0","code":"INVALID_CURRENCY","request_id":"a778e694-2f09-4626-944b-727950488f0c","timestamp":"2024-11-30T12:27:52.973732898Z"}
+Response: {"error":"Invalid currency: Amount must be greater than 0","code":"INVALID_CURRENCY","request_id":"1ed353ce-4cb4-4001-a97f-a6bed5067412","timestamp":"2024-12-02T10:30:20.381148715Z"}
 
 [0;32m✓ Test passed (Expected validation error)[0m
 
@@ -51,42 +51,42 @@ Response: {"from":"EUR","to":"EUR","amount":100.0}
 [0;34mTesting: Valid conversion (US to France)[0m
 POST /v1/currency
 Request: {"from": "United States", "to": "France", "amount": 100, "preferred_currency": null}
-Response: {"request_id":"f454279e-bd03-43e2-bdd8-bf11a3d4885b","timestamp":"2024-11-30T12:27:53.189392946Z","data":{"from":{"country":"United States Minor Outlying Islands","currency_code":"USD","currency_name":"United States dollar","currency_symbol":"$","amount":100.0,"is_primary":true},"to":{"country":"France","currency_code":"EUR","currency_name":"Euro","currency_symbol":"€","amount":94.64,"is_primary":true},"exchange_rate":0.94642762,"last_updated":"2024-11-30T12:27:53.189400032Z","available_currencies":[{"code":"USD","name":"United States dollar","symbol":"$","is_primary":true},{"code":"EUR","name":"Euro","symbol":"€","is_primary":true}]},"meta":{"source":"exchangerate-api.com","response_time_ms":145,"multiple_currencies_available":true,"cache_hit":false}}
+Response: {"request_id":"f25d67db-3894-4d9d-aa5e-6ae28c30d9ed","timestamp":"2024-12-02T10:30:20.692974675Z","data":{"from":{"country":"United States Minor Outlying Islands","currency_code":"USD","currency_name":"United States dollar","currency_symbol":"$","amount":100.0,"is_primary":true},"to":{"country":"France","currency_code":"EUR","currency_name":"Euro","currency_symbol":"€","amount":94.95,"is_primary":true},"exchange_rate":0.94946235,"last_updated":"2024-12-02T10:30:20.692980727Z","available_currencies":[{"code":"USD","name":"United States dollar","symbol":"$","is_primary":true},{"code":"EUR","name":"Euro","symbol":"€","is_primary":true}]},"meta":{"source":"exchangerate-api.com","response_time_ms":137,"multiple_currencies_available":true,"cache_hit":false}}
 
 [0;32m✓ Test passed[0m
 
 [0;34mTesting: Valid European conversion[0m
 POST /v1/currency
 Request: {"from": "Germany", "to": "Spain", "amount": 50, "preferred_currency": null}
-Response: {"request_id":"293041c4-4681-4690-94ee-30669353f2ea","timestamp":"2024-11-30T12:27:53.248346744Z","data":{"from":{"country":"Germany","currency_code":"EUR","currency_name":"Euro","currency_symbol":"€","amount":50.0,"is_primary":true},"to":{"country":"Spain","currency_code":"EUR","currency_name":"Euro","currency_symbol":"€","amount":50.0,"is_primary":true},"exchange_rate":1.0,"last_updated":"2024-11-30T12:27:53.248350354Z","available_currencies":[{"code":"EUR","name":"Euro","symbol":"€","is_primary":true}]},"meta":{"source":"exchangerate-api.com","response_time_ms":45,"multiple_currencies_available":true,"cache_hit":true}}
+Response: {"request_id":"21284c69-daa7-49b8-bc14-2c2522a436cf","timestamp":"2024-12-02T10:30:20.732989296Z","data":{"from":{"country":"Germany","currency_code":"EUR","currency_name":"Euro","currency_symbol":"€","amount":50.0,"is_primary":true},"to":{"country":"Spain","currency_code":"EUR","currency_name":"Euro","currency_symbol":"€","amount":50.0,"is_primary":true},"exchange_rate":1.0,"last_updated":"2024-12-02T10:30:20.732993646Z","available_currencies":[{"code":"EUR","name":"Euro","symbol":"€","is_primary":true}]},"meta":{"source":"exchangerate-api.com","response_time_ms":26,"multiple_currencies_available":true,"cache_hit":true}}
 
 [0;32m✓ Test passed[0m
 
 [0;34mTesting: Invalid source country[0m
 POST /v1/currency
 Request: {"from": "Narnia", "to": "France", "amount": 100, "preferred_currency": null}
-Response: {"request_id":"18bc954b-22ce-4ddf-a0a9-f4ecf75d6d2e","timestamp":"2024-11-30T12:27:53.276724253Z","data":{"from":{"country":"Narnia","currency_code":"INVALID","currency_name":"Invalid Currency","currency_symbol":"","amount":100.0,"is_primary":false},"to":{"country":"France","currency_code":"INVALID","currency_name":"Invalid Currency","currency_symbol":"","amount":0.0,"is_primary":false},"exchange_rate":0.0,"last_updated":"2024-11-30T12:27:53.276742374Z"},"meta":{"source":"exchangerate-api.com","response_time_ms":15,"multiple_currencies_available":false,"cache_hit":false}}
+Response: {"request_id":"d94d737d-92ed-444e-a65f-f63678378426","timestamp":"2024-12-02T10:30:20.757986227Z","data":{"from":{"country":"Narnia","currency_code":"INVALID","currency_name":"Invalid Currency","currency_symbol":"","amount":100.0,"is_primary":false},"to":{"country":"France","currency_code":"INVALID","currency_name":"Invalid Currency","currency_symbol":"","amount":0.0,"is_primary":false},"exchange_rate":0.0,"last_updated":"2024-12-02T10:30:20.757989324Z"},"meta":{"source":"exchangerate-api.com","response_time_ms":12,"multiple_currencies_available":false,"cache_hit":false}}
 
 [0;32m✓ Test passed[0m
 
 [0;34mTesting: Case insensitive test[0m
 POST /v1/currency
 Request: {"from": "japan", "to": "australia", "amount": 1000, "preferred_currency": null}
-Response: {"request_id":"e66738d4-4ee8-46b4-ad84-52c606ca4dc8","timestamp":"2024-11-30T12:27:53.429763064Z","data":{"from":{"country":"Japan","currency_code":"JPY","currency_name":"Japanese yen","currency_symbol":"¥","amount":1000.0,"is_primary":true},"to":{"country":"Australia","currency_code":"AUD","currency_name":"Australian dollar","currency_symbol":"$","amount":10.23,"is_primary":true},"exchange_rate":0.01023482,"last_updated":"2024-11-30T12:27:53.429768599Z","available_currencies":[{"code":"JPY","name":"Japanese yen","symbol":"¥","is_primary":true},{"code":"AUD","name":"Australian dollar","symbol":"$","is_primary":true}]},"meta":{"source":"exchangerate-api.com","response_time_ms":139,"multiple_currencies_available":true,"cache_hit":false}}
+Response: {"request_id":"5193cd7a-8bef-4d8d-9f43-28d1021d0afa","timestamp":"2024-12-02T10:30:21.073824308Z","data":{"from":{"country":"Japan","currency_code":"JPY","currency_name":"Japanese yen","currency_symbol":"¥","amount":1000.0,"is_primary":true},"to":{"country":"Australia","currency_code":"AUD","currency_name":"Australian dollar","currency_symbol":"$","amount":10.24,"is_primary":true},"exchange_rate":0.01023968,"last_updated":"2024-12-02T10:30:21.073828436Z","available_currencies":[{"code":"JPY","name":"Japanese yen","symbol":"¥","is_primary":true},{"code":"AUD","name":"Australian dollar","symbol":"$","is_primary":true}]},"meta":{"source":"exchangerate-api.com","response_time_ms":302,"multiple_currencies_available":true,"cache_hit":false}}
 
 [0;32m✓ Test passed[0m
 
 [0;34mTesting: Zero amount validation[0m
 POST /v1/currency
 Request: {"from": "United States", "to": "France", "amount": 0, "preferred_currency": null}
-Response: {"request_id":"f5f5223c-6c76-449d-afa9-f0848c62b241","timestamp":"2024-11-30T12:27:53.443200684Z","data":{"from":{"country":"United States","currency_code":"INVALID","currency_name":"Invalid Currency","currency_symbol":"","amount":0.0,"is_primary":false},"to":{"country":"France","currency_code":"INVALID","currency_name":"Invalid Currency","currency_symbol":"","amount":0.0,"is_primary":false},"exchange_rate":0.0,"last_updated":"2024-11-30T12:27:53.443203689Z"},"meta":{"source":"exchangerate-api.com","response_time_ms":0,"multiple_currencies_available":false,"cache_hit":false}}
+Response: {"request_id":"db53b1aa-9cc0-4167-9781-420472e08a84","timestamp":"2024-12-02T10:30:21.087762151Z","data":{"from":{"country":"United States","currency_code":"INVALID","currency_name":"Invalid Currency","currency_symbol":"","amount":0.0,"is_primary":false},"to":{"country":"France","currency_code":"INVALID","currency_name":"Invalid Currency","currency_symbol":"","amount":0.0,"is_primary":false},"exchange_rate":0.0,"last_updated":"2024-12-02T10:30:21.087765683Z"},"meta":{"source":"exchangerate-api.com","response_time_ms":0,"multiple_currencies_available":false,"cache_hit":false}}
 
 [0;32m✓ Test passed[0m
 
 [0;34mTesting: Same country conversion[0m
 POST /v1/currency
 Request: {"from": "France", "to": "France", "amount": 100, "preferred_currency": null}
-Response: {"request_id":"adc7e43c-33c7-47fa-ab58-d467f042a521","timestamp":"2024-11-30T12:27:53.482561978Z","data":{"from":{"country":"France","currency_code":"EUR","currency_name":"Euro","currency_symbol":"€","amount":100.0,"is_primary":true},"to":{"country":"France","currency_code":"EUR","currency_name":"Euro","currency_symbol":"€","amount":100.0,"is_primary":true},"exchange_rate":1.0,"last_updated":"2024-11-30T12:27:53.482565929Z","available_currencies":[{"code":"EUR","name":"Euro","symbol":"€","is_primary":true}]},"meta":{"source":"exchangerate-api.com","response_time_ms":26,"multiple_currencies_available":true,"cache_hit":true}}
+Response: {"request_id":"8e4f10a2-66a8-42f0-b8a3-d180f45e5b30","timestamp":"2024-12-02T10:30:21.130395477Z","data":{"from":{"country":"France","currency_code":"EUR","currency_name":"Euro","currency_symbol":"€","amount":100.0,"is_primary":true},"to":{"country":"France","currency_code":"EUR","currency_name":"Euro","currency_symbol":"€","amount":100.0,"is_primary":true},"exchange_rate":1.0,"last_updated":"2024-12-02T10:30:21.130399145Z","available_currencies":[{"code":"EUR","name":"Euro","symbol":"€","is_primary":true}]},"meta":{"source":"exchangerate-api.com","response_time_ms":26,"multiple_currencies_available":true,"cache_hit":true}}
 
 [0;32m✓ Test passed[0m
 
@@ -95,55 +95,55 @@ Response: {"request_id":"adc7e43c-33c7-47fa-ab58-d467f042a521","timestamp":"2024
 [0;34mTesting: Panama multi-currency test (default)[0m
 POST /v1/currency
 Request: {"from": "Panama", "to": "France", "amount": 100, "preferred_currency": null}
-Response: {"request_id":"dfe43ecb-2f2c-4128-a596-a9ea39ec44e1","timestamp":"2024-11-30T12:27:53.634272126Z","data":{"from":{"country":"Panama","currency_code":"USD","currency_name":"United States dollar","currency_symbol":"$","amount":100.0,"is_primary":true},"to":{"country":"France","currency_code":"EUR","currency_name":"Euro","currency_symbol":"€","amount":94.64,"is_primary":true},"exchange_rate":0.94642762,"last_updated":"2024-11-30T12:27:53.634277790Z","available_currencies":[{"code":"PAB","name":"Panamanian balboa","symbol":"B/.","is_primary":false},{"code":"USD","name":"United States dollar","symbol":"$","is_primary":true},{"code":"EUR","name":"Euro","symbol":"€","is_primary":true}]},"meta":{"source":"exchangerate-api.com","response_time_ms":137,"multiple_currencies_available":true,"cache_hit":false}}
+Response: {"request_id":"d40d9786-f4ca-42e1-9bbf-1f05d29c6f44","timestamp":"2024-12-02T10:30:21.288497895Z","data":{"from":{"country":"Panama","currency_code":"USD","currency_name":"United States dollar","currency_symbol":"$","amount":100.0,"is_primary":true},"to":{"country":"France","currency_code":"EUR","currency_name":"Euro","currency_symbol":"€","amount":94.95,"is_primary":true},"exchange_rate":0.94946235,"last_updated":"2024-12-02T10:30:21.288502030Z","available_currencies":[{"code":"USD","name":"United States dollar","symbol":"$","is_primary":true},{"code":"PAB","name":"Panamanian balboa","symbol":"B/.","is_primary":false},{"code":"EUR","name":"Euro","symbol":"€","is_primary":true}]},"meta":{"source":"exchangerate-api.com","response_time_ms":145,"multiple_currencies_available":true,"cache_hit":false}}
 
 [0;32m✓ Test passed (multi-currency response verified)[0m
 
 [0;34mTesting: Panama with USD preferred[0m
 POST /v1/currency
 Request: {"from": "Panama", "to": "France", "amount": 100, "preferred_currency": "USD"}
-Response: {"error":"Invalid currency: Preferred currency USD not available for France. Available currencies: EUR","code":"INVALID_CURRENCY","request_id":"69555baf-072b-4db3-8acb-8943e18ec326","timestamp":"2024-11-30T12:27:53.685507223Z"}
+Response: {"error":"Invalid currency: Preferred currency USD not available for France. Available currencies: EUR","code":"INVALID_CURRENCY","request_id":"87d47b1c-369c-4805-b9a6-38366f556995","timestamp":"2024-12-02T10:30:21.346820266Z"}
 
 [0;32m✓ Test passed (Expected error response)[0m
 
 [0;34mTesting: Panama with PAB preferred[0m
 POST /v1/currency
 Request: {"from": "Panama", "to": "France", "amount": 100, "preferred_currency": "PAB"}
-Response: {"error":"Invalid currency: Preferred currency PAB not available for France. Available currencies: EUR","code":"INVALID_CURRENCY","request_id":"78d873db-2da2-4d47-b5b4-2de9d4195dbb","timestamp":"2024-11-30T12:27:53.725839094Z"}
+Response: {"error":"Invalid currency: Preferred currency PAB not available for France. Available currencies: EUR","code":"INVALID_CURRENCY","request_id":"0c595768-6ebe-478c-979e-2aa79c15dec8","timestamp":"2024-12-02T10:30:21.432987306Z"}
 
 [0;32m✓ Test passed (Expected error response)[0m
 
 [0;34mTesting: Zimbabwe multi-currency test[0m
 POST /v1/currency
 Request: {"from": "Zimbabwe", "to": "United States", "amount": 50, "preferred_currency": null}
-Response: {"request_id":"6d0287a4-fed5-4e21-b4ec-dd133f4387e8","timestamp":"2024-11-30T12:27:53.875646385Z","data":{"from":{"country":"Zimbabwe","currency_code":"ZWL","currency_name":"Zimbabwean dollar","currency_symbol":"$","amount":50.0,"is_primary":true},"to":{"country":"United States Minor Outlying Islands","currency_code":"USD","currency_name":"United States dollar","currency_symbol":"$","amount":1.96,"is_primary":true},"exchange_rate":0.03929072,"last_updated":"2024-11-30T12:27:53.875651534Z","available_currencies":[{"code":"ZWL","name":"Zimbabwean dollar","symbol":"$","is_primary":true},{"code":"USD","name":"United States dollar","symbol":"$","is_primary":true}]},"meta":{"source":"exchangerate-api.com","response_time_ms":136,"multiple_currencies_available":true,"cache_hit":false}}
+Response: {"request_id":"bb8d038a-e34f-4158-a031-20b264701a53","timestamp":"2024-12-02T10:30:21.589958077Z","data":{"from":{"country":"Zimbabwe","currency_code":"ZWL","currency_name":"Zimbabwean dollar","currency_symbol":"$","amount":50.0,"is_primary":true},"to":{"country":"United States Minor Outlying Islands","currency_code":"USD","currency_name":"United States dollar","currency_symbol":"$","amount":1.96,"is_primary":true},"exchange_rate":0.03911261,"last_updated":"2024-12-02T10:30:21.589962276Z","available_currencies":[{"code":"ZWL","name":"Zimbabwean dollar","symbol":"$","is_primary":true},{"code":"USD","name":"United States dollar","symbol":"$","is_primary":true}]},"meta":{"source":"exchangerate-api.com","response_time_ms":143,"multiple_currencies_available":true,"cache_hit":false}}
 
 [0;32m✓ Test passed (multi-currency response verified)[0m
 
 [0;34mTesting: Invalid preferred currency test[0m
 POST /v1/currency
 Request: {"from": "Panama", "to": "France", "amount": 100, "preferred_currency": "XYZ"}
-Response: {"error":"Invalid currency: Preferred currency XYZ not available for Panama. Available currencies: PAB, USD","code":"INVALID_CURRENCY","request_id":"4e439444-211a-4a66-8331-a584c763982c","timestamp":"2024-11-30T12:27:53.920028364Z"}
+Response: {"error":"Invalid currency: Preferred currency XYZ not available for Panama. Available currencies: USD, PAB","code":"INVALID_CURRENCY","request_id":"00d4305b-ae75-47b1-8cef-3bc269553966","timestamp":"2024-12-02T10:30:21.643638834Z"}
 
 [0;32m✓ Test passed (Expected error response)[0m
 
 [0;34mTesting: Swiss multi-currency test[0m
 POST /v1/currency
 Request: {"from": "Switzerland", "to": "France", "amount": 100, "preferred_currency": null}
-Response: {"request_id":"1b74cae2-2a96-4f6d-831a-f31c85ea4410","timestamp":"2024-11-30T12:27:54.075536536Z","data":{"from":{"country":"Switzerland","currency_code":"CHF","currency_name":"Swiss franc","currency_symbol":"Fr.","amount":100.0,"is_primary":true},"to":{"country":"France","currency_code":"EUR","currency_name":"Euro","currency_symbol":"€","amount":107.38,"is_primary":true},"exchange_rate":1.07379051,"last_updated":"2024-11-30T12:27:54.075541813Z","available_currencies":[{"code":"CHF","name":"Swiss franc","symbol":"Fr.","is_primary":true},{"code":"EUR","name":"Euro","symbol":"€","is_primary":true}]},"meta":{"source":"exchangerate-api.com","response_time_ms":141,"multiple_currencies_available":true,"cache_hit":false}}
+Response: {"request_id":"ab7a909b-b23e-40f4-ba67-11e1cb4b6d9f","timestamp":"2024-12-02T10:30:21.793555415Z","data":{"from":{"country":"Switzerland","currency_code":"CHF","currency_name":"Swiss franc","currency_symbol":"Fr.","amount":100.0,"is_primary":true},"to":{"country":"France","currency_code":"EUR","currency_name":"Euro","currency_symbol":"€","amount":107.41,"is_primary":true},"exchange_rate":1.07414371,"last_updated":"2024-12-02T10:30:21.793561086Z","available_currencies":[{"code":"CHF","name":"Swiss franc","symbol":"Fr.","is_primary":true},{"code":"EUR","name":"Euro","symbol":"€","is_primary":true}]},"meta":{"source":"exchangerate-api.com","response_time_ms":136,"multiple_currencies_available":true,"cache_hit":false}}
 
 [0;32m✓ Test passed (multi-currency response verified)[0m
 
 [0;34mTesting: Hong Kong multi-currency test[0m
 POST /v1/currency
 Request: {"from": "Hong Kong", "to": "United States", "amount": 100, "preferred_currency": null}
-Response: {"request_id":"4cd7efe8-3758-4dd3-9afb-201e00b9b51e","timestamp":"2024-11-30T12:27:54.232828737Z","data":{"from":{"country":"Hong Kong","currency_code":"HKD","currency_name":"Hong Kong dollar","currency_symbol":"$","amount":100.0,"is_primary":true},"to":{"country":"United States Minor Outlying Islands","currency_code":"USD","currency_name":"United States dollar","currency_symbol":"$","amount":12.85,"is_primary":true},"exchange_rate":0.1284917,"last_updated":"2024-11-30T12:27:54.232834410Z","available_currencies":[{"code":"HKD","name":"Hong Kong dollar","symbol":"$","is_primary":true},{"code":"USD","name":"United States dollar","symbol":"$","is_primary":true}]},"meta":{"source":"exchangerate-api.com","response_time_ms":141,"multiple_currencies_available":true,"cache_hit":false}}
+Response: {"request_id":"b343ba6c-5f94-4950-a858-91f75053eb6e","timestamp":"2024-12-02T10:30:21.952051842Z","data":{"from":{"country":"Hong Kong","currency_code":"HKD","currency_name":"Hong Kong dollar","currency_symbol":"$","amount":100.0,"is_primary":true},"to":{"country":"United States Minor Outlying Islands","currency_code":"USD","currency_name":"United States dollar","currency_symbol":"$","amount":12.85,"is_primary":true},"exchange_rate":0.12850138,"last_updated":"2024-12-02T10:30:21.952056050Z","available_currencies":[{"code":"HKD","name":"Hong Kong dollar","symbol":"$","is_primary":true},{"code":"USD","name":"United States dollar","symbol":"$","is_primary":true}]},"meta":{"source":"exchangerate-api.com","response_time_ms":139,"multiple_currencies_available":true,"cache_hit":false}}
 
 [0;32m✓ Test passed (multi-currency response verified)[0m
 
 [0;34m=== Test Summary ===[0m
 Total tests: 19
-Passed tests: [0;32m18[0m
-Failed tests: [0;31m1[0m
+Passed tests: [0;32m19[0m
+Failed tests: [0;31m0[0m
 
-[0;31mSome tests failed.[0m
+[0;32mAll tests passed![0m

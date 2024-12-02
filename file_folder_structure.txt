@@ -2,19 +2,22 @@
 ├── Cargo.toml
 ├── config
 │   ├── backups
-│   │   ├── country_currencies_20241130_122828.json
-│   │   └── country_currencies_20241130_122829.json
+│   │   ├── country_currencies_20241130_205359.json
+│   │   ├── country_currencies_20241130_205400.json
+│   │   ├── country_currencies_20241130_210635.json
+│   │   ├── country_currencies_20241130_210636.json
+│   │   ├── country_currencies_20241201_014907.json
+│   │   ├── country_currencies_20241201_034424.json
+│   │   ├── country_currencies_20241201_034425.json
+│   │   ├── country_currencies_20241201_171519.json
+│   │   ├── country_currencies_20241201_183351.json
+│   │   ├── country_currencies_20241201_183352.json
+│   │   ├── country_currencies_20241201_183402.json
+│   │   ├── country_currencies_20241201_232313.json
+│   │   └── country_currencies_20241201_232314.json
 │   ├── country_currencies.json
 │   └── test
-│       └── country_currencies.json
-├── DOCS
-│   ├── v0.0.1
-│   │   ├── DEVELOPER_UPDATE.md
-│   │   ├── SETUP.md
-│   │   ├── TESTING_GUIDE.md
-│   │   └── UPGRADE_PLAN.md
-│   └── v0.0.2
-│       └── UPGRADE_PLAN.md
+│       └── backups
 ├── file_folder_structure.txt
 ├── LICENSE
 ├── README.md
@@ -36,12 +39,23 @@
 │   ├── monitor.rs
 │   ├── rate_limit.rs
 │   ├── registry.rs
+│   ├── test_utils
+│   │   ├── mocks.rs
+│   │   ├── mod.rs
+│   │   ├── setup.rs
+│   │   └── test_summary.rs
 │   └── update_service.rs
 ├── test_currency_api.sh
 ├── test_currency_api.txt
 ├── tests
-│   ├── api.rs
-│   └── health.rs
+│   ├── api
+│   │   ├── api.rs
+│   │   ├── currency.rs
+│   │   ├── health.rs
+│   │   └── mod.rs
+│   ├── common
+│   │   └── mod.rs
+│   └── currency_api_tests.rs
 └── test.txt
 
-10 directories, 35 files
+11 directories, 48 files

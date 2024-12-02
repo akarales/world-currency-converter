@@ -56,7 +56,7 @@ impl UpdateService {
         // Clone references for the background task
         let client = self.client.clone();
         let currency_data = Arc::clone(&self.currency_data);
-        let api_key = self.api_key.clone();
+        let _api_key = self.api_key.clone();
         let config_path = self.config_path.clone();
 
         tokio::spawn(async move {

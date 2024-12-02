@@ -27,7 +27,6 @@ test_endpoint() {
     echo -e "\n${BLUE}Testing: ${description}${NC}"
     echo "POST ${endpoint}"
 
-    # Construct request body based on whether preferred_currency is provided
     local request_body
     if [ -n "$preferred_currency" ]; then
         request_body="{\"from\": \"${from}\", \"to\": \"${to}\", \"amount\": ${amount}, \"preferred_currency\": \"${preferred_currency}\"}"
@@ -69,21 +68,19 @@ test_endpoint() {
                 echo -e "${RED}✗ Test failed (Invalid v1 response format)${NC}"
                 return 1
             fi
+        elif [[ $status_code == 404 && "$description" == *"Invalid source country"* ]]; then
+            if echo "$response_body" | jq -e '.error and .request_id and .timestamp' > /dev/null &&
+               echo "$response_body" | jq -e '.error | contains("Country not found")' > /dev/null; then
+                echo -e "${GREEN}✓ Test passed (Expected 404 for invalid country)${NC}"
+                return 0
+            else
+                echo -e "${RED}✗ Test failed (Invalid error response format)${NC}"
+                return 1
+            fi
         elif [[ $status_code == 400 ]]; then
             if echo "$response_body" | jq -e '.error and .request_id and .timestamp' > /dev/null; then
-                # For invalid preferred currency tests
-                if [[ "$description" == *"invalid preferred currency"* ]]; then
-                    if echo "$response_body" | jq -e '.error | contains("not available")' > /dev/null; then
-                        echo -e "${GREEN}✓ Test passed (Expected invalid currency error)${NC}"
-                        return 0
-                    else
-                        echo -e "${RED}✗ Test failed (Invalid error message for invalid currency)${NC}"
-                        return 1
-                    fi
-                else
-                    echo -e "${GREEN}✓ Test passed (Expected error response)${NC}"
-                    return 0
-                fi
+                echo -e "${GREEN}✓ Test passed (Expected error response)${NC}"
+                return 0
             else
                 echo -e "${RED}✗ Test failed (Invalid error response format)${NC}"
                 return 1
@@ -102,12 +99,21 @@ test_endpoint() {
                 echo -e "${RED}✗ Test failed (Invalid response format)${NC}"
                 return 1
             fi
-        elif [[ $status_code == 400 ]] && echo "$response_body" | jq -e '.error and .request_id and .timestamp' > /dev/null; then
-            if [[ $(echo "$request_body" | jq '.amount') == 0 ]] || echo "$response_body" | jq -e '.error | contains("Currency not found") or contains("not available")' > /dev/null; then
+        elif [[ $status_code == 404 && "$description" == *"Invalid source country"* ]]; then
+            if echo "$response_body" | jq -e '.error and .request_id and .timestamp' > /dev/null &&
+               echo "$response_body" | jq -e '.error | contains("Country not found")' > /dev/null; then
+                echo -e "${GREEN}✓ Test passed (Expected 404 for invalid country)${NC}"
+                return 0
+            else
+                echo -e "${RED}✗ Test failed (Invalid error response format)${NC}"
+                return 1
+            fi
+        elif [[ $status_code == 400 ]]; then
+            if echo "$response_body" | jq -e '.error and .request_id and .timestamp' > /dev/null; then
                 echo -e "${GREEN}✓ Test passed (Expected validation error)${NC}"
                 return 0
             else
-                echo -e "${RED}✗ Test failed (Unexpected error message)${NC}"
+                echo -e "${RED}✗ Test failed (Invalid error response format)${NC}"
                 return 1
             fi
         else

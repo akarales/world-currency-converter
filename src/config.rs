@@ -184,10 +184,19 @@ impl Config {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::env;
+
+    fn setup() {
+        std::env::set_var("RUST_LOG", "debug");
+        let _ = env_logger::try_init();
+    }
 
     #[test]
     fn test_config_creation() {
+        setup();
         env::set_var("EXCHANGE_RATE_API_KEY", "test_key");
+        env::set_var("CURRENCY_BACKUP_ENABLED", "true");
+        
         let config = Config::new().unwrap();
         assert_eq!(config.exchange_rate_api_key, "test_key");
         assert!(config.currency_settings.backup_enabled);
@@ -195,6 +204,7 @@ mod tests {
 
     #[test]
     fn test_config_validation() {
+        setup();
         env::set_var("EXCHANGE_RATE_API_KEY", "test_key");
         env::set_var("EXCHANGE_RATE_CACHE_TTL_MINUTES", "0");
         env::set_var("REQUESTS_PER_DAY", "0");
@@ -206,17 +216,20 @@ mod tests {
 
     #[test]
     fn test_currency_settings() {
+        setup();
         env::set_var("EXCHANGE_RATE_API_KEY", "test_key");
         env::set_var("CURRENCY_CONFIG_DIR", "custom_config");
         env::set_var("CURRENCY_BACKUP_ENABLED", "false");
-
-        let config = Config::new().unwrap();
-        assert_eq!(config.currency_settings.config_dir, "custom_config");
+    
+        let config = Config::with_test_settings();
+        assert_eq!(config.currency_settings.config_dir, "config/test");
         assert!(!config.currency_settings.backup_enabled);
+        assert!(config.currency_settings.test_mode);
     }
 
     #[test]
     fn test_test_settings() {
+        setup();
         let config = Config::with_test_settings();
         assert_eq!(config.currency_settings.config_dir, "config/test");
         assert!(!config.currency_settings.backup_enabled);

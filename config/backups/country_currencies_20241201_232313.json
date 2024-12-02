@@ -1,0 +1,2560 @@
+{
+  "last_checked": "2024-12-01T18:34:02.722478384Z",
+  "last_modified": "2024-12-01T18:34:02.722478384Z",
+  "data": {
+    "United Kingdom": {
+      "primary_currency": "GBP",
+      "currencies": {
+        "GBP": {
+          "name": "British pound",
+          "symbol": "£"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Western Sahara": {
+      "primary_currency": "DZD",
+      "currencies": {
+        "MAD": {
+          "name": "Moroccan dirham",
+          "symbol": "DH"
+        },
+        "DZD": {
+          "name": "Algerian dinar",
+          "symbol": "دج"
+        },
+        "MRU": {
+          "name": "Mauritanian ouguiya",
+          "symbol": "UM"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Mauritius": {
+      "primary_currency": "MUR",
+      "currencies": {
+        "MUR": {
+          "name": "Mauritian rupee",
+          "symbol": "₨"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Ghana": {
+      "primary_currency": "GHS",
+      "currencies": {
+        "GHS": {
+          "name": "Ghanaian cedi",
+          "symbol": "₵"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Moldova": {
+      "primary_currency": "MDL",
+      "currencies": {
+        "MDL": {
+          "name": "Moldovan leu",
+          "symbol": "L"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Luxembourg": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Serbia": {
+      "primary_currency": "RSD",
+      "currencies": {
+        "RSD": {
+          "name": "Serbian dinar",
+          "symbol": "дин."
+        }
+      },
+      "is_multi_currency": false
+    },
+    "British Virgin Islands": {
+      "primary_currency": "USD",
+      "currencies": {
+        "USD": {
+          "name": "United States dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Mali": {
+      "primary_currency": "XOF",
+      "currencies": {
+        "XOF": {
+          "name": "West African CFA franc",
+          "symbol": "Fr"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Jordan": {
+      "primary_currency": "JOD",
+      "currencies": {
+        "JOD": {
+          "name": "Jordanian dinar",
+          "symbol": "د.ا"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Togo": {
+      "primary_currency": "XOF",
+      "currencies": {
+        "XOF": {
+          "name": "West African CFA franc",
+          "symbol": "Fr"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Brazil": {
+      "primary_currency": "BRL",
+      "currencies": {
+        "BRL": {
+          "name": "Brazilian real",
+          "symbol": "R$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Guam": {
+      "primary_currency": "USD",
+      "currencies": {
+        "USD": {
+          "name": "United States dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "South Korea": {
+      "primary_currency": "KRW",
+      "currencies": {
+        "KRW": {
+          "name": "South Korean won",
+          "symbol": "₩"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Spain": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Palestine": {
+      "primary_currency": "EGP",
+      "currencies": {
+        "EGP": {
+          "name": "Egyptian pound",
+          "symbol": "E£"
+        },
+        "JOD": {
+          "name": "Jordanian dinar",
+          "symbol": "JD"
+        },
+        "ILS": {
+          "name": "Israeli new shekel",
+          "symbol": "₪"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Kyrgyzstan": {
+      "primary_currency": "KGS",
+      "currencies": {
+        "KGS": {
+          "name": "Kyrgyzstani som",
+          "symbol": "с"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Chile": {
+      "primary_currency": "CLP",
+      "currencies": {
+        "CLP": {
+          "name": "Chilean peso",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Norfolk Island": {
+      "primary_currency": "AUD",
+      "currencies": {
+        "AUD": {
+          "name": "Australian dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Zambia": {
+      "primary_currency": "ZMW",
+      "currencies": {
+        "ZMW": {
+          "name": "Zambian kwacha",
+          "symbol": "ZK"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Qatar": {
+      "primary_currency": "QAR",
+      "currencies": {
+        "QAR": {
+          "name": "Qatari riyal",
+          "symbol": "ر.ق"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Åland Islands": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Croatia": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Thailand": {
+      "primary_currency": "THB",
+      "currencies": {
+        "THB": {
+          "name": "Thai baht",
+          "symbol": "฿"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Bhutan": {
+      "primary_currency": "INR",
+      "currencies": {
+        "BTN": {
+          "name": "Bhutanese ngultrum",
+          "symbol": "Nu."
+        },
+        "INR": {
+          "name": "Indian rupee",
+          "symbol": "₹"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Svalbard and Jan Mayen": {
+      "primary_currency": "NOK",
+      "currencies": {
+        "NOK": {
+          "name": "krone",
+          "symbol": "kr"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Micronesia": {
+      "primary_currency": "USD",
+      "currencies": {
+        "USD": {
+          "name": "United States dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Portugal": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Niger": {
+      "primary_currency": "XOF",
+      "currencies": {
+        "XOF": {
+          "name": "West African CFA franc",
+          "symbol": "Fr"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Burkina Faso": {
+      "primary_currency": "XOF",
+      "currencies": {
+        "XOF": {
+          "name": "West African CFA franc",
+          "symbol": "Fr"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Czechia": {
+      "primary_currency": "CZK",
+      "currencies": {
+        "CZK": {
+          "name": "Czech koruna",
+          "symbol": "Kč"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Saint Martin": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Cambodia": {
+      "primary_currency": "USD",
+      "currencies": {
+        "USD": {
+          "name": "United States dollar",
+          "symbol": "$"
+        },
+        "KHR": {
+          "name": "Cambodian riel",
+          "symbol": "៛"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Mongolia": {
+      "primary_currency": "MNT",
+      "currencies": {
+        "MNT": {
+          "name": "Mongolian tögrög",
+          "symbol": "₮"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Suriname": {
+      "primary_currency": "SRD",
+      "currencies": {
+        "SRD": {
+          "name": "Surinamese dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Trinidad and Tobago": {
+      "primary_currency": "TTD",
+      "currencies": {
+        "TTD": {
+          "name": "Trinidad and Tobago dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Iraq": {
+      "primary_currency": "IQD",
+      "currencies": {
+        "IQD": {
+          "name": "Iraqi dinar",
+          "symbol": "ع.د"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Denmark": {
+      "primary_currency": "DKK",
+      "currencies": {
+        "DKK": {
+          "name": "Danish krone",
+          "symbol": "kr"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Djibouti": {
+      "primary_currency": "DJF",
+      "currencies": {
+        "DJF": {
+          "name": "Djiboutian franc",
+          "symbol": "Fr"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Kenya": {
+      "primary_currency": "KES",
+      "currencies": {
+        "KES": {
+          "name": "Kenyan shilling",
+          "symbol": "Sh"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Seychelles": {
+      "primary_currency": "SCR",
+      "currencies": {
+        "SCR": {
+          "name": "Seychellois rupee",
+          "symbol": "₨"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Guyana": {
+      "primary_currency": "GYD",
+      "currencies": {
+        "GYD": {
+          "name": "Guyanese dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Bolivia": {
+      "primary_currency": "BOB",
+      "currencies": {
+        "BOB": {
+          "name": "Bolivian boliviano",
+          "symbol": "Bs."
+        }
+      },
+      "is_multi_currency": false
+    },
+    "South Sudan": {
+      "primary_currency": "SSP",
+      "currencies": {
+        "SSP": {
+          "name": "South Sudanese pound",
+          "symbol": "£"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Laos": {
+      "primary_currency": "LAK",
+      "currencies": {
+        "LAK": {
+          "name": "Lao kip",
+          "symbol": "₭"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Niue": {
+      "primary_currency": "NZD",
+      "currencies": {
+        "NZD": {
+          "name": "New Zealand dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "French Polynesia": {
+      "primary_currency": "XPF",
+      "currencies": {
+        "XPF": {
+          "name": "CFP franc",
+          "symbol": "₣"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Puerto Rico": {
+      "primary_currency": "USD",
+      "currencies": {
+        "USD": {
+          "name": "United States dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Fiji": {
+      "primary_currency": "FJD",
+      "currencies": {
+        "FJD": {
+          "name": "Fijian dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Netherlands": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Andorra": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Pitcairn Islands": {
+      "primary_currency": "NZD",
+      "currencies": {
+        "NZD": {
+          "name": "New Zealand dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Liberia": {
+      "primary_currency": "LRD",
+      "currencies": {
+        "LRD": {
+          "name": "Liberian dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Faroe Islands": {
+      "primary_currency": "FOK",
+      "currencies": {
+        "DKK": {
+          "name": "Danish krone",
+          "symbol": "kr"
+        },
+        "FOK": {
+          "name": "Faroese króna",
+          "symbol": "kr"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "El Salvador": {
+      "primary_currency": "USD",
+      "currencies": {
+        "USD": {
+          "name": "United States dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Cuba": {
+      "primary_currency": "CUP",
+      "currencies": {
+        "CUP": {
+          "name": "Cuban peso",
+          "symbol": "$"
+        },
+        "CUC": {
+          "name": "Cuban convertible peso",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Cook Islands": {
+      "primary_currency": "NZD",
+      "currencies": {
+        "NZD": {
+          "name": "New Zealand dollar",
+          "symbol": "$"
+        },
+        "CKD": {
+          "name": "Cook Islands dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Senegal": {
+      "primary_currency": "XOF",
+      "currencies": {
+        "XOF": {
+          "name": "West African CFA franc",
+          "symbol": "Fr"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Guernsey": {
+      "primary_currency": "GBP",
+      "currencies": {
+        "GBP": {
+          "name": "British pound",
+          "symbol": "£"
+        },
+        "GGP": {
+          "name": "Guernsey pound",
+          "symbol": "£"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Sierra Leone": {
+      "primary_currency": "SLL",
+      "currencies": {
+        "SLL": {
+          "name": "Sierra Leonean leone",
+          "symbol": "Le"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Nauru": {
+      "primary_currency": "AUD",
+      "currencies": {
+        "AUD": {
+          "name": "Australian dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "DR Congo": {
+      "primary_currency": "CDF",
+      "currencies": {
+        "CDF": {
+          "name": "Congolese franc",
+          "symbol": "FC"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Lesotho": {
+      "primary_currency": "ZAR",
+      "currencies": {
+        "LSL": {
+          "name": "Lesotho loti",
+          "symbol": "L"
+        },
+        "ZAR": {
+          "name": "South African rand",
+          "symbol": "R"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Slovakia": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Ecuador": {
+      "primary_currency": "USD",
+      "currencies": {
+        "USD": {
+          "name": "United States dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Sri Lanka": {
+      "primary_currency": "LKR",
+      "currencies": {
+        "LKR": {
+          "name": "Sri Lankan rupee",
+          "symbol": "Rs  රු"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Solomon Islands": {
+      "primary_currency": "SBD",
+      "currencies": {
+        "SBD": {
+          "name": "Solomon Islands dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Guinea": {
+      "primary_currency": "GNF",
+      "currencies": {
+        "GNF": {
+          "name": "Guinean franc",
+          "symbol": "Fr"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Réunion": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Turkmenistan": {
+      "primary_currency": "TMT",
+      "currencies": {
+        "TMT": {
+          "name": "Turkmenistan manat",
+          "symbol": "m"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "São Tomé and Príncipe": {
+      "primary_currency": "STN",
+      "currencies": {
+        "STN": {
+          "name": "São Tomé and Príncipe dobra",
+          "symbol": "Db"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Timor-Leste": {
+      "primary_currency": "USD",
+      "currencies": {
+        "USD": {
+          "name": "United States dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Japan": {
+      "primary_currency": "JPY",
+      "currencies": {
+        "JPY": {
+          "name": "Japanese yen",
+          "symbol": "¥"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Jersey": {
+      "primary_currency": "GBP",
+      "currencies": {
+        "JEP": {
+          "name": "Jersey pound",
+          "symbol": "£"
+        },
+        "GBP": {
+          "name": "British pound",
+          "symbol": "£"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Switzerland": {
+      "primary_currency": "CHF",
+      "currencies": {
+        "CHF": {
+          "name": "Swiss franc",
+          "symbol": "Fr."
+        }
+      },
+      "is_multi_currency": true
+    },
+    "American Samoa": {
+      "primary_currency": "USD",
+      "currencies": {
+        "USD": {
+          "name": "United States dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Comoros": {
+      "primary_currency": "KMF",
+      "currencies": {
+        "KMF": {
+          "name": "Comorian franc",
+          "symbol": "Fr"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Finland": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Bangladesh": {
+      "primary_currency": "BDT",
+      "currencies": {
+        "BDT": {
+          "name": "Bangladeshi taka",
+          "symbol": "৳"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Kosovo": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Saint Lucia": {
+      "primary_currency": "XCD",
+      "currencies": {
+        "XCD": {
+          "name": "Eastern Caribbean dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Anguilla": {
+      "primary_currency": "XCD",
+      "currencies": {
+        "XCD": {
+          "name": "Eastern Caribbean dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Rwanda": {
+      "primary_currency": "RWF",
+      "currencies": {
+        "RWF": {
+          "name": "Rwandan franc",
+          "symbol": "Fr"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "New Zealand": {
+      "primary_currency": "NZD",
+      "currencies": {
+        "NZD": {
+          "name": "New Zealand dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Costa Rica": {
+      "primary_currency": "CRC",
+      "currencies": {
+        "CRC": {
+          "name": "Costa Rican colón",
+          "symbol": "₡"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Bahamas": {
+      "primary_currency": "USD",
+      "currencies": {
+        "BSD": {
+          "name": "Bahamian dollar",
+          "symbol": "$"
+        },
+        "USD": {
+          "name": "United States dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Botswana": {
+      "primary_currency": "BWP",
+      "currencies": {
+        "BWP": {
+          "name": "Botswana pula",
+          "symbol": "P"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Kuwait": {
+      "primary_currency": "KWD",
+      "currencies": {
+        "KWD": {
+          "name": "Kuwaiti dinar",
+          "symbol": "د.ك"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Gabon": {
+      "primary_currency": "XAF",
+      "currencies": {
+        "XAF": {
+          "name": "Central African CFA franc",
+          "symbol": "Fr"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Bulgaria": {
+      "primary_currency": "BGN",
+      "currencies": {
+        "BGN": {
+          "name": "Bulgarian lev",
+          "symbol": "лв"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "France": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Canada": {
+      "primary_currency": "CAD",
+      "currencies": {
+        "CAD": {
+          "name": "Canadian dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Australia": {
+      "primary_currency": "AUD",
+      "currencies": {
+        "AUD": {
+          "name": "Australian dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Vatican City": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Falkland Islands": {
+      "primary_currency": "FKP",
+      "currencies": {
+        "FKP": {
+          "name": "Falkland Islands pound",
+          "symbol": "£"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Venezuela": {
+      "primary_currency": "VES",
+      "currencies": {
+        "VES": {
+          "name": "Venezuelan bolívar soberano",
+          "symbol": "Bs.S."
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Antigua and Barbuda": {
+      "primary_currency": "XCD",
+      "currencies": {
+        "XCD": {
+          "name": "Eastern Caribbean dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "United Arab Emirates": {
+      "primary_currency": "AED",
+      "currencies": {
+        "AED": {
+          "name": "United Arab Emirates dirham",
+          "symbol": "د.إ"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Saint Kitts and Nevis": {
+      "primary_currency": "XCD",
+      "currencies": {
+        "XCD": {
+          "name": "Eastern Caribbean dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Tanzania": {
+      "primary_currency": "TZS",
+      "currencies": {
+        "TZS": {
+          "name": "Tanzanian shilling",
+          "symbol": "Sh"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Bosnia and Herzegovina": {
+      "primary_currency": "BAM",
+      "currencies": {
+        "BAM": {
+          "name": "Bosnia and Herzegovina convertible mark",
+          "symbol": "KM"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Hungary": {
+      "primary_currency": "HUF",
+      "currencies": {
+        "HUF": {
+          "name": "Hungarian forint",
+          "symbol": "Ft"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Eswatini": {
+      "primary_currency": "ZAR",
+      "currencies": {
+        "ZAR": {
+          "name": "South African rand",
+          "symbol": "R"
+        },
+        "SZL": {
+          "name": "Swazi lilangeni",
+          "symbol": "L"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Macau": {
+      "primary_currency": "MOP",
+      "currencies": {
+        "MOP": {
+          "name": "Macanese pataca",
+          "symbol": "P"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Saudi Arabia": {
+      "primary_currency": "SAR",
+      "currencies": {
+        "SAR": {
+          "name": "Saudi riyal",
+          "symbol": "ر.س"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Christmas Island": {
+      "primary_currency": "AUD",
+      "currencies": {
+        "AUD": {
+          "name": "Australian dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Lithuania": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Republic of the Congo": {
+      "primary_currency": "XAF",
+      "currencies": {
+        "XAF": {
+          "name": "Central African CFA franc",
+          "symbol": "Fr"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Monaco": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Algeria": {
+      "primary_currency": "DZD",
+      "currencies": {
+        "DZD": {
+          "name": "Algerian dinar",
+          "symbol": "د.ج"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Sint Maarten": {
+      "primary_currency": "ANG",
+      "currencies": {
+        "ANG": {
+          "name": "Netherlands Antillean guilder",
+          "symbol": "ƒ"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Norway": {
+      "primary_currency": "NOK",
+      "currencies": {
+        "NOK": {
+          "name": "Norwegian krone",
+          "symbol": "kr"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Maldives": {
+      "primary_currency": "MVR",
+      "currencies": {
+        "MVR": {
+          "name": "Maldivian rufiyaa",
+          "symbol": ".ރ"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Hong Kong": {
+      "primary_currency": "HKD",
+      "currencies": {
+        "HKD": {
+          "name": "Hong Kong dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Mauritania": {
+      "primary_currency": "MRU",
+      "currencies": {
+        "MRU": {
+          "name": "Mauritanian ouguiya",
+          "symbol": "UM"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Romania": {
+      "primary_currency": "RON",
+      "currencies": {
+        "RON": {
+          "name": "Romanian leu",
+          "symbol": "lei"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "South Georgia": {
+      "primary_currency": "SHP",
+      "currencies": {
+        "SHP": {
+          "name": "Saint Helena pound",
+          "symbol": "£"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Libya": {
+      "primary_currency": "LYD",
+      "currencies": {
+        "LYD": {
+          "name": "Libyan dinar",
+          "symbol": "ل.د"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "San Marino": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Afghanistan": {
+      "primary_currency": "AFN",
+      "currencies": {
+        "AFN": {
+          "name": "Afghan afghani",
+          "symbol": "؋"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Iceland": {
+      "primary_currency": "ISK",
+      "currencies": {
+        "ISK": {
+          "name": "Icelandic króna",
+          "symbol": "kr"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Madagascar": {
+      "primary_currency": "MGA",
+      "currencies": {
+        "MGA": {
+          "name": "Malagasy ariary",
+          "symbol": "Ar"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Palau": {
+      "primary_currency": "USD",
+      "currencies": {
+        "USD": {
+          "name": "United States dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Greece": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Belgium": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Lebanon": {
+      "primary_currency": "LBP",
+      "currencies": {
+        "LBP": {
+          "name": "Lebanese pound",
+          "symbol": "ل.ل"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Indonesia": {
+      "primary_currency": "IDR",
+      "currencies": {
+        "IDR": {
+          "name": "Indonesian rupiah",
+          "symbol": "Rp"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Myanmar": {
+      "primary_currency": "MMK",
+      "currencies": {
+        "MMK": {
+          "name": "Burmese kyat",
+          "symbol": "Ks"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "India": {
+      "primary_currency": "INR",
+      "currencies": {
+        "INR": {
+          "name": "Indian rupee",
+          "symbol": "₹"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Dominica": {
+      "primary_currency": "XCD",
+      "currencies": {
+        "XCD": {
+          "name": "Eastern Caribbean dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Samoa": {
+      "primary_currency": "WST",
+      "currencies": {
+        "WST": {
+          "name": "Samoan tālā",
+          "symbol": "T"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Grenada": {
+      "primary_currency": "XCD",
+      "currencies": {
+        "XCD": {
+          "name": "Eastern Caribbean dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Tunisia": {
+      "primary_currency": "TND",
+      "currencies": {
+        "TND": {
+          "name": "Tunisian dinar",
+          "symbol": "د.ت"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Iran": {
+      "primary_currency": "IRR",
+      "currencies": {
+        "IRR": {
+          "name": "Iranian rial",
+          "symbol": "﷼"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Equatorial Guinea": {
+      "primary_currency": "XAF",
+      "currencies": {
+        "XAF": {
+          "name": "Central African CFA franc",
+          "symbol": "Fr"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Austria": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Malaysia": {
+      "primary_currency": "MYR",
+      "currencies": {
+        "MYR": {
+          "name": "Malaysian ringgit",
+          "symbol": "RM"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Uganda": {
+      "primary_currency": "UGX",
+      "currencies": {
+        "UGX": {
+          "name": "Ugandan shilling",
+          "symbol": "Sh"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Central African Republic": {
+      "primary_currency": "XAF",
+      "currencies": {
+        "XAF": {
+          "name": "Central African CFA franc",
+          "symbol": "Fr"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Colombia": {
+      "primary_currency": "COP",
+      "currencies": {
+        "COP": {
+          "name": "Colombian peso",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "New Caledonia": {
+      "primary_currency": "XPF",
+      "currencies": {
+        "XPF": {
+          "name": "CFP franc",
+          "symbol": "₣"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "North Macedonia": {
+      "primary_currency": "MKD",
+      "currencies": {
+        "MKD": {
+          "name": "denar",
+          "symbol": "den"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Slovenia": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Saint Vincent and the Grenadines": {
+      "primary_currency": "XCD",
+      "currencies": {
+        "XCD": {
+          "name": "Eastern Caribbean dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Cyprus": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Taiwan": {
+      "primary_currency": "TWD",
+      "currencies": {
+        "TWD": {
+          "name": "New Taiwan dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Brunei": {
+      "primary_currency": "SGD",
+      "currencies": {
+        "BND": {
+          "name": "Brunei dollar",
+          "symbol": "$"
+        },
+        "SGD": {
+          "name": "Singapore dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Tajikistan": {
+      "primary_currency": "TJS",
+      "currencies": {
+        "TJS": {
+          "name": "Tajikistani somoni",
+          "symbol": "ЅМ"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "British Indian Ocean Territory": {
+      "primary_currency": "USD",
+      "currencies": {
+        "USD": {
+          "name": "United States dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Syria": {
+      "primary_currency": "SYP",
+      "currencies": {
+        "SYP": {
+          "name": "Syrian pound",
+          "symbol": "£"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Italy": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Uzbekistan": {
+      "primary_currency": "UZS",
+      "currencies": {
+        "UZS": {
+          "name": "Uzbekistani soʻm",
+          "symbol": "so'm"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Montserrat": {
+      "primary_currency": "XCD",
+      "currencies": {
+        "XCD": {
+          "name": "Eastern Caribbean dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Argentina": {
+      "primary_currency": "ARS",
+      "currencies": {
+        "ARS": {
+          "name": "Argentine peso",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Ukraine": {
+      "primary_currency": "UAH",
+      "currencies": {
+        "UAH": {
+          "name": "Ukrainian hryvnia",
+          "symbol": "₴"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Papua New Guinea": {
+      "primary_currency": "PGK",
+      "currencies": {
+        "PGK": {
+          "name": "Papua New Guinean kina",
+          "symbol": "K"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Germany": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "French Southern and Antarctic Lands": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Azerbaijan": {
+      "primary_currency": "AZN",
+      "currencies": {
+        "AZN": {
+          "name": "Azerbaijani manat",
+          "symbol": "₼"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Cameroon": {
+      "primary_currency": "XAF",
+      "currencies": {
+        "XAF": {
+          "name": "Central African CFA franc",
+          "symbol": "Fr"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Latvia": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Caribbean Netherlands": {
+      "primary_currency": "USD",
+      "currencies": {
+        "USD": {
+          "name": "United States dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Armenia": {
+      "primary_currency": "AMD",
+      "currencies": {
+        "AMD": {
+          "name": "Armenian dram",
+          "symbol": "֏"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Marshall Islands": {
+      "primary_currency": "USD",
+      "currencies": {
+        "USD": {
+          "name": "United States dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Eritrea": {
+      "primary_currency": "ERN",
+      "currencies": {
+        "ERN": {
+          "name": "Eritrean nakfa",
+          "symbol": "Nfk"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Russia": {
+      "primary_currency": "RUB",
+      "currencies": {
+        "RUB": {
+          "name": "Russian ruble",
+          "symbol": "₽"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Cayman Islands": {
+      "primary_currency": "KYD",
+      "currencies": {
+        "KYD": {
+          "name": "Cayman Islands dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Honduras": {
+      "primary_currency": "HNL",
+      "currencies": {
+        "HNL": {
+          "name": "Honduran lempira",
+          "symbol": "L"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "South Africa": {
+      "primary_currency": "ZAR",
+      "currencies": {
+        "ZAR": {
+          "name": "South African rand",
+          "symbol": "R"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Oman": {
+      "primary_currency": "OMR",
+      "currencies": {
+        "OMR": {
+          "name": "Omani rial",
+          "symbol": "ر.ع."
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Liechtenstein": {
+      "primary_currency": "CHF",
+      "currencies": {
+        "CHF": {
+          "name": "Swiss franc",
+          "symbol": "Fr"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Paraguay": {
+      "primary_currency": "PYG",
+      "currencies": {
+        "PYG": {
+          "name": "Paraguayan guaraní",
+          "symbol": "₲"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "French Guiana": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Gibraltar": {
+      "primary_currency": "GIP",
+      "currencies": {
+        "GIP": {
+          "name": "Gibraltar pound",
+          "symbol": "£"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Georgia": {
+      "primary_currency": "GEL",
+      "currencies": {
+        "GEL": {
+          "name": "lari",
+          "symbol": "₾"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Mozambique": {
+      "primary_currency": "MZN",
+      "currencies": {
+        "MZN": {
+          "name": "Mozambican metical",
+          "symbol": "MT"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Bermuda": {
+      "primary_currency": "BMD",
+      "currencies": {
+        "BMD": {
+          "name": "Bermudian dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Nigeria": {
+      "primary_currency": "NGN",
+      "currencies": {
+        "NGN": {
+          "name": "Nigerian naira",
+          "symbol": "₦"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Malawi": {
+      "primary_currency": "MWK",
+      "currencies": {
+        "MWK": {
+          "name": "Malawian kwacha",
+          "symbol": "MK"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Poland": {
+      "primary_currency": "PLN",
+      "currencies": {
+        "PLN": {
+          "name": "Polish złoty",
+          "symbol": "zł"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Curaçao": {
+      "primary_currency": "ANG",
+      "currencies": {
+        "ANG": {
+          "name": "Netherlands Antillean guilder",
+          "symbol": "ƒ"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Singapore": {
+      "primary_currency": "SGD",
+      "currencies": {
+        "SGD": {
+          "name": "Singapore dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Belize": {
+      "primary_currency": "BZD",
+      "currencies": {
+        "BZD": {
+          "name": "Belize dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Uruguay": {
+      "primary_currency": "UYU",
+      "currencies": {
+        "UYU": {
+          "name": "Uruguayan peso",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Philippines": {
+      "primary_currency": "PHP",
+      "currencies": {
+        "PHP": {
+          "name": "Philippine peso",
+          "symbol": "₱"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Jamaica": {
+      "primary_currency": "JMD",
+      "currencies": {
+        "JMD": {
+          "name": "Jamaican dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Belarus": {
+      "primary_currency": "BYN",
+      "currencies": {
+        "BYN": {
+          "name": "Belarusian ruble",
+          "symbol": "Br"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Haiti": {
+      "primary_currency": "HTG",
+      "currencies": {
+        "HTG": {
+          "name": "Haitian gourde",
+          "symbol": "G"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Sweden": {
+      "primary_currency": "SEK",
+      "currencies": {
+        "SEK": {
+          "name": "Swedish krona",
+          "symbol": "kr"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "United States": {
+      "primary_currency": "USD",
+      "currencies": {
+        "USD": {
+          "name": "United States dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "North Korea": {
+      "primary_currency": "KPW",
+      "currencies": {
+        "KPW": {
+          "name": "North Korean won",
+          "symbol": "₩"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Egypt": {
+      "primary_currency": "EGP",
+      "currencies": {
+        "EGP": {
+          "name": "Egyptian pound",
+          "symbol": "£"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Guinea-Bissau": {
+      "primary_currency": "XOF",
+      "currencies": {
+        "XOF": {
+          "name": "West African CFA franc",
+          "symbol": "Fr"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "United States Virgin Islands": {
+      "primary_currency": "USD",
+      "currencies": {
+        "USD": {
+          "name": "United States dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Mexico": {
+      "primary_currency": "MXN",
+      "currencies": {
+        "MXN": {
+          "name": "Mexican peso",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Burundi": {
+      "primary_currency": "BIF",
+      "currencies": {
+        "BIF": {
+          "name": "Burundian franc",
+          "symbol": "Fr"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Northern Mariana Islands": {
+      "primary_currency": "USD",
+      "currencies": {
+        "USD": {
+          "name": "United States dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Ireland": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Morocco": {
+      "primary_currency": "MAD",
+      "currencies": {
+        "MAD": {
+          "name": "Moroccan dirham",
+          "symbol": "د.م."
+        }
+      },
+      "is_multi_currency": true
+    },
+    "China": {
+      "primary_currency": "CNY",
+      "currencies": {
+        "CNY": {
+          "name": "Chinese yuan",
+          "symbol": "¥"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Vietnam": {
+      "primary_currency": "VND",
+      "currencies": {
+        "VND": {
+          "name": "Vietnamese đồng",
+          "symbol": "₫"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Ethiopia": {
+      "primary_currency": "ETB",
+      "currencies": {
+        "ETB": {
+          "name": "Ethiopian birr",
+          "symbol": "Br"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Peru": {
+      "primary_currency": "PEN",
+      "currencies": {
+        "PEN": {
+          "name": "Peruvian sol",
+          "symbol": "S/ "
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Benin": {
+      "primary_currency": "XOF",
+      "currencies": {
+        "XOF": {
+          "name": "West African CFA franc",
+          "symbol": "Fr"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Namibia": {
+      "primary_currency": "ZAR",
+      "currencies": {
+        "NAD": {
+          "name": "Namibian dollar",
+          "symbol": "$"
+        },
+        "ZAR": {
+          "name": "South African rand",
+          "symbol": "R"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Nepal": {
+      "primary_currency": "NPR",
+      "currencies": {
+        "NPR": {
+          "name": "Nepalese rupee",
+          "symbol": "₨"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Malta": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Israel": {
+      "primary_currency": "ILS",
+      "currencies": {
+        "ILS": {
+          "name": "Israeli new shekel",
+          "symbol": "₪"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Albania": {
+      "primary_currency": "ALL",
+      "currencies": {
+        "ALL": {
+          "name": "Albanian lek",
+          "symbol": "L"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Wallis and Futuna": {
+      "primary_currency": "XPF",
+      "currencies": {
+        "XPF": {
+          "name": "CFP franc",
+          "symbol": "₣"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Guadeloupe": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Zimbabwe": {
+      "primary_currency": "ZWL",
+      "currencies": {
+        "ZWL": {
+          "name": "Zimbabwean dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Ivory Coast": {
+      "primary_currency": "XOF",
+      "currencies": {
+        "XOF": {
+          "name": "West African CFA franc",
+          "symbol": "Fr"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Cocos (Keeling) Islands": {
+      "primary_currency": "AUD",
+      "currencies": {
+        "AUD": {
+          "name": "Australian dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Saint Pierre and Miquelon": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Mayotte": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Barbados": {
+      "primary_currency": "BBD",
+      "currencies": {
+        "BBD": {
+          "name": "Barbadian dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Montenegro": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Dominican Republic": {
+      "primary_currency": "DOP",
+      "currencies": {
+        "DOP": {
+          "name": "Dominican peso",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Bahrain": {
+      "primary_currency": "BHD",
+      "currencies": {
+        "BHD": {
+          "name": "Bahraini dinar",
+          "symbol": ".د.ب"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Tonga": {
+      "primary_currency": "TOP",
+      "currencies": {
+        "TOP": {
+          "name": "Tongan paʻanga",
+          "symbol": "T$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Somalia": {
+      "primary_currency": "SOS",
+      "currencies": {
+        "SOS": {
+          "name": "Somali shilling",
+          "symbol": "Sh"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Martinique": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Gambia": {
+      "primary_currency": "GMD",
+      "currencies": {
+        "GMD": {
+          "name": "dalasi",
+          "symbol": "D"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Yemen": {
+      "primary_currency": "YER",
+      "currencies": {
+        "YER": {
+          "name": "Yemeni rial",
+          "symbol": "﷼"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Sudan": {
+      "primary_currency": "SDG",
+      "currencies": {
+        "SDG": {
+          "name": "Sudanese pound",
+          "symbol": "ج.س"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "United States Minor Outlying Islands": {
+      "primary_currency": "USD",
+      "currencies": {
+        "USD": {
+          "name": "United States dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Turks and Caicos Islands": {
+      "primary_currency": "USD",
+      "currencies": {
+        "USD": {
+          "name": "United States dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Vanuatu": {
+      "primary_currency": "VUV",
+      "currencies": {
+        "VUV": {
+          "name": "Vanuatu vatu",
+          "symbol": "Vt"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Greenland": {
+      "primary_currency": "DKK",
+      "currencies": {
+        "DKK": {
+          "name": "krone",
+          "symbol": "kr."
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Kazakhstan": {
+      "primary_currency": "KZT",
+      "currencies": {
+        "KZT": {
+          "name": "Kazakhstani tenge",
+          "symbol": "₸"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Tuvalu": {
+      "primary_currency": "AUD",
+      "currencies": {
+        "AUD": {
+          "name": "Australian dollar",
+          "symbol": "$"
+        },
+        "TVD": {
+          "name": "Tuvaluan dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Nicaragua": {
+      "primary_currency": "NIO",
+      "currencies": {
+        "NIO": {
+          "name": "Nicaraguan córdoba",
+          "symbol": "C$"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Pakistan": {
+      "primary_currency": "PKR",
+      "currencies": {
+        "PKR": {
+          "name": "Pakistani rupee",
+          "symbol": "₨"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Angola": {
+      "primary_currency": "AOA",
+      "currencies": {
+        "AOA": {
+          "name": "Angolan kwanza",
+          "symbol": "Kz"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Cape Verde": {
+      "primary_currency": "CVE",
+      "currencies": {
+        "CVE": {
+          "name": "Cape Verdean escudo",
+          "symbol": "Esc"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Saint Helena, Ascension and Tristan da Cunha": {
+      "primary_currency": "GBP",
+      "currencies": {
+        "SHP": {
+          "name": "Saint Helena pound",
+          "symbol": "£"
+        },
+        "GBP": {
+          "name": "Pound sterling",
+          "symbol": "£"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Estonia": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Saint Barthélemy": {
+      "primary_currency": "EUR",
+      "currencies": {
+        "EUR": {
+          "name": "Euro",
+          "symbol": "€"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Guatemala": {
+      "primary_currency": "GTQ",
+      "currencies": {
+        "GTQ": {
+          "name": "Guatemalan quetzal",
+          "symbol": "Q"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Turkey": {
+      "primary_currency": "TRY",
+      "currencies": {
+        "TRY": {
+          "name": "Turkish lira",
+          "symbol": "₺"
+        }
+      },
+      "is_multi_currency": false
+    },
+    "Kiribati": {
+      "primary_currency": "AUD",
+      "currencies": {
+        "KID": {
+          "name": "Kiribati dollar",
+          "symbol": "$"
+        },
+        "AUD": {
+          "name": "Australian dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Chad": {
+      "primary_currency": "XAF",
+      "currencies": {
+        "XAF": {
+          "name": "Central African CFA franc",
+          "symbol": "Fr"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Tokelau": {
+      "primary_currency": "NZD",
+      "currencies": {
+        "NZD": {
+          "name": "New Zealand dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Isle of Man": {
+      "primary_currency": "GBP",
+      "currencies": {
+        "GBP": {
+          "name": "British pound",
+          "symbol": "£"
+        },
+        "IMP": {
+          "name": "Manx pound",
+          "symbol": "£"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Panama": {
+      "primary_currency": "USD",
+      "currencies": {
+        "PAB": {
+          "name": "Panamanian balboa",
+          "symbol": "B/."
+        },
+        "USD": {
+          "name": "United States dollar",
+          "symbol": "$"
+        }
+      },
+      "is_multi_currency": true
+    },
+    "Aruba": {
+      "primary_currency": "AWG",
+      "currencies": {
+        "AWG": {
+          "name": "Aruban florin",
+          "symbol": "ƒ"
+        }
+      },
+      "is_multi_currency": false
+    }
+  }
+}
